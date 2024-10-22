@@ -1,8 +1,11 @@
-from Node import Node
+class Node:
+    def __init__(self, element, next=None):
+        self._element = element
+        self._next = next
 
-class Stack: #SLLNC dengan head
+class Stack:
     def __init__(self):
-        self._head=None
+        self._head = None
         self._size = 0
 
     def __len__(self):
@@ -11,18 +14,35 @@ class Stack: #SLLNC dengan head
     def isEmpty(self):
         return self._size == 0
 
-    def push(self, e): #sama dengan tambah depan
-       pass
+    def push(self, e):  # Adds element to the front (top of the stack)
+        new_node = Node(e, self._head)  # Create a new node with element e, and next pointing to the current head
+        self._head = new_node  # Update head to new node
+        self._size += 1  # Increment size
 
-    def pop(self): #hapus depan
-        pass
+    def pop(self):  # Removes element from the front (top of the stack)
+        if self.isEmpty():
+            print("Stack is empty")
+            return None
+        result = self._head._element  # Get the element from the head node
+        self._head = self._head._next  # Move head to the next node
+        self._size -= 1  # Decrement size
+        return result  # Return the popped element
 
-    def printAll(self): #loop
-        if self.isEmpty()==False:
+    def printAll(self):  # Loop through the stack and print elements
+        if not self.isEmpty():
             bantu = self._head
-            while(bantu!=None):
-                print(bantu._element," ",end='')
+            while bantu is not None:
+                print(bantu._element, " ", end='')
                 bantu = bantu._next
-                print()
+            print()
         else:
             print("Kosong")
+
+# Example usage:
+stack = Stack()
+stack.push(10)
+stack.push(20)
+stack.push(30)
+stack.printAll()  # Output: 30 20 10
+print(stack.pop())  # Output: 30
+stack.printAll()  # Output: 20 10
