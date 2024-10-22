@@ -19,3 +19,5 @@ Stack gabungan: 1 -> 2 -> 3 -> 4 -> 5 -> 6.
 Fungsi mergeStacksInterleave() akan mereturn stack gabungan. 
 
 DEO, CARI PAKE INI!!
+
+sama kan soalnya
