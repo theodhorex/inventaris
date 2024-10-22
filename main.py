@@ -1,20 +1,19 @@
 from SLLNCStack import Stack
-import math
+
 # Jika stack ganjil, maka dibulatkan ke bawah.
 # contoh: ada stack dengan anggota 67. maka, fungsi ini akan menghapus 
 # 33 elemen stack paling bawah (karena 67/2 = 33.5, dibulatkan ke bawah = 33).
 def hapusSetengahBawah(stack: Stack) : 
-    len_total = stack.getLen()
-    half_size = stack.getLen() // 2
+    len_total = len(stack)
+    half_size = len(stack) // 2
     temp_stack = Stack()
     for _ in range(half_size, len_total):
         temp_stack.push(stack.pop())
     for _ in range(half_size):
         stack.pop()
-    while temp_stack.getLen() > 0:
+    while len(temp_stack) > 0:
         stack.push(temp_stack.pop())
-        
-   
+
 if __name__ == "__main__":
     s = Stack()
     # Isi Stack
@@ -36,10 +35,3 @@ if __name__ == "__main__":
 
     print("Tampilkan stack setelah dihapus")
     s.printAll()
-gak bisa cok Traceback (most recent call last):
-  File "c:\taraaa\GitHub\uts-Deodewanto07\main.py", line 20, in <module>
-    s.push(1)
-  File "c:\taraaa\GitHub\uts-Deodewanto07\SLLNCStack.py", line 15, in push
-    baru = None(e, None)
-           ^^^^^^^^^^^^^
-TypeError: 'NoneType' object is not callable
