@@ -3,14 +3,15 @@ import math
 
 def mergeStacksInterleave(stack1: Stack, stack2: Stack) -> Stack:
     merged_stack = Stack()
-    
-    while not stack1.isEmpty() or not stack2.isEmpty():
-        if not stack2.isEmpty():
-            merged_stack.push(stack2.pop()) 
-        if not stack1.isEmpty():
-            merged_stack.push(stack1.pop())  
 
+    stacks = [stack1, stack2]
+    while any(not stack.isEmpty() for stack in stacks):
+        for stack in stacks:
+            if not stack.isEmpty():
+                merged_stack.push(stack.pop())
+    
     return merged_stack
+
     
 if __name__ == "__main__":
     s1 = Stack()
