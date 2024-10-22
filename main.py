@@ -36,3 +36,10 @@ if __name__ == "__main__":
 
     print("Tampilkan stack setelah dihapus")
     s.printAll()
+gak bisa cok Traceback (most recent call last):
+  File "c:\taraaa\GitHub\uts-Deodewanto07\main.py", line 20, in <module>
+    s.push(1)
+  File "c:\taraaa\GitHub\uts-Deodewanto07\SLLNCStack.py", line 15, in push
+    baru = None(e, None)
+           ^^^^^^^^^^^^^
+TypeError: 'NoneType' object is not callable
