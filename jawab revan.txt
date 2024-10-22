@@ -144,3 +144,8 @@ class Stack:  # SLLNC dengan head
             copied
 
 
+salah cok
+[Running] python -u "d:\Praktekom\uts praksturdat\uts-revanddd\main.py"
+Kosong
+
+[Done] exited with code=0 in 0.053 seconds
