@@ -31,6 +31,12 @@ if __name__ == "__main__":
     print("Melakukan penghapusan Stack")
     hapusSetengahBawah(s)
     # Tampilkan data setelahnya
+
+
+
+
+
+    # COPY KAN AJA SEMUANYA YANG DI ATAS INI, UDAH KUBENERIN
     print()
 
     print("Tampilkan stack setelah dihapus")
