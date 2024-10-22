@@ -149,3 +149,5 @@ salah cok
 Kosong
 
 [Done] exited with code=0 in 0.053 seconds
+
+di vscode tu udah instal blm python cok
