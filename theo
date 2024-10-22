@@ -30,3 +30,11 @@ if __name__ == "__main__":
 
     s3 = mergeStacksInterleave(s1,s2)
     s3.printAll()
+
+
+[Running] python -u "d:\Praktekom\uts praksturdat\uts-revanddd\main.py"
+
+
+[Done] exited with code=0 in 0.043 seconds
+
+KOSONG TERUS NI BABI, PC MURAH PEREK
