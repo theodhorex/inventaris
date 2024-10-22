@@ -12,10 +12,22 @@ class Stack: #SLLNC dengan head
         return self._size == 0
 
     def push(self, e): #sama dengan tambah depan
-        pass
+        baru = Node(e, None)
+        if self.isEmpty():
+            self._head = baru
+        else :
+            baru._next = self._head
+            self._head = baru
+        self._size += 1
 
     def pop(self): #hapus depan
-        pass
+        if self.isEmpty():
+            print("stack is empty")
+            return None
+        result = self._head._element  
+        self._head = self._head._next  
+        self._size -= 1  
+        return result
 
     def printAll(self): #loop
         if self.isEmpty()==False:
