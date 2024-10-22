@@ -87,3 +87,60 @@ Kosong
 print("Stack Gabungan:")
 merged_stack.printAll()  # Output: 1 2 3 4 5 6
 
+coba in
+
+class Node:
+    def __init__(self, element, next=None):
+        self._element = element
+        self._next = next
+
+class Stack:  # SLLNC dengan head
+    def __init__(self):
+        self._head = None
+        self._size = 0
+
+    def __len__(self):
+        return self._size
+
+    def isEmpty(self):
+        return self._size == 0
+
+    def push(self, e):  # Menambah data ke depan (top) dari stack
+        new_node = Node(e, self._head)  # Membuat node baru dengan elemen e dan next-nya adalah head saat ini
+        self._head = new_node  # Mengatur head menjadi node baru
+        self._size += 1  # Tambahkan ukuran stack
+
+    def pop(self):  # Menghapus data dari depan (top) stack
+        if self.isEmpty():
+            print("Stack is empty")
+            return None
+        result = self._head._element  # Ambil elemen dari head
+        self._head = self._head._next  # Pindahkan head ke node berikutnya
+        self._size -= 1  # Kurangi ukuran stack
+        return result  # Kembalikan elemen yang dihapus
+
+    def printAll(self):  # Menampilkan semua elemen dari stack
+        if not self.isEmpty():
+            bantu = self._head
+            while bantu is not None:
+                print(bantu._element, " ", end='')
+                bantu = bantu._next
+            print()
+        else:
+            print("Kosong")
+
+    def copy(self):
+        """Membuat salinan dari stack tanpa mengubah stack asli."""
+        copied_stack = Stack()
+        temp_stack = Stack()
+        # Masukkan elemen-elemen ke stack sementara agar bisa dicopy dalam urutan yang benar
+        bantu = self._head
+        while bantu is not None:
+            temp_stack.push(bantu._element)
+            bantu = bantu._next
+
+        # Balik lagi elemen ke stack yang disalin dalam urutan yang benar
+        while not temp_stack.isEmpty():
+            copied
+
+
