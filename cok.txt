@@ -1,30 +1,20 @@
 mana soalnya
-revan
-from Node import Node
 
-class Stack: #SLLNC dengan head
-    def __init__(self):
-        self._head=None
-        self._size = 0
+Anda diberikan sebuah class Stack dengan methode sebagai berikut:
+- __len__():    
+  method ini mengembalikan banyak elemen pada Stack  
+- isEmpty () :    
+  method untuk mengetahui apakah stack kosong atau tidak.
+- printAll():    
+  method ini akan menampilkan semua data yang ada pada stack mulai dari data yang paling baru masuk sampai yang paling lama berada di stack  
 
-    def __len__(self):
-        return self._size
+Tugas Anda sekarang adalah :
+1. Membuat method push() data ke stack didalam kelas SLLNCStack. 
+2. Membuat method pop() data dari stack didalam kelas SLLNCStack. 
+3. untuk membuat fungsi bernama mergeStacksInterleave(stack1, stack2). **Fungsi ini akan menerima 2 buah stack dan menggabungkannya menjadi satu stack secara selang-seling. **  
+**Contoh:**  
+stack1: 1 -> 3 -> 5  
+stack2: 2 -> 4 -> 6   
+Stack gabungan: 1 -> 2 -> 3 -> 4 -> 5 -> 6.
+Fungsi mergeStacksInterleave() akan mereturn stack gabungan. 
 
-    def isEmpty(self):
-        return self._size == 0
-
-    def push(self, e): #sama dengan tambah depan
-       pass
-
-    def pop(self): #hapus depan
-        pass
-
-    def printAll(self): #loop
-        if self.isEmpty()==False:
-            bantu = self._head
-            while(bantu!=None):
-                print(bantu._element," ",end='')
-                bantu = bantu._next
-                print()
-        else:
-            print("Kosong")
