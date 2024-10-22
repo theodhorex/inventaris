@@ -75,6 +75,15 @@ stack2.printAll()  # Output: 2 4 6
 # Menggabungkan kedua stack
 merged_stack = mergeStacksInterleave(stack1, stack2)
 
+
+
+
+malah kek gini cok
+[Running] python -u "d:\Praktekom\uts praksturdat\uts-revanddd\main.py"
+Kosong
+
+[Done] exited with code=0 in 0.064 seconds
+
 print("Stack Gabungan:")
 merged_stack.printAll()  # Output: 1 2 3 4 5 6
 
