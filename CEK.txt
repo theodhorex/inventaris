@@ -21,3 +21,43 @@ if __name__ == "__main__":
 
     s3 = mergeStacksInterleave(s1,s2)
     s3.printAll()
+
+jawab
+from SLLNCStack import Stack
+
+def mergeStacksInterleave(stack1: Stack, stack2: Stack) -> Stack:
+    merged_stack = Stack()
+    temp_stack = Stack()
+    
+    # Proses selang-seling antara stack1 dan stack2
+    while not stack1.isEmpty() or not stack2.isEmpty():
+        if not stack1.isEmpty():
+            temp_stack.push(stack1.pop())  # Masukkan elemen dari stack1 ke stack sementara
+        if not stack2.isEmpty():
+            temp_stack.push(stack2.pop())  # Masukkan elemen dari stack2 ke stack sementara
+
+    # Elemen di temp_stack dalam urutan terbalik, jadi perlu dibalik ke merged_stack
+    while not temp_stack.isEmpty():
+        merged_stack.push(temp_stack.pop())
+
+    return merged_stack
+
+if __name__ == "__main__":
+    s1 = Stack()
+    # Isi Stack 1
+    s1.push(1)
+    s1.push(3)
+    s1.push(5)
+
+    s2 = Stack()
+    # Isi Stack 2
+    s2.push(2)
+    s2.push(4)
+    s2.push(6)
+
+    # Gabungkan kedua stack
+    s3 = mergeStacksInterleave(s1, s2)
+
+    # Cetak stack gabungan
+    s3.printAll()
+
