@@ -8,3 +8,9 @@ def hapusSetengahBawah(stack):
         stack.pop()
     while temp_stack.getLen() > 0:
         stack.push(temp_stack.pop())
+
+
+
+
+
+# COBA COPY PASTE KAN FILE README NYA SEMUA
