@@ -3,7 +3,7 @@ class Node:
         self._element = element
         self._next = next
 
-class Stack:
+class Stack: # SLLNC dengan head
     def __init__(self):
         self._head = None
         self._size = 0
@@ -14,21 +14,21 @@ class Stack:
     def isEmpty(self):
         return self._size == 0
 
-    def push(self, e):  # Adds element to the front (top of the stack)
-        new_node = Node(e, self._head)  # Create a new node with element e, and next pointing to the current head
-        self._head = new_node  # Update head to new node
-        self._size += 1  # Increment size
+    def push(self, e):  # Menambah data ke depan (top) dari stack
+        new_node = Node(e, self._head)  # Membuat node baru dengan elemen e dan next-nya adalah head saat ini
+        self._head = new_node  # Mengatur head menjadi node baru
+        self._size += 1  # Tambahkan ukuran stack
 
-    def pop(self):  # Removes element from the front (top of the stack)
+    def pop(self):  # Menghapus data dari depan (top) stack
         if self.isEmpty():
             print("Stack is empty")
             return None
-        result = self._head._element  # Get the element from the head node
-        self._head = self._head._next  # Move head to the next node
-        self._size -= 1  # Decrement size
-        return result  # Return the popped element
+        result = self._head._element  # Ambil elemen dari head
+        self._head = self._head._next  # Pindahkan head ke node berikutnya
+        self._size -= 1  # Kurangi ukuran stack
+        return result  # Kembalikan elemen yang dihapus
 
-    def printAll(self):  # Loop through the stack and print elements
+    def printAll(self):  # Menampilkan semua elemen dari stack
         if not self.isEmpty():
             bantu = self._head
             while bantu is not None:
@@ -38,11 +38,43 @@ class Stack:
         else:
             print("Kosong")
 
-# Example usage:
-stack = Stack()
-stack.push(10)
-stack.push(20)
-stack.push(30)
-stack.printAll()  # Output: 30 20 10
-print(stack.pop())  # Output: 30
-stack.printAll()  # Output: 20 10
+def mergeStacksInterleave(stack1, stack2):
+    merged_stack = Stack()
+    temp_stack = Stack()
+    
+    # Proses selang-seling antara stack1 dan stack2
+    while not stack1.isEmpty() or not stack2.isEmpty():
+        if not stack1.isEmpty():
+            temp_stack.push(stack1.pop())  # Masukkan elemen dari stack1 ke stack sementara
+        if not stack2.isEmpty():
+            temp_stack.push(stack2.pop())  # Masukkan elemen dari stack2 ke stack sementara
+
+    # Elemen di temp_stack dalam urutan terbalik, jadi perlu dibalik ke merged_stack
+    while not temp_stack.isEmpty():
+        merged_stack.push(temp_stack.pop())
+
+    return merged_stack
+
+# Contoh penggunaan
+stack1 = Stack()
+stack1.push(5)
+stack1.push(3)
+stack1.push(1)
+
+stack2 = Stack()
+stack2.push(6)
+stack2.push(4)
+stack2.push(2)
+
+print("Stack 1:")
+stack1.printAll()  # Output: 1 3 5
+
+print("Stack 2:")
+stack2.printAll()  # Output: 2 4 6
+
+# Menggabungkan kedua stack
+merged_stack = mergeStacksInterleave(stack1, stack2)
+
+print("Stack Gabungan:")
+merged_stack.printAll()  # Output: 1 2 3 4 5 6
+
