@@ -7,3 +7,4 @@ def push(self, e): #sama dengan tambah depan
             baru._next = self._head
             self._head = baru
         self._size += 1
+ap in jo
