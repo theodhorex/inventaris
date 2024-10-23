@@ -1,0 +1,50 @@
+#include <stdio.h>
+
+int main()
+{
+    char operator;
+    double angka1, angka2, hasil;
+
+    printf("================================\n");
+    printf("     KALKULATOR SEDERHANA       \n");
+    printf("================================\n");
+    printf("Pilih Operator (+, -, *, /): ");
+    scanf(" %c", &operator);
+
+    printf("Masukan angka pertama: ");
+    scanf("%lf", &angka1);
+
+    printf("Masukan angka kedua: ");
+    scanf("%lf", &angka2);
+
+    switch (operator)
+    {
+    case '+':
+        hasil = angka1 + angka2;
+        printf("Hasil: %1lf\n", hasil);
+        break;
+    case '-':
+        hasil = angka1 - angka2;
+        printf("Hasil: %1lf\n", hasil);
+        break;
+    case '*':
+        hasil = angka1 * angka2;
+        printf("Hasil: %1lf\n", hasil);
+        break;
+    case '/':
+        if (angka2 != 0)
+        {
+            hasil = angka1 / angka2;
+            printf("Hasil: %.1lf/n", hasil);
+        }
+        else
+        {
+            printf("Eror: pembagian dengan nol tidak diperboleh.\n");
+        }
+        break;
+    default:
+        printf("Operator Salah.Harap pilih +,-,*,/. \n");
+        return 1;
+    }
+    return 0;
+}
