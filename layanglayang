@@ -1,0 +1,37 @@
+#include <stdio.h>
+
+void printKite(int height) {
+    // Mencetak bagian atas layang-layang
+    for (int i = 0; i < height; i++) {
+        // Mencetak spasi
+        for (int j = height; j > i; j--) {
+            printf(" ");
+        }
+        // Mencetak bintang
+        for (int k = 0; k < (2 * i + 1); k++) {
+            printf("*");
+        }
+        printf("\n"); // Pindah ke baris berikutnya
+    }
+
+    // Mencetak bagian bawah layang-layang
+    for (int i = height - 1; i >= 0; i--) {
+        // Mencetak spasi
+        for (int j = height; j > i; j--) {
+            printf(" ");
+        }
+        // Mencetak bintang
+        for (int k = 0; k < (2 * i + 1); k++) {
+            printf("*");
+        }
+        printf("\n"); // Pindah ke baris berikutnya
+    }
+}
+
+int main() {
+    int height;
+    printf("Masukkan tinggi layang-layang (setengah): ");
+    scanf("%d", &height); // Membaca input tinggi dari pengguna
+    printKite(height); // Memanggil fungsi untuk menggambar layang-layang
+    return 0;
+}
