@@ -1,32 +1,26 @@
 #include <stdio.h>
 
-int main() {
-    int N;
-    printf("Masukkan banyak bilangan prima: ");
-    scanf("%d", &N);    
-    printf("\nDaftar %d Bilangan Prima:\n", N);
-    
-    int cetak = 0;
-    int bil = 2;  
+int main() 
+{
+    int bil, i, cekprima=0;
+    printf("Masukan bilangan : ");
+    scanf("%d",&bil);
 
-    while (cetak < N) {
-        int prima = 1;  
-
-        for (int i = 2; i * i <= bil; i++) {
-            if (bil % i == 0) {
-                prima = 0;
-                break;
-            }
-        }
-
-        if (prima == 1) {
-            printf("%d ", bil);
-            cetak++;
-        }
-
-        bil++;
+    if(bil == 2) {
+        cekprima = 1;
     }
+    for(i=2;i<bil;i++){
+        if(bil % i == 0){
+            cekprima = 0;
+            break;
+        }
+        else{
+            cekprima = 1;
+        }
+    }
+    if(cekprima == 1){
+        printf("\n%d BILANGAN PRIMA\n",bil);}
 
-    printf("\n");
-    return 0;
-}
+    else{
+        printf("\n%d BUKAN BILANGAN  PRIMA",bil);}
+    }
