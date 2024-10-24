@@ -25,5 +25,6 @@ int main() {
     }
 
     return 0;
-}
-YANG PIRAMID JO
+} 
+YANG PIRAMID JO BLM KELAR
+
