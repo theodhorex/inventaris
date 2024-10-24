@@ -1,1 +1,36 @@
-bantu gais
+#include <stdio.h>
+
+void main(void)
+{
+    int tinggi, i, j;
+
+    printf("Masukkan tinggi piramida: ");
+    scanf("%d", &tinggi);
+    
+    for (i = 1; i <= tinggi; ++i) {
+        for (j = 1; j <= tinggi - i; ++j) {
+            printf(" ");
+        }
+        for (j = 1; j <= i; j++) {
+            printf("#");
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
+2. Mario Pyramid (50 point)
+Dalam file bernama mario.c, buatlah program dalam C yang menggambar sebuah piramida menggunakan karakter hash(#).
+
+Contoh dibawah ini : 
+```c
+#
+##
+###
+####
+#####
+######
+#######
+########
+```
+biar outputnya gitu
