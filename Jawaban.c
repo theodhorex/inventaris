@@ -1,97 +1,67 @@
 
-class Queue :
+class Queue:
     def __init__(self):
         self.data = []
-    
-    def enqueue(self, data) :
+
+    def enqueue(self, data):
         self.data.append(data)
 
+    def is_empty(self):
+        return len(self.data) == 0
+
     def dequeue(self):
-        if len(self.data) == 0:
-            return
-        else :
-            return self.data.pop(0)
+        if self.is_empty():
+            return None
+        return self.data.pop(0)
 
     def front(self):
-        if len(self.data) == 0 :
-            return 
-        else :
-            return self.data[0]
-    
-    def get_length(self) :
-        return len(self.data)
+        if self.is_empty():
+            return None
+        return self.data[0]
 
     def write_all_data(self):
-        print("DATA: ")
+        print("Data dalam queue: ")
         for i, data in enumerate(self.data):
-            print(f"{data}")
+            print(f"{(i + 1)}. {data}")
+
+    def get_length(self):
+        return len(self.data)
 
 
+def serobot_antrian(q: Queue, data):
+    # Insert the new data at the front of the queue
+    q.data.insert(0, data)  # This modifies the queue directly.
 
-# Haram untuk menggunakan list
-def get_min(queue):
-    if queue.get_length() == 0:
+
+def get_max(q: Queue):
+    # Find the maximum value in the queue
+    if q.is_empty():
         return None
-    nilai_min = float('inf')
-    for nilai_keluar in queue.data:
-        if nilai_keluar < nilai_min:
-            nilai_min = nilai_keluar
-    return nilai_min
-    
-def pop(queue):
-    if queue.get_length() == 0:
-        return None
-    length = queue.get_length()
-    for _ in range(length - 1):  
-        queue.enqueue(queue.dequeue())
-        
-    last_element = queue.dequeue()  
-    return last_element
-    
-     
+    max_value = q.data[0]
+    for item in q.data:
+        if item > max_value:
+            max_value = item
+    return max_value
+
+
+def main():
+    q = Queue()
+    for i in [1, 3, 2, 4, 2, 3, 6, 7]:
+        q.enqueue(i)
+    print("=== Antrian Awal ===")
+    q.write_all_data()
+    print("=== Melakukan Penyerobotan Antrian === ")
+    serobot_antrian(q, 20)
+    serobot_antrian(q, 20)
+    serobot_antrian(q, 40)
+    serobot_antrian(q, 30)
+    print("Antrian sesudah di serobot: ")
+    q.write_all_data()
+    print("Melakukan pencarian data terbesar: ")
+    print(f"Data terbesar: {get_max(q)} ")
+    print("Pembuktian bahwa data tidak berubah: ")
+    q.write_all_data()
+
 
 if __name__ == "__main__":
-    q : Queue = Queue()
-    for i in [10, 8, 5, 60,1,2,3,4,100]:
-        q.enqueue(i)
-    print("==========")
-    print("Data Awal")
-    q.write_all_data()
-    print("==========")
-    print(f"Data terkecil = {get_min(q)}")
-    print("==========")
-    print()
-    print("Pembuktian isi queue tidak berubah")
-    print("==========")
-    print("Data Akhir")
-    q.write_all_data()
-    print("==========")
-    print()
-    print("============")
-    print("Percobaan Pop")
-    print(f"pop - 1 = {pop(q)}")
-    print(f"pop - 2 = {pop(q)}")
-    print(f"pop - 3 = {pop(q)}")
-    print("=============")
-    print("Hasil Akhir: ")
-    q.write_all_data()
-    print("=============")
-
-
-
-
-
-
-
-
-
-
-
-
-
-length = queue.get_length()
-    for _ in range(length - 1):  # Pindahkan semua elemen kecuali yang terakhir
-        queue.enqueue(queue.dequeue())
-    
-    last_element = queue.dequeue()  # Ambil elemen terakhir
-    return last_element
+    main()
