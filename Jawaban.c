@@ -1,4 +1,4 @@
-
+bilang di wa kolo masih sala
 class Queue:
     def __init__(self):
         self.data = []
