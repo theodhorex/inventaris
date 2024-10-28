@@ -1,0 +1,96 @@
+[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/dcpN9Ogv)
+# UG 8 QUEUE
+## TIDAK BOLEH LANGSUNG AKSES SELF.DATA. MANIPULASI QUEUE HANYA BOLEH PAKAI METHOD YANG SUDAH DISEDIAKAN PADA CLASS QUEUE.
+## TIDAK BOLEH PAKAI LIST
+
+### Tugas
+Kalian sudah diberikan sebuah class bernama class Queue. Class ini merepresentasikan struktur data Queue. Silahkan kerjakan pada **main.py** dan jangan di file yang lainnya. Class ini memiliki beberapa method yang tersedia:
+- get_length()
+
+method ini berfungsi untuk mengembalikan panjang dari sebuah queue.
+- write_all_data()
+
+method ini berfungsi untuk menampilkan semua data yang ada pada queue.
+- front()
+
+method ini berfungsi untuk mengembalikan data pertama dari dalam queue.
+- enqueue(data)
+
+method ini untuk memasukkan data ke belakang queue.
+- dequeue()
+
+method ini untuk mengeluarkan data pertama dari dalam queue.
+
+Tugas kalian sekarang adalah membuat dua buah fungsi ingat bahwa 2 fungsi ini ada di luar class:
+
+- get_max(queue)
+
+fungsi ini menerima parameter berupa sebuah objek Queue. Fungsi ini akan mengembalikan anggota queue dengan nilai paling besar
+- serobot_antrian(queue, data)
+
+kita semua tahu bahwa sebuah antrian yang baik akan memasukkan data yang paling baru ke belakang antrian. Nah, masalahnya, kita tidak ingin seperti itu sekarang. Buatlah sebuah fungsi yang menerima parameter objek Queue dan sebuah data. Fungsi ini akan memasukkan data tersebut dan menyerobot antrian paling depan. Misal, ada antrian dengan data 1,2,3. Jika fungsi serobot_antrian(queue, 8) dijalankan, maka hasilnya adalah 8,1,2,3
+
+## Test Case
+```
+    q = Queue()
+    for i in [1,3,2,4,2,3,6,7]:
+        q.enqueue(i)
+    print("=== Antrian Awal ===")
+    q.write_all_data()
+    print("=== Melakukan Penyerobotan Antrian === ")
+    serobot_antrian(q, 20)
+    serobot_antrian(q, 20)
+    serobot_antrian(q, 40)
+    serobot_antrian(q, 30)
+    print("Antrian sesudah di serobot: ")
+    q.write_all_data()
+    print("Melakukan pencarian data terbeaar: ")
+    print(f"Data terbesar: {get_max(q)} ")
+    print("Pembuktian bahwa data tidak berubah: ")
+    q.write_all_data()
+```
+## Output
+```
+
+    === Antrian Awal ===
+    Data dalam queue: 
+    1. 1
+    2. 3
+    3. 2
+    4. 4
+    5. 2
+    6. 3
+    7. 6
+    8. 7
+    === Melakukan Penyerobotan Antrian === 
+    Antrian sesudah di serobot: 
+    Data dalam queue: 
+    1. 30
+    2. 40
+    3. 20
+    4. 20
+    5. 1
+    6. 3
+    7. 2
+    8. 4
+    9. 2
+    10. 3
+    11. 6
+    12. 7
+    Melakukan pencarian data terbeaar: 
+    Data terbesar: 40 
+    Pembuktian bahwa data tidak berubah: 
+    Data dalam queue: 
+    1. 30
+    2. 40
+    3. 20
+    4. 20
+    5. 1
+    6. 3
+    7. 2
+    8. 4
+    9. 2
+    10. 3
+    11. 6
+    12. 7
+```
