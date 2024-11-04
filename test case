@@ -1,3 +1,4 @@
+
 class PriorityQueue:
     def __init__(self):
         self.data = []
@@ -7,26 +8,24 @@ class PriorityQueue:
 
     def peek(self):
         if self.is_empty():
-            return
+            return None
         return self.data[0]
 
     def enqueue(self, prioritas, data):
         self.data.append((prioritas, data))
         self.data.sort(reverse=True)
 
-
     def dequeue(self):
         if self.is_empty():
-            return
+            return None
         return self.data.pop(0)
 
     def write_all_data(self):
         print(self.data)
 
-def print_pasien(pq : PriorityQueue):
+def print_pasien(pq: PriorityQueue):
     data = pq.data
     prioritas = ""
-    pasien = ""
     n = 1
     for p, pasien in data:
         if p == 3:
@@ -40,5 +39,40 @@ def print_pasien(pq : PriorityQueue):
         print(f"{n}. {pasien}, status: {prioritas}")
         n += 1
 
+def determine_status(respirasi, denyut_nadi, perintah):
+    if respirasi == 0:
+        return 3  # Hitam
+    elif respirasi > 30 or respirasi < 10:
+        return 2  # Merah
+    elif denyut_nadi == 'y':
+        return 2  # Merah
+    elif perintah == 'n':
+        return 2  # Merah
+    else:
+        return 1  # Kuning
+
 if __name__ == "__main__":
-    pass
+    pq = PriorityQueue()
+    
+    for i in range(3):
+        print(f"Masukkan data pasien ke-{i + 1}")
+        nama = input("Nama pasien: ")
+        respirasi = int(input("Kecepatan Respirasi per menit: "))
+        
+        if respirasi > 0 and (respirasi <= 30 and respirasi >= 10):
+            denyut_nadi = input("Denyut lemah/tidak terasa (y/n): ")
+            if denyut_nadi == 'y':
+                status = 2  # Merah
+            else:
+                perintah = input("Apakah bisa diperintah? (y/n): ")
+                if perintah == 'y':
+                    status = 1  # Kuning
+                else:
+                    status = 2  # Merah
+        else:
+            status = determine_status(respirasi, None, None)
+        
+        pq.enqueue(status, nama)
+    
+    print("\n=== HASIL DATA PASIEN ===")
+    print_pasien(pq)
