@@ -1,14 +1,13 @@
-
 class PriorityQueue:
     def __init__(self):
         self.data = []
-    
+
     def is_empty(self):
         return len(self.data) == 0
 
     def peek(self):
         if self.is_empty():
-            return None
+            return
         return self.data[0]
 
     def enqueue(self, prioritas, data):
@@ -17,7 +16,7 @@ class PriorityQueue:
 
     def dequeue(self):
         if self.is_empty():
-            return None
+            return
         return self.data.pop(0)
 
     def write_all_data(self):
@@ -39,40 +38,34 @@ def print_pasien(pq: PriorityQueue):
         print(f"{n}. {pasien}, status: {prioritas}")
         n += 1
 
-def determine_status(respirasi, denyut_nadi, perintah):
-    if respirasi == 0:
-        return 3  # Hitam
-    elif respirasi > 30 or respirasi < 10:
-        return 2  # Merah
-    elif denyut_nadi == 'y':
-        return 2  # Merah
-    elif perintah == 'n':
-        return 2  # Merah
+def determine_priority(name):
+    # Step 1: Respiratory Check
+    respiration = int(input(f"Kecepatan Respirasi per menit untuk {name}: "))
+    if respiration == 0:
+        return 3, name  # Status Hitam
+    elif respiration < 10 or respiration > 30:
+        return 2, name  # Status Merah
+    
+    # Step 2: Pulse Check
+    pulse_weak = input(f"Denyut lemah/tidak terasa (y/n) untuk {name}: ").strip().lower()
+    if pulse_weak == "y":
+        return 2, name  # Status Merah
+
+    # Step 3: Mental Status Check
+    can_follow_commands = input(f"Apakah bisa diperintah? (y/n) untuk {name}: ").strip().lower()
+    if can_follow_commands == "y":
+        return 1, name  # Status Kuning
     else:
-        return 1  # Kuning
+        return 2, name  # Status Merah
 
 if __name__ == "__main__":
     pq = PriorityQueue()
-    
-    for i in range(3):
-        print(f"Masukkan data pasien ke-{i + 1}")
-        nama = input("Nama pasien: ")
-        respirasi = int(input("Kecepatan Respirasi per menit: "))
-        
-        if respirasi > 0 and (respirasi <= 30 and respirasi >= 10):
-            denyut_nadi = input("Denyut lemah/tidak terasa (y/n): ")
-            if denyut_nadi == 'y':
-                status = 2  # Merah
-            else:
-                perintah = input("Apakah bisa diperintah? (y/n): ")
-                if perintah == 'y':
-                    status = 1  # Kuning
-                else:
-                    status = 2  # Merah
-        else:
-            status = determine_status(respirasi, None, None)
-        
-        pq.enqueue(status, nama)
-    
+    print("Masukkan 3 pasien")
+
+    for _ in range(3):
+        name = input("Nama pasien: ")
+        priority, patient_name = determine_priority(name)
+        pq.enqueue(priority, patient_name)
+
     print("\n=== HASIL DATA PASIEN ===")
     print_pasien(pq)
