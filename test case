@@ -1,0 +1,44 @@
+class PriorityQueue:
+    def __init__(self):
+        self.data = []
+    
+    def is_empty(self):
+        return len(self.data) == 0
+
+    def peek(self):
+        if self.is_empty():
+            return
+        return self.data[0]
+
+    def enqueue(self, prioritas, data):
+        self.data.append((prioritas, data))
+        self.data.sort(reverse=True)
+
+
+    def dequeue(self):
+        if self.is_empty():
+            return
+        return self.data.pop(0)
+
+    def write_all_data(self):
+        print(self.data)
+
+def print_pasien(pq : PriorityQueue):
+    data = pq.data
+    prioritas = ""
+    pasien = ""
+    n = 1
+    for p, pasien in data:
+        if p == 3:
+            prioritas = "Sudah meninggal"
+        elif p == 2:
+            prioritas = "Merah"
+        elif p == 1:
+            prioritas = "Kuning"
+        else:
+            prioritas = "Invalid status"
+        print(f"{n}. {pasien}, status: {prioritas}")
+        n += 1
+
+if __name__ == "__main__":
+    pass
