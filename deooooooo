@@ -1,0 +1,97 @@
+class PriorityQueueSorted:
+    def __init__(self):
+        # Menyimpan elemen queue sebagai list of tuples (nama, prioritas)
+        self.queue = []
+
+    # Fungsi untuk mengecek apakah queue kosong
+    def is_empty(self):
+        return len(self.queue) == 0
+
+    # Fungsi untuk mendapatkan panjang queue
+    def __len__(self):
+        return len(self.queue)
+
+    # Fungsi untuk menghapus data paling depan (prioritas terendah)
+    def remove(self):
+        if not self.is_empty():
+            self.queue.pop(0)
+
+    # Fungsi untuk mengambil data paling depan (prioritas tertinggi)
+    def peek(self):
+        if not self.is_empty():
+            return self.queue[0]
+        return None
+
+    # Fungsi untuk menambah elemen ke dalam queue dan mengurutkan berdasarkan prioritas
+    def add(self, name, priority):
+        self.queue.append((name, priority))
+        # Mengurutkan queue setelah penambahan elemen
+        self.queue = self.merge_sort(self.queue)
+
+    # Merge Sort untuk mengurutkan berdasarkan prioritas terbesar ke terkecil
+    def merge_sort(self, arr):
+        if len(arr) <= 1:
+            return arr
+
+        mid = len(arr) // 2
+        left_half = arr[:mid]
+        right_half = arr[mid:]
+
+        left_half = self.merge_sort(left_half)
+        right_half = self.merge_sort(right_half)
+
+        return self.merge(left_half, right_half)
+
+    # Fungsi untuk menggabungkan dua list yang sudah terurut
+    def merge(self, left, right):
+        result = []
+        i = j = 0
+
+        # Menggabungkan dua list berdasarkan prioritas terbesar ke terkecil
+        while i < len(left) and j < len(right):
+            if left[i][1] > right[j][1]:  # Bandingkan berdasarkan prioritas (index 1)
+                result.append(left[i])
+                i += 1
+            else:
+                result.append(right[j])
+                j += 1
+
+        # Menambahkan sisa elemen dari left dan right jika ada
+        result.extend(left[i:])
+        result.extend(right[j:])
+
+        return result
+
+    # Fungsi untuk mencetak isi queue berdasarkan prioritas terbesar
+    def print_all(self):
+        print([item[0] for item in self.queue])
+
+
+# TEST CASE
+myQueue = PriorityQueueSorted()
+
+# Menambahkan elemen ke dalam queue
+myQueue.add('Gian', 2)  # Setelah penambahan, queue: [('Gian', 2)]
+myQueue.add('Kezia', 8)  # Setelah penambahan, queue: [('Kezia', 8), ('Gian', 2)]
+myQueue.print_all()  # Expected output: ['Kezia', 'Gian']
+print(myQueue.peek())  # Expected output: ('Kezia', 8)
+
+# Menambahkan lebih banyak elemen
+myQueue.add('Glen', 5)  # Setelah penambahan, queue: [('Kezia', 8), ('Glen', 5), ('Gian', 2)]
+myQueue.add('Christo', 9)  # Setelah penambahan, queue: [('Christo', 9), ('Kezia', 8), ('Glen', 5), ('Gian', 2)]
+myQueue.print_all()  # Expected output: ['Christo', 'Kezia', 'Glen', 'Gian']
+print(myQueue.peek())  # Expected output: ('Christo', 9)
+
+print("========REMOVE========")
+myQueue.remove()  # Menghapus 'Christo'
+myQueue.print_all()  # Expected output: ['Kezia', 'Glen', 'Gian']
+
+myQueue.remove()  # Menghapus 'Kezia'
+myQueue.print_all()  # Expected output: ['Glen', 'Gian']
+
+myQueue.remove()  # Menghapus 'Glen'
+myQueue.print_all()  # Expected output: ['Gian']
+
+# Menambahkan elemen baru
+myQueue.add('Saya', 7)  # Setelah penambahan, queue: [('Saya', 7), ('Gian', 2)]
+myQueue.print_all()  # Expected output: ['Saya', 'Gian']
