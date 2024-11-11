@@ -1,0 +1,108 @@
+def mergesort(data):
+    if len(data)>1:
+        mid=len(data) //2
+        left=data[:mid]
+        right=data[mid:]
+
+        mergesort(left)
+        mergesort(right)
+
+        i=0
+        j=0
+        k=0
+
+        while i< len(left) and j< len(right):
+            if left[i][1]>= right[j][1]:
+                data[k]=left[i]
+                i +=1
+            else:
+                data[k]=right[j]
+                j+=1
+            k+=1
+        while i<len(left):
+            data[k]=left[i]
+            i+=1
+            k+=1
+        while j< len(right):
+            data[k]=right[j]
+            j+=1
+            k+=1
+            
+class PriorityQueueSorted:
+
+    def __init__(self):
+        self.data=[]
+
+    def is_empty(self):
+        return len(self.data) == 0
+        
+    def __len__(self):
+            return len(self.data)
+
+    def peek(self):
+        if not self.is_empty():
+            print(f" {self.data[0]}")
+            return self.data[0]
+        else:
+            print()
+
+    def add(self, name, priority):
+        
+        self.data.append((name, priority))
+        mergesort(self.data)
+
+    def remove(self):
+         if not self.is_empty():
+            self.data.pop(0)
+    
+                   
+    def print_all(self):
+        print(self.data)
+            
+                
+
+myQueue = PriorityQueueSorted()
+
+myQueue.add('Gian', 2)
+
+myQueue.add('Kezia', 4)
+
+myQueue.print_all()
+
+myQueue.peek()
+
+print()
+
+myQueue.add('Glen', 8)
+
+myQueue.add('Christo', 1)
+
+myQueue.print_all()
+
+myQueue.peek()
+
+print()
+
+print("========REMOVE========")
+
+myQueue.remove()
+
+myQueue.print_all()
+
+print()
+
+myQueue.remove()
+
+myQueue.print_all()
+
+print()
+
+myQueue.remove()
+
+myQueue.print_all()
+
+print()
+
+myQueue.add('Saya', 7)
+
+myQueue.print_all()
