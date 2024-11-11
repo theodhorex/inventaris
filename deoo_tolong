@@ -1,65 +1,77 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/2Szn5CHd)
-# UG10_Sorting
+class PriorityQueueSorted:
+    def __init__(self):
+        self.queue = []
 
-Buatlah sebuah file python berisi Class PriorityQueueSorted. Fungsi yang harus ada adalah:
+    def is_empty(self):
+        """Check if the queue is empty."""
+        return len(self.queue) == 0
 
-  a. is_empty() => melihat apakah Queue kosong atau tidak
+    def len(self):
+        """Return the length of the queue."""
+        return len(self.queue)
 
-  b. len()  => return panjang Queue
+    def remove(self):
+        """Remove the highest priority item from the queue."""
+        if not self.is_empty():
+            return self.queue.pop(0)  # Remove the first element
+        else:
+            raise Exception("Queue is empty")
 
-  c. remove()   => Menghapus data paling depan
+    def peek(self):
+        """Return the highest priority item without removing it."""
+        if not self.is_empty():
+            return self.queue[0]  # Return the first element
+        else:
+            raise Exception("Queue is empty")
 
-  d. peek()     => Mengambil data paling depan
+    def add(self, item, priority):
+        """Add an item to the queue with the given priority."""
+        self.queue.append((item, priority))
+        self.queue = self.quick_sort(self.queue)
 
-  e. add()      => Menambah isi Queue, cara pengurutan data menggunakan QUICK SORT dan diurutkan dari angka prioritas terbesar ke terkecil (misal: 1,4,3,6 => jadi 6,4,3,1)
+    def quick_sort(self, queue):
+        """Sort the queue using Quick Sort algorithm."""
+        if len(queue) <= 1:
+            return queue
+        else:
+            pivot = queue[len(queue) // 2][1]
+            left = [x for x in queue if x[1] > pivot]  # Greater than pivot
+            middle = [x for x in queue if x[1] == pivot]  # Equal to pivot
+            right = [x for x in queue if x[1] < pivot]  # Less than pivot
+            return left + middle + right
 
-  f. print_all => return isi dari Queue urut dari yang terbesar
+    def print_all(self):
+        """Return the contents of the queue sorted from highest to lowest priority."""
+        return [(item, priority) for item, priority in self.queue]
 
+# Test case
+if __name__ == "__main__":
+    myQueue = PriorityQueueSorted()
 
-### TEST CASE
+    myQueue.add('Gian', 2)
+    myQueue.add('Kezia', 4)
+    print(myQueue.print_all())
+    print(myQueue.peek())
+    print()
 
-myQueue = PriorityQueueSorted()
+    myQueue.add('Glen', 8)
+    myQueue.add('Christo', 1)
+    print(myQueue.print_all())
+    print(myQueue.peek())
+    print()
 
-myQueue.add('Gian', 2)
+    print("========REMOVE========")
+    myQueue.remove()
+    print(myQueue.print_all())
+    print()
 
-myQueue.add('Kezia', 4)
+    myQueue.remove()
+    print(myQueue.print_all())
+    print()
 
-myQueue.print_all()
+    myQueue.remove()
+    print(myQueue.print_all())
+    print()
 
-myQueue.peek()
-
-print()
-
-myQueue.add('Glen', 8)
-
-myQueue.add('Christo', 1)
-
-myQueue.print_all()
-
-myQueue.peek()
-
-print()
-
-print("========REMOVE========")
-
-myQueue.remove()
-
-myQueue.print_all()
-
-print()
-
-myQueue.remove()
-
-myQueue.print_all()
-
-print()
-
-myQueue.remove()
-
-myQueue.print_all()
-
-print()
-
-myQueue.add('Saya', 7)
-
-myQueue.print_all()
+    myQueue.add('Saya', 7)
+    print(myQueue.print_all())
