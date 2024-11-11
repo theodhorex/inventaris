@@ -1,34 +1,18 @@
-def mergesort(data):
-        if len(data) > 1:
-            mid = len(data) // 2
-            left = data[:mid]
-            right = data[mid:]
-            
-            mergesort(left)
-            mergesort(right)
+def quicksort(data, low, high):
+    if low < high:
+        pi = partition(data, low, high)
+        quicksort(data, low, pi - 1)
+        quicksort(data, pi + 1, high)
 
-            i = 0
-            j = 0
-
-            k = 0
-            while i < len(left) and j < len(right):
-                if left[i][1] >= right[j][1]:
-                    data[k] = left[i]
-                    i += 1
-                else:
-                    data[k] = right[j]
-                    j += 1
-                k += 1
-
-            while i < len(left):
-                data[k] = left[i]
-                i += 1
-                k += 1
-
-            while j < len(right):
-                data[k] = right[j]
-                j += 1
-                k += 1
+def partition(data, low, high):
+    pivot = data[high][1]
+    i = low - 1
+    for j in range(low, high):
+        if data[j][1] >= pivot:  # Sorting in descending order
+            i += 1
+            data[i], data[j] = data[j], data[i]
+    data[i + 1], data[high] = data[high], data[i + 1]
+    return i + 1
 
 class PriorityQueueSorted:
     def __init__(self):
@@ -49,11 +33,11 @@ class PriorityQueueSorted:
             print("Prioritas antriannya kosong")
     def add(self, name, priority):
         self.queue.append((name, priority))
-        mergesort(self.queue)
+        quicksort(self.queue, 0, len(self.queue) - 1)
     def print_all(self):
         print(self.queue)
 
-        
+# Contoh penggunaan
 myQueue = PriorityQueueSorted()
 myQueue.add('Gian', 2)
 myQueue.add('Kezia', 8)
