@@ -1,4 +1,4 @@
-class PriorityQueueSorted():
+class PriorityQueueSorted:
     def __init__(self):
         self.list = []
 
@@ -9,68 +9,45 @@ class PriorityQueueSorted():
         return len(self.list)
 
     def remove(self):
-        if self.is_empty() == False:
-            self.list.pop(0)
-  
+        if not self.is_empty():
+            return self.list.pop(0)  # Return the item for consistency
+        else:
+            raise IndexError("remove from empty priority queue")
 
     def peek(self):
-        print(self.list[0])
-        
+        if not self.is_empty():
+            return self.list[0]
+        else:
+            raise IndexError("peek from empty priority queue")
+
     def add(self, data, priority):
-        self.list.append((data, priority))
-        self.mergesort(self.list)
+        # Insert in sorted order without calling merge sort each time
+        item = (data, priority)
+        i = 0
+        while i < len(self.list) and self.list[i][1] >= priority:
+            i += 1
+        self.list.insert(i, item)
 
-
-    def mergesort(self, data):
-        if len(data) > 1:
-            mid = len(data) // 2
-            setengahLeft = data[:mid]
-            setengahRight = data[mid:]
-
-            self.mergesort(setengahLeft)
-            self.mergesort(setengahRight)
-
-            i = 0
-            j = 0
-            k = 0
-
-            while i < len(setengahLeft) and j < len(setengahRight): 
-                if setengahLeft[i][1] >= setengahRight[j][1]: 
-                    data[k] = setengahLeft[i] 
-                    i += 1 
-                else: 
-                    data[k] = setengahRight[j] 
-                    j += 1 
-                k += 1
-
-            while i < len(setengahLeft):
-                data[k] = setengahLeft[i]
-                i += 1
-                k += 1
-        
-            while j < len(setengahRight):
-                data[k] = setengahRight[j]
-                j += 1
-                k += 1
-    
     def print_all(self):
         print(self.list)
 
+
+# Example usage
 myQueue = PriorityQueueSorted()
 myQueue.add('Gian', 2)
 myQueue.add('Kezia', 8)
 myQueue.print_all()
-myQueue.peek()
+print("Peek:", myQueue.peek())
 myQueue.add('Glen', 5)
 myQueue.add('Christo', 9)
 myQueue.print_all()
-myQueue.peek()
+print("Peek:", myQueue.peek())
 print("========REMOVE========")
-myQueue.remove()
+print("Removed:", myQueue.remove())
 myQueue.print_all()
-myQueue.remove()
+print("Removed:", myQueue.remove())
 myQueue.print_all()
-myQueue.remove()
+print("Removed:", myQueue.remove())
 myQueue.print_all()
 myQueue.add('Saya', 7)
 myQueue.print_all()
