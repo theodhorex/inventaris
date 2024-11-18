@@ -1,0 +1,70 @@
+class HashTable:
+    def __init__(self):
+        self.size = 10
+        self.map = [None] * self.size
+
+    def _get_hash(self, key):
+        return key % self.size
+
+    def _linear_probing(self, key, index):
+        while self.map[index] is not None and self.map[index][0] != key:
+            index = (index + 1) % self.size
+        return index
+
+    def _probing(self, key):
+        index = self._get_hash(key)
+        return self._linear_probing(key, index)
+
+    def add(self, key, value):
+        index = self._probing(key)
+        if self.map[index] is None:
+            self.map[index] = (key, value)
+        else:
+            self.map[index] = (key, value)  # Replace value if key already exists
+
+    def get_data(self, key):
+        index = self._get_hash(key)
+        for _ in range(self.size):
+            if self.map[index] is None:
+                break
+            if self.map[index][0] == key:
+                return self.map[index][1]
+            index = (index + 1) % self.size
+        return None
+
+    def resize(self, size):
+        old_map = self.map
+        self.size = size
+        self.map = [None] * self.size
+        for item in old_map:
+            if item is not None:
+                self.add(item[0], item[1])
+
+    def print_all(self):
+        print("==== ISI HASH TABLE ====")
+        for item in self.map:
+            if item is not None:
+                print(f"NIM: {item[0]} NAMA: {item[1]}")
+
+def main():
+    ht = HashTable()
+    # isi hash table
+    ht.add(71210689, "Gian")
+    ht.add(71210683, "Yandi")
+    ht.add(71210699, "Andreas")
+
+    print("==== HASH TABLE SEBELUM DIRESIZE ====")
+    print()
+    ht.print_all()
+    print(f"mahasiswa dengan NIM 71210683 adalah {ht.get_data(71210683)}")
+    print()
+    # resize hash table
+    ht.resize(3)
+
+    print("==== HASH TABLE SETELAH DIRESIZE ====")
+    print()
+    ht.print_all()
+    print(f"mahasiswa dengan NIM 71210683 adalah {ht.get_data(71210683)}")
+
+if __name__ == "__main__":
+    main()
