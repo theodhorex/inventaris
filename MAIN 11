@@ -1,0 +1,47 @@
+class HashTable:
+    def __init__(self):
+        self.size = 10
+        self.map = [None]*self.size
+    
+    def _get_hash(self, key):
+        pass
+    
+    def _linear_probing(self, key, index):
+        pass
+    def _probing(self, key):
+        pass
+    def add(self, key, value):
+        pass
+    def print_all(self):
+        pass
+    
+    def get_data(self, key):
+        pass
+            
+    
+    def resize(self, size):
+        pass
+
+def main():
+    ht : HashTable = HashTable()
+    # isi hash table
+    ht.add(71210689, "Gian")
+    ht.add(71210683, "Yandi")
+    ht.add(71210699, "Andreas")
+
+    print("==== HASH TABLE SEBELUM DIRESIZE ====")
+    print()
+    ht.print_all()
+    print(f"mahasiswa dengan NIM 71210683 adalah {ht.get_data(71210683)}")
+    print()
+    # resize hash table
+    ht.resize(3)
+
+    print("==== HASH TABLE SETELAH DIRESIZE ====")
+    print()
+    ht.print_all()
+    print(f"mahasiswa dengan NIM 71210683 adalah {ht.get_data(71210683)}")
+    
+
+if __name__ == "__main__":
+    main()
