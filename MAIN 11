@@ -1,29 +1,54 @@
 class HashTable:
     def __init__(self):
-        self.size = 10
-        self.map = [None]*self.size
-    
+        self.size = 10  # Kapasitas default
+        self.map = [None] * self.size  # Tabel hash diinisialisasi dengan None
+
     def _get_hash(self, key):
-        pass
-    
-    def _linear_probing(self, key, index):
-        pass
+        # Menghitung index berdasarkan key (NIM)
+        return key % self.size
+
+    def _linear_probing(self, index):
+        # Melakukan linear probing untuk menemukan index berikutnya
+        return (index + 1) % self.size
+
     def _probing(self, key):
-        pass
+        index = self._get_hash(key)
+        # Mencari index yang kosong atau index yang memiliki key yang sama
+        while self.map[index] is not None and self.map[index][0] != key:
+            index = self._linear_probing(index)
+        return index
+
     def add(self, key, value):
-        pass
+        index = self._probing(key)
+        # Menambahkan pasangan key-value ke dalam hash table
+        self.map[index] = (key, value)
+
     def print_all(self):
-        pass
-    
+        print("==== ISI HASH TABLE ====")
+        for item in self.map:
+            if item is not None:
+                print(f"NIM: {item[0]} NAMA: {item[1]}")
+
     def get_data(self, key):
-        pass
-            
-    
-    def resize(self, size):
-        pass
+        index = self._get_hash(key)
+        # Mencari data berdasarkan key
+        while self.map[index] is not None:
+            if self.map[index][0] == key:
+                return self.map[index][1]
+            index = self._linear_probing(index)
+        return None
+
+    def resize(self, new_size):
+        old_map = self.map
+        self.size = new_size
+        self.map = [None] * self.size
+        
+        for item in old_map:
+            if item is not None:
+                self.add(item[0], item[1])
 
 def main():
-    ht : HashTable = HashTable()
+    ht: HashTable = HashTable()
     # isi hash table
     ht.add(71210689, "Gian")
     ht.add(71210683, "Yandi")
@@ -41,7 +66,6 @@ def main():
     print()
     ht.print_all()
     print(f"mahasiswa dengan NIM 71210683 adalah {ht.get_data(71210683)}")
-    
 
 if __name__ == "__main__":
     main()
