@@ -1,1 +1,96 @@
+[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/FLj8nZPB)
+# UG11_HASH
+
+Dengan memodifikasi Hash Table yang telah diajarkan pada kelas Struktur Data, anda diminta untuk mengubah fungsi add dan delete agar sesuai dengan permintaan soal. Berikut adalah penjelasan terkait fungsi-fungsi tersebut.
+
+a) tambahReservasi() merupakan fungsi add yang membutuhkan argumen nama sebagai key dan jenis reservasi sebagai value. Fungsi ini digunakan untuk menambahkan item kedalam hash table. Nilai kembalian dari fungsi ini adalah Boolean (True/False).
+
+b) lihatReservasi() merupakan fungsi yang digunakan untuk mengecek reservasi dengan key yang serupa. Fungsi ini akan mengembalikan value berupa String yang pertama kali ditemukan pada index map. Jika key tidak ditemukan akan mengembalikan “None”
+
+c) reserveDone() merupakan fungsi delete yang membutuhkan argumen nama (key). Fungsi ini menghapus key yang pertama kali ditemukan dengan cara menimpa index pada map dengan string “deleted”. Fungsi ini mengembalikan Boolean (True/False)
+
+d) printAll() merupakan fungsi print yang digunakan untuk menampilkan list reservasi yang terdapat pada resto.
+
+if __name__ == "__main__":
+    rak1 = Restoran()
+
+    rak1.tambahReservasi("Draine", "Family Dinner")
+    
+    rak1.tambahReservasi("Perry", "Birthday Party")
+    
+    rak1.tambahReservasi("Octo", "Romantic Dinner")
+    
+    rak1.tambahReservasi("Peter", "Lunch")
+    
+    rak1.tambahReservasi("Hrain", "Test Food Wedding")
+    
+    rak1.tambahReservasi("Gura", "Garden Party")
+    
+    print(rak1.lihatReservasi("Octo"))
+    
+    print(rak1.lihatReservasi("Buna"))
+
+    rak1.reserveDone("Pery")
+    
+    rak1.reserveDone("Draine")
+    
+    rak1.printAll()
+
+
+
+
+class Restoran:
+    def __init__(self):
+        self.size = 5
+        self.map = [None] * self.size
+
+    def _getHash(self, key):
+        hash = 0
+        for char in str(key):
+            hash += ord(char) # mendapatkan nilai ASCII
+        return hash % self.size
+
+    def _probing(self, key):
+        for index in range(self.size):
+            # probeHash = (self._getHash(key)+index) % self.size
+            probeHash = self._linearProbing(key, index)
+            # valid bila index adalah None atau ber-flag deleted
+            if (self.map[probeHash] is None) or (self.map[probeHash] == 'deleted'):
+                return probeHash
+
+    # melakukan linear probing
+    def _linearProbing(self, key, index):
+        return (self._getHash(key)+index) % self.size
+
+    # menambahkan key pada hash table
+    def tambahReservasi(self, key, value):
+        pass
+
+    def lihatReservasi(self, key):
+        pass
+        
+
+    def reserveDone(self, key):
+        pass
+
+    def printAll(self):
+        pass
+
+if __name__ == "__main__":
+    rak1 = Restoran()
+
+    rak1.tambahReservasi("Draine", "Family Dinner")
+    rak1.tambahReservasi("Perry", "Birthday Party")
+    rak1.tambahReservasi("Octo", "Romantic Dinner")
+    rak1.tambahReservasi("Peter", "Lunch")
+    rak1.tambahReservasi("Hrain", "Test Food Wedding")
+    rak1.tambahReservasi("Gura", "Garden Party")
+    
+    print(rak1.lihatReservasi("Octo"))
+    print(rak1.lihatReservasi("Buna"))
+
+    rak1.reserveDone("Pery")
+    rak1.reserveDone("Draine")
+    rak1.printAll()
+
 
