@@ -61,8 +61,21 @@ class BinaryTree:
         return self.root
 
     def plus_minus(self):
-        pass
-
+        # Start traversing from the root and apply the plus-minus operation
+        return self._plus_minus_helper(self.root)
+    
+    def _plus_minus_helper(self, node):
+        if node is None:
+            return 0
+        # Recursively process the left and right subtree
+        left_sum = self._plus_minus_helper(node.left)
+        right_sum = self._plus_minus_helper(node.right)
+        
+        # Apply the rule: if even, add; if odd, subtract
+        if node.data % 2 == 0:
+            return left_sum + right_sum + node.data
+        else:
+            return left_sum + right_sum - node.data
 
 if __name__ == '__main__':
     binaryT = BinaryTree()
@@ -76,4 +89,4 @@ if __name__ == '__main__':
     binaryT.add(11)
     binaryT.add(10)
     print()
-    print(binaryT.plus_minus())
+    print(binaryT.plus_minus())  # Expected output: -7
