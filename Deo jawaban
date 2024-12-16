@@ -1,1 +1,145 @@
+# Node.py
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+
+# BinaryTree.py
+class BinaryTree:
+    def __init__(self):
+        self.root = None
+
+    def insert(self, data):
+        """Menambahkan node ke dalam tree."""
+        if not self.root:
+            self.root = Node(data)
+            return True
+        else:
+            return self._insert_recursive(self.root, data)
+
+    def _insert_recursive(self, current, data):
+        if data == current.data:
+            return False  # Tidak mengizinkan duplikat
+        elif data < current.data:
+            if current.left:
+                return self._insert_recursive(current.left, data)
+            else:
+                current.left = Node(data)
+                return True
+        else:
+            if current.right:
+                return self._insert_recursive(current.right, data)
+            else:
+                current.right = Node(data)
+                return True
+
+    def inorder_traversal(self):
+        """Melakukan inorder traversal dan mengembalikan daftar hasil."""
+        result = []
+        self._inorder_recursive(self.root, result)
+        return result
+
+    def _inorder_recursive(self, current, result):
+        if current:
+            self._inorder_recursive(current.left, result)
+            result.append(current.data)
+            self._inorder_recursive(current.right, result)
+
+    def find(self, data):
+        """Mencari node dalam tree."""
+        return self._find_recursive(self.root, data)
+
+    def _find_recursive(self, current, data):
+        if not current:
+            return False
+        if data == current.data:
+            return True
+        elif data < current.data:
+            return self._find_recursive(current.left, data)
+        else:
+            return self._find_recursive(current.right, data)
+
+    def delete(self, data):
+        """Menghapus node dari tree."""
+        self.root, deleted = self._delete_recursive(self.root, data)
+        return deleted
+
+    def _delete_recursive(self, current, data):
+        if not current:
+            return current, False
+
+        if data == current.data:
+            if not current.left and not current.right:
+                return None, True  # Tidak ada anak
+            elif current.left and not current.right:
+                return current.left, True  # Hanya anak kiri
+            elif current.right and not current.left:
+                return current.right, True  # Hanya anak kanan
+            else:
+                # Mengganti dengan penerus inorder (node terkecil di subtree kanan)
+                successor = self._find_min(current.right)
+                current.data = successor.data
+                current.right, _ = self._delete_recursive(current.right, successor.data)
+                return current, True
+        elif data < current.data:
+            current.left, deleted = self._delete_recursive(current.left, data)
+            return current, deleted
+        else:
+            current.right, deleted = self._delete_recursive(current.right, data)
+            return current, deleted
+
+    def _find_min(self, current):
+        while current.left:
+            current = current.left
+        return current
+
+    def height(self):
+        """Mengembalikan tinggi tree."""
+        return self._height_recursive(self.root)
+
+    def _height_recursive(self, current):
+        if not current:
+            return 0
+        left_height = self._height_recursive(current.left)
+        right_height = self._height_recursive(current.right)
+        return max(left_height, right_height) + 1
+
+    def count_nodes(self):
+        """Mengembalikan jumlah total node dalam tree."""
+        return self._count_nodes_recursive(self.root)
+
+    def _count_nodes_recursive(self, current):
+        if not current:
+            return 0
+        left_count = self._count_nodes_recursive(current.left)
+        right_count = self._count_nodes_recursive(current.right)
+        return left_count + right_count + 1
+
+
+# Test.py
+if __name__ == "__main__":
+    tree = BinaryTree()
+
+    # Insert nodes
+    nodes = [50, 30, 70, 20, 40, 60, 80]
+    for node in nodes:
+        tree.insert(node)
+
+    # Traversals
+    print("Inorder Traversal:", tree.inorder_traversal())
+    
+    # Search
+    print("Cari 60:", "Ditemukan" if tree.find(60) else "Tidak ditemukan")
+    print("Cari 90:", "Ditemukan" if tree.find(90) else "Tidak ditemukan")
+
+    # Delete
+    print("Menghapus 50 (root node)...")
+    tree.delete(50)
+    print("Inorder Traversal setelah menghapus:", tree.inorder_traversal())
+
+    # Height and Node Count
+    print("Height binary tree:", tree.height())
+    print("Total nodes:", tree.count_nodes())
 
