@@ -1,0 +1,93 @@
+import unittest
+from io import StringIO
+from contextlib import redirect_stdout
+from BinaryTree import BinaryTree
+
+class TestBinaryTree(unittest.TestCase):
+    def setUp(self):
+        """Initialize a binary tree with initial nodes."""
+        self.tree = BinaryTree(10)
+        for value in [1, 4, 5, 10, 8, 12, 3, 9, 2, 0]:
+            self.tree.insert(value)
+
+    def inorder_traversal(self, node, values):
+        """Helper method to perform an inorder traversal."""
+        if node is not None:
+            self.inorder_traversal(node.left, values)
+            values.append(node.value)
+            self.inorder_traversal(node.right, values)
+
+    def get_tree_values(self):
+        """Retrieve all values in the tree using an inorder traversal."""
+        values = []
+        self.inorder_traversal(self.tree.root, values)
+        return values
+
+    def test_insert(self):
+        """Test the insert method."""
+        self.tree.insert(6)
+        values = self.get_tree_values()
+        self.assertIn(6, values, "Insert method failed to add 6")
+        self.tree.insert(7)
+        values = self.get_tree_values()
+        self.assertIn(7, values, "Insert method failed to add 7")
+
+    def test_update(self):
+        """Test the update method."""
+        self.tree.update(2, 6)
+        values = self.get_tree_values()
+        self.assertIn(6, values, "Update method failed to add 6")
+        self.assertNotIn(2, values, "Update method failed to remove 2")
+
+    def test_delete(self):
+        """Test the delete method."""
+        self.tree.delete(4)
+        values = self.get_tree_values()
+        self.assertNotIn(4, values, "Delete method failed to remove 4")
+
+    def test_show_leaf_nodes(self):
+        """Test the show_leaf_nodes method."""
+        expected_leaves = [0, 3, 6, 9, 12]
+        #simulate changes
+        self.tree.update(2, 6)
+        self.tree.delete(4)
+        self.tree.show_leaf_nodes()
+        with StringIO() as buf, redirect_stdout(buf):
+            self.tree.show_leaf_nodes()
+            output = buf.getvalue().strip()
+        self.assertIn("Leaf Nodes:", output, "show_leaf_nodes method did not print properly")
+        for leaf in expected_leaves:
+            self.assertIn(str(leaf), output, f"Leaf node {leaf} missing from output")
+
+    def test_visualize(self):
+        """Test if the visualize method runs without errors."""
+        with StringIO() as buf, redirect_stdout(buf):
+            self.tree.visualize()
+            output = buf.getvalue().strip()
+        self.assertGreater(len(output), 0, "Visualize method did not produce output")
+
+    @staticmethod
+    def run_tests_with_score():
+        """Run all tests, calculate marks, and print the score."""
+        suite = unittest.TestLoader().loadTestsFromTestCase(TestBinaryTree)
+        results = unittest.TextTestRunner(verbosity=2).run(suite)
+
+        # Calculate the score
+        total_tests = results.testsRun
+        failed_tests = len(results.failures) + len(results.errors)
+        passed_tests = total_tests - failed_tests
+
+        # Assign equal weight to each test
+        marks_per_test = 100 / total_tests
+        score = passed_tests * marks_per_test
+
+        # Print the score
+        print("\nScore Calculation:")
+        print(f"Total Tests: {total_tests}")
+        print(f"Passed Tests: {passed_tests}")
+        print(f"Failed Tests: {failed_tests}")
+        print(f"Final Score: {score:.2f} / 100")
+
+# Run the tests and calculate the score
+if __name__ == "__main__":
+    TestBinaryTree.run_tests_with_score()
