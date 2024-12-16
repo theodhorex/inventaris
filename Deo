@@ -1,1 +1,48 @@
+from Node import Node
 
+class BinaryTree:
+    def __init__(self):
+        pass
+
+    def insert(self, data):
+        pass
+
+    def inorder_traversal(self):
+        pass
+
+    def find(self, data):
+        pass
+
+    def delete(self, data):
+        pass
+
+    def height(self):
+        pass
+
+    def count_nodes(self):
+        pass
+
+# Contoh studi kasus
+if __name__ == "__main__":
+    tree = BinaryTree()
+
+    # Insert nodes
+    nodes = [50, 30, 70, 20, 40, 60, 80]
+    for node in nodes:
+        tree.insert(node)
+
+    # Traversals
+    print("Inorder Traversal:", tree.inorder_traversal())
+    
+    # Search
+    print("Cari 60:", tree.find(60))  # True
+    print("Cari 90:", tree.find(90))  # False
+
+    # Delete
+    print("Menghapus 50 (root node)...")
+    tree.delete(50)
+    print("Inorder Traversal setelah menghapus:", tree.inorder_traversal())
+
+    # Height and Node Count
+    print("Height binary tree:", tree.height())
+    print("Total nodes:", tree.count_nodes())
