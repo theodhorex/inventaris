@@ -40,22 +40,62 @@ class BinaryTree:
         return levels
       
     def insert(self, value):
-        pass
+        self._insert(self.root, value)
 
     def update(self, old_value, new_value):
-        pass
+        self._update_node(self.root, old_value, new_value)
         
     def delete(self, value):
-        pass
+        self.root = self._delete_node(self.root, value)
         
     def _insert(self, node, value):
-        pass
+        if node is None:
+            return BinaryTreeNode(value)
+        
+        if value < node.value:
+            node.left = self._insert(node.left, value)
+        else:
+            node.right = self._insert(node.right, value)
+        
+        return node
       
     def _update_node(self, node, old_value, new_value):
-        pass
+        if node is None:
+            return None
+        
+        if old_value < node.value:
+            node.left = self._update_node(node.left, old_value, new_value)
+        elif old_value > node.value:
+            node.right = self._update_node(node.right, old_value, new_value)
+        else:
+            node.value = new_value
+        
+        return node
     
     def _delete_node(self, node, value):      
-        pass
+        if node is None:
+            return node
+        
+        if value < node.value:
+            node.left = self._delete_node(node.left, value)
+        elif value > node.value:
+            node.right = self._delete_node(node.right, value)
+        else:
+            # Case 1: No child (leaf node)
+            if node.left is None and node.right is None:
+                node = None
+            # Case 2: One child (left or right)
+            elif node.left is None:
+                node = node.right
+            elif node.right is None:
+                node = node.left
+            # Case 3: Two children
+            else:
+                min_node = self._find_min(node.right)
+                node.value = min_node.value
+                node.right = self._delete_node(node.right, min_node.value)
+        
+        return node
 
     def _find_min(self, node):
         while node.left:
@@ -63,10 +103,15 @@ class BinaryTree:
         return node
     
     def show_leaf_nodes(self):
-        pass
-      
+        leaf_nodes = self._find_leaf_nodes(self.root)
+        print("Leaf nodes:", leaf_nodes)
+
     def _find_leaf_nodes(self, node):
-        pass
+        if node is None:
+            return []
+        if node.left is None and node.right is None:
+            return [node.value]
+        return self._find_leaf_nodes(node.left) + self._find_leaf_nodes(node.right)
 
 # Contoh penggunaan:
 sample_tree = BinaryTree(10)
@@ -99,4 +144,5 @@ sample_tree.delete(4)
 print("\nTree setelah menghapus 4:")
 sample_tree.visualize()
 
+# Show leaf nodes
 sample_tree.show_leaf_nodes()
