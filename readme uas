@@ -11,3 +11,135 @@ Lengkapilah implementasi Binary Tree berikut agar dapat menyimpan bilangan integ
   - Node yang akan dihapus memiliki dua child node, sehingga node pengganti diambil dari node terkecil dari subtree sebelah kanan
 - update : melakukan update berdasarkan nilai yang diinputkan pada parameter pertama dan digantikan dengan nilai baru dari parameter kedua.
 - tampilLeaf : menampilkan leaf node dari tree
+
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+class BinaryTree:
+    def __init__(self):
+        self.root = None
+
+    # Insert method to insert data into the BST
+    def insert(self, root, data):
+        if root is None:
+            return Node(data)
+        
+        # Rule for left and right nodes
+        if data < root.data:
+            root.left = self.insert(root.left, data)
+        else:
+            root.right = self.insert(root.right, data)
+        
+        return root
+    
+    def insert_data(self, data):
+        if self.root is None:
+            self.root = Node(data)
+        else:
+            self.root = self.insert(self.root, data)
+
+    # Method to delete a node from the tree
+    def delete(self, root, data):
+        if root is None:
+            return root
+
+        # Find the node to be deleted
+        if data < root.data:
+            root.left = self.delete(root.left, data)
+        elif data > root.data:
+            root.right = self.delete(root.right, data)
+        else:
+            # Node with only one child or no child
+            if root.left is None:
+                return root.right
+            elif root.right is None:
+                return root.left
+            
+            # Node with two children: Get the inorder successor (smallest in the right subtree)
+            root.data = self.min_value_node(root.right).data
+            # Delete the inorder successor
+            root.right = self.delete(root.right, root.data)
+        
+        return root
+    
+    # Helper function to find the minimum value node in a tree
+    def min_value_node(self, node):
+        current = node
+        while current.left is not None:
+            current = current.left
+        return current
+
+    # Method to update a node's value
+    def update(self, root, old_value, new_value):
+        if root is None:
+            return root
+
+        if old_value < root.data:
+            root.left = self.update(root.left, old_value, new_value)
+        elif old_value > root.data:
+            root.right = self.update(root.right, old_value, new_value)
+        else:
+            root.data = new_value  # Update the value
+
+        return root
+
+    def update_data(self, old_value, new_value):
+        self.root = self.update(self.root, old_value, new_value)
+
+    # Method to print leaf nodes
+    def tampil_leaf(self, root):
+        if root is None:
+            return
+        if root.left is None and root.right is None:
+            print(root.data, end=" ")
+        else:
+            self.tampil_leaf(root.left)
+            self.tampil_leaf(root.right)
+
+    def tampil_leaf_data(self):
+        self.tampil_leaf(self.root)
+        print()  # New line after displaying leaf nodes
+
+    # Helper function to print the tree (Inorder traversal)
+    def inorder(self, root):
+        if root:
+            self.inorder(root.left)
+            print(root.data, end=" ")
+            self.inorder(root.right)
+
+# Main Code
+if __name__ == "__main__":
+    tree = BinaryTree()
+
+    # Insert data
+    tree.insert_data(50)
+    tree.insert_data(30)
+    tree.insert_data(20)
+    tree.insert_data(40)
+    tree.insert_data(70)
+    tree.insert_data(60)
+    tree.insert_data(80)
+
+    # Inorder Traversal (Just to see the current state of the tree)
+    print("Inorder Traversal of the tree:")
+    tree.inorder(tree.root)
+    print()
+
+    # Delete a node (Node with value 20, which is a leaf node)
+    tree.root = tree.delete(tree.root, 20)
+    print("Inorder Traversal after deleting 20:")
+    tree.inorder(tree.root)
+    print()
+
+    # Update a node (Change value 30 to 35)
+    tree.update_data(30, 35)
+    print("Inorder Traversal after updating 30 to 35:")
+    tree.inorder(tree.root)
+    print()
+
+    # Display leaf nodes
+    print("Leaf nodes in the tree:")
+    tree.tampil_leaf_data()
