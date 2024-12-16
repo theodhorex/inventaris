@@ -1,0 +1,13 @@
+[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/VOzVRXOK)
+# Soal UAS
+Lengkapilah implementasi Binary Tree berikut agar dapat menyimpan bilangan integer dengan ketentuan sebagai berikut :
+- Insert : melakukan insert data dengan dengan aturan sebagai berikut:
+  -  Setiap node child di sebelah kiri nilainya harus lebih kecil dari parent-nya
+  -  Setiap node child di sebelah kanan nilainya harus lebih besar dari parent-nya
+  -  Sub-tree di sebelah kanan dan kiri harus memenuhi ketentuan 1 dan 2
+- delete : melakukan delete data dengan aturan sebagai berikut :
+  - Node yang akan dihapus tidak memiliki child -> menghapus leaf node.
+  - Node yang akan dihapus hanya memiliki satu child node (di kiri atau kanan), sehingga child node menggantikan posisi node yang dihapus
+  - Node yang akan dihapus memiliki dua child node, sehingga node pengganti diambil dari node terkecil dari subtree sebelah kanan
+- update : melakukan update berdasarkan nilai yang diinputkan pada parameter pertama dan digantikan dengan nilai baru dari parameter kedua.
+- tampilLeaf : menampilkan leaf node dari tree
