@@ -46,3 +46,70 @@ if __name__ == "__main__":
     # Height and Node Count
     print("Height binary tree:", tree.height())
     print("Total nodes:", tree.count_nodes())
+[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/sJHQcu4O)
+# Aplikasi management  data karyawan
+Anda ditugaskan untuk membuat aplikasi sederhana yang akan digunakan untuk mengorganisasi dan mengelola ID karyawan di sebuah perusahaan dengan menggunakan binary tree. Setiap karyawan memiliki ID unik berupa bilangan bulat. Binary tree akan memungkinkan pencarian, penambahan, dan penghapusan ID-ID tersebut dengan efisien.
+
+Program Anda harus mencakup hal-hal berikut:
+
+1. **Implementasi Binary Tree:**
+   - Buat kelas `Node` untuk merepresentasikan node dalam binary tree. Setiap node harus menyimpan:
+     - Data (ID karyawan).
+     - Referensi ke anak kiri dan anak kanan.
+   - Buat class `BinaryTree` untuk mengelola tree. Implementasikan metode berikut:
+     - `insert(data)`: Menambahkan data karyawan baru dengan data tertentu ke dalam binary tree dan mengembalikan nilai True jika proses insert berhasil. ID karyawan yang kecil diletakan dikanan dan yang lebih besar dari root dikiri. 
+     - ID karyawan yang sudah ada tidak akan diinputkan kembali.
+     - `inorder_traversal()`: Melakukan traversal *inorder* dan mengembalikan hasilnya dalam bentuk daftar.    
+     - `find(data)`: Mencari node dengan data tertentu dan mengembalikan apakah data tersebut ditemukan atau tidak.
+     - `delete(data)`: Menghapus node dengan data tertentu dari binary tree.
+     - `height()`: Mengembalikan tinggi dari binary tree.
+     - `count_nodes()`: Mengembalikan jumlah total node dalam binary tree.
+
+2. **Implementasi Studi Kasus:**
+   - Bangun binary tree menggunakan ID karyawan berikut: `50, 30, 70, 20, 40, 60, 80`.
+   - Lakukan operasi berikut pada binary tree:
+     - Tampilkan ID menggunakan **Inorder Traversal**  
+     - Cari ID berikut:
+       - `60` (harus ditemukan).
+       - `90` (tidak ditemukan).
+     - Hapus ID berikut:
+       - `50` (root node).
+     - Tampilkan ID kembali menggunakan **inorder traversal** setelah penghapusan.
+     - Temukan tinggi dari tree.
+     - Hitung jumlah total node dalam tree.
+---
+
+### **Panduan Pengerjaan:**
+1. **Pengumpulan Kode:**  
+   - Silahkan mengerjakan langsung pada file `BinaryTree.py`.
+   - Untuk percobaan, silahkan langsung mengeksekusi file `test.py`
+---
+
+### **Kriteria Penilaian:**
+
+| **Kriteria**                 | **Poin** |
+|------------------------------|----------|
+| Kebenaran Implementasi       | 50      |
+| Test Studi Kasus berhasil    | 50       |
+
+---
+
+### **Hasil yang Diharapkan (Output Contoh):**
+
+1. **Inorder Traversal:**  
+   `20, 30, 40, 50, 60, 70, 80`
+
+3. **Pencarian:**
+   - ID `60`: "Ditemukan."
+   - ID `90`: "Tidak ditemukan."
+
+4. **Inorder Traversal Setelah Penghapusan Root (50):**  
+   `20, 30, 40, 60, 70, 80`
+
+5. **Tinggi Tree:**  
+   `3`
+
+6. **Jumlah Node:**  
+   `6`
+
+**Selamat Mengerjakan!**
