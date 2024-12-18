@@ -1,1 +1,53 @@
-soal
+[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/liAnSUSo)
+# Ujian Akhir Semester
+Lengkapi program ini dengan ketentuan sebagai berikut:  
+- Pengguna melakukan registrasi pada form registerUser.html, bila proses registrasi berhasil akan redirect ke /success/<namapengguna>
+- Pengguna melakukan login pada from loginform.html dengan memasukan username dan password yang sudah teregistrasi pada database. Bila proses registrasi berhasil akan redirect ke /success/<namapengguna>
+- Setiap form input harus menggunakan style yang telah disiapkan (styles.css)
+
+Hint :
+- Eksekusi script python UserRegistration.py untuk menjalankan backend.
+- Untuk melihat data mahasiswa yang ada pada database, silahkan mengakses link http://127.0.0.1:5000/userlist. Untuk mengakses link tersebut, pastikan Flask telah dijalankan.  
+- form login dan register user dapat dilihat dengan membuka loginform.html dan registerUser.html pada browser 
+
+from flask import Flask, redirect, render_template, request, url_for
+import sqlite3
+
+app = Flask(__name__)
+
+@app.route('/success/<name>', methods=['GET'] )
+def success(name):
+    return 'Proses data user : %s berhasil' % name
+
+@app.route('/userlist')
+def userList():
+    users = getAllUser()
+    print(users)
+    return render_template('userlist.html', title='Daftar User', listuser=users)
+
+@app.route("/login", methods=['POST']) 
+def login():
+    pass
+
+@app.route("/registeruser", methods=['POST']) 
+def registeruser():
+    pass    
+
+def getAllUser():
+    # Open database connection
+    connection = sqlite3.connect("user.db")
+    cursor = connection.cursor()
+    # Execute the query
+    cursor.execute("SELECT realname, pob, username, password FROM user;")    
+
+    # convert it into dictionary
+    desc = cursor.description
+    column_names = [col[0] for col in desc]
+    data = [dict(zip(column_names, row))  
+        for row in cursor.fetchall()]
+    # Close the connection
+    connection.close()
+    return data
+
+if __name__ == '__main__':
+    app.run()
