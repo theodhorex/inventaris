@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <header style="display: flex; align-items: center;">
         <a href="https://ukdw.ac.id" target="_blank">
@@ -23,45 +25,119 @@
             </a>
         </center>
 
-        <form style="display: flex; justify-content: center;" action="">
-            <fieldset>
-                <legend style="text-align: center; font-weight: bold;">Informasi Pribadi</legend>
+        <form action="hasil.html" method="POST">
+            <div style="display: flex; justify-content: center;">
+                <fieldset>
+                    <legend style="text-align: center; font-weight: bold;">Informasi Pribadi</legend>
 
-                <label for="namaLengkap">Nama Lengkap:</label>
-                <input type="text" name="namaLengkap">
+                    <table style="width: 100%;">
+                        <tr>
+                            <td><label for="namaLengkap">Nama Lengkap:</label></td>
+                            <td><input type="text" name="namaLengkap" required max="50"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="nim">NIM:</label></td>
+                            <td><input type="text" name="nim" required max="8"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="jenisKelamin">Jenis Kelamin:</label></td>
+                            <td>
+                                <input type="radio" name="jenisKelamin" value="Laki-laki">Laki-laki
+                                <input type="radio" name="jenisKelamin" value="Perempuan">Perempuan
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for="prodi">Program Studi:</label></td>
+                            <td>
+                                <select name="prodi" id="prodi" required>
+                                    <option value="" selected disabled>--Pilih Program Studi--</option>
+                                    <option value="informatika">Informatika</option>
+                                    <option value="sistemInformasi">Sistem Informasi</option>
+                                    <option value="arsitektur">Arsitektur</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for="semester">Semester Saat Ini:</label></td>
+                            <td><input name="semester" type="number" required min="1" max="8"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="tanggalLahir">Tanggal Lahir:</label></td>
+                            <td><input name="tanggalLahir" type="date" required></td>
+                        </tr>
+                        <tr>
+                            <td><label for="suratPengantar">Upload Surat Pengantar:</label></td>
+                            <td><input name="suratPengantar" type="file" required accept="docx"></td>
+                        </tr>
+                    </table>
+                </fieldset>
 
-                <br>
+                <fieldset style="height: fit-content;">
+                    <legend style="text-align: center; font-weight: bold;">Bidang dan Motivasi</legend>
 
-                <label for="nim">NIM:</label>
-                <input type="text" name="nim">
+                    <table>
+                        <tr>
+                            <td>
+                                <label for="bidangMagang">Bidang Magang yang Diminati:</label>
+                            </td>
+                            <td>
+                                <input type="checkbox" value="it">IT
+                                <input type="checkbox" value="desain">Desain
+                                <input type="checkbox" value="marketing">Marketing
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </table>
 
-                <br>
+                    
+                    
 
-                <label for="jenisKelamin">Jenis Kelamin:</label>
-                <input type="radio" name="jenisKelamin" value="Laki-laki">Laki-laki
-                <input type="radio" name="jenisKelamin" value="Perempuan">Perempuan
+                    <br>
 
-                <br>
+                    <label for="alasanMagang">Alasan Mengikuti Magang:</label>
+                    <textarea name="alasanMagang" id="alasanMagang" required></textarea>
 
-                <label for="prodi">Program Studi</label>
-                <select name="prodi" id="prodi">
-                    <option value="" selected>--Pilih Program Studi--</option>
-                    <option value="informatika">Informatika</option>
-                    <option value="sistemInformasi">Sistem Informasi</option>
-                    <option value="arsitektur">Arsitektur</option>
-                </select>
+                    <br>
 
-                <br>
+                    <label for="harapanMagang">Harapan Setelah Magang:</label>
+                    <textarea name="harapanMagang" id="harapanMagang" required></textarea>
+                </fieldset>
 
-                <label for=""></label>
-            </fieldset>
-            <fieldset>
-                <legend style="text-align: center; font-weight: bold;">Informasi Pribadi</legend>
-            </fieldset>
-            <fieldset>
-                <legend style="text-align: center; font-weight: bold;">Informasi Pribadi</legend>
-            </fieldset>
+                <fieldset style="height: fit-content;">
+                    <legend style="text-align: center; font-weight: bold;">Kontak</legend>
+
+                    <label for="email">Email:</label>
+                    <input name="email" type="email" required>
+
+                    <br>
+
+                    <label for="akunLinkedin">Akun LinkedIn (Opsional):</label>
+                    <input name="akunLinkedin" type="url" required>
+
+                    <br>
+
+                    <label for="domisili">Alamat Domisili</label>
+                    <textarea name="domisili" id="domisili" required></textarea>
+                </fieldset>
+            </div>
+
+            <center>
+                <button type="submit">Daftar</button>
+                <button type="reset">Reset</button>
+            </center>
         </form>
     </main>
+
+    <hr>
+
+    <footer>
+        <i style="text-align: right;">
+            <h3>Aurelio Theodhore Riyanto - 71230980</h3>
+        </i>
+    </footer>
 </body>
+
 </html>
