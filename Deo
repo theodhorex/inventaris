@@ -1,1 +1,80 @@
 
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Stranger</title>
+    <style>
+        body {
+            background-color: yellow;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+        }
+        h1 {
+            color: blue;
+        }
+        a {
+            color: orange;
+            text-decoration: none;
+        }
+        .details {
+            background-color: white;
+            padding: 10px;
+            border: 3px dashed green;
+        }
+        .synopsis {
+            background-color: red;
+            color: white;
+            padding: 10px;
+            border: 2px solid blue;
+        }
+        .bold {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Doctor Stranger</h1>
+        <a href="#">From DramaWiki</a>
+        
+        <h2>Details</h2>
+        <div class="details">
+            <img src="doctor_stranger_poster.jpg" alt="Doctor Stranger Poster" width="200">
+            <p><span class="bold">Title:</span> Dakteo Yibangin</p>
+            <p><span class="bold">Also known as:</span> Doctor Foreigner / Dr. Stranger</p>
+            <p><span class="bold">Genre:</span> Medical, melodrama, romance, action, political</p>
+            <p><span class="bold">Episodes:</span> 20</p>
+            <p><span class="bold">Broadcast network:</span> SBS</p>
+        </div>
+
+        <h2>Synopsis</h2>
+        <div class="synopsis">
+            <p>The series will revolve around <span class="bold">Park Hoon</span>, a South Korean who was captured with his father and grew up in North Korea. He is trained to become a genius doctor, and though Park Hoon lands a job at the best South Korean hospital after defecting, he is treated as a "foreigner." To find his lost North Korean first love, Song Jae Hee, he does anything to make money.</p>
+        </div>
+
+        <h2>Main Cast</h2>
+        <ul>
+            <li>Lee Jong Suk as Park Hoon</li>
+            <li>Goo Seung Hyun as child Park Hoon</li>
+            <li>Jin Se Yun as Song Jae Hee / Han Seung Hee</li>
+            <li>Seo Ji Hee as child Song Jae Hee</li>
+            <li>Park Hae Jin as Han Jae Joon / Lee Sung Hoon</li>
+            <li>Kim Ji Hoon as child Han Jae Joon</li>
+            <li>Kang So Ra as Oh Soo Hyun</li>
+            <li>Shin Soo Yun as child Oh Soo Hyun</li>
+        </ul>
+
+        <h2>Awards</h2>
+        <ul>
+            <li>2014 SBS Drama Awards: Top Ten Stars Award, Special Award (Lee Jong Suk)</li>
+            <li>2014 APAN Star Awards: Popularity Award (Jin Se Yun)</li>
+        </ul>
+    </div>
+</body>
+</html>
