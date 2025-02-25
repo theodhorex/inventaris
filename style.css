@@ -1,56 +1,73 @@
-body {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+html {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    padding: 0;
+    margin: 0;
+    background-image: url('image/body_background.jpg');
 }
 
-h1 {
-    font-size: 40px;
+#judul {
+    color: white;
+    text-align: center;
 }
 
-h1, h2 {
-    background-color: #f59a44;
+.food-table {
+    background-color: #f7f7f7;
 }
 
-table {
-    border-bottom: 5px;
-    border-top: 5px;
-    border-left: 10px;
-    border-right: 10px;
-    border-color: #bedead;
-    border-style: solid;
+.food-desc {
+    text-align: center;
+    background-color: #f7f7f7;
 }
 
-table {
-    border: 10px ridge #bedead;
+.food-pic {
+    background-color: #f7f7f7;
 }
 
-p {
-    background: #ecd4c2;
-    border: 20px solid #ff7f50;
-    background-clip: content-box;
-    padding: 10px;
+.food-name {
+    background-color: #f7f7f7;
+}
+
+tr:nth-child(2) td:nth-child(1){
+    background-color: #FFD700;
+}
+
+tr:nth-child(6) td:nth-child(1){
+    background-color: #FFD700;
+}
+
+tr:nth-child(3) td:nth-child(2){
+    background-color: #FFD700;
+}
+
+tr:nth-child(5) td:nth-child(2){
+    background-color: #FFD700;
+}
+
+tr:nth-child(4) td:nth-child(3){
+    background-color: #FFD700;
+}
+
+th {
+    background-color: yellow;
 }
 
 ul {
-    margin: 20px 50px 30px 50px;
-    color: brown;
-    background-color: #ecd4c2;
+    color: blue;
+    text-align: left;
 }
 
-div {
-    background-color: #ecd4c2;
-    border: 2px solid #ff7f50;
-    padding: 20px;
+a:link {
+    background-color: pink;
+    color: #323232;
 }
 
-table, th, tr, td {
-    border: 1px solid black;
-    border-collapse: collapse;
+a:hover {
+    background-color: hotpink;
+    color: #f7f7f7;
 }
 
-tr:nth-child(even) {
-    background-color: aqua;
-}
-
-tr:nth-child(odd) {
-    background-color: lightcoral;
+.footer {
+    color: #f7f7f7;
+    text-shadow: white;
+    text-align: center;
 }
