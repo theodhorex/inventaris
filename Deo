@@ -1,60 +1,112 @@
 package org.ug4.soal1;
 
 public class Bus extends Vehicle {
-    private double fares = 5000; // Biaya sekali perjalanan
-    private double profit = 0; // Keuntungan bus
+    private String[] route;
+    private double fares;
+    private double profit;
 
-    public Bus(String name, Driver driver, String[] route, int maxCapacity) {
-        super(name, driver, route, maxCapacity);
+    public Bus(String name, Driver driver, String[] route, double fares) {
+        super(name, driver, 25);
+        this.route = route;
+        this.fares = fares;  // Tarif bus
+        this.profit = 0;
+
     }
 
-    // Mengecek apakah saldo penumpang cukup untuk perjalanan
+    public String[] getRoute() {
+        return route;
+    }
+
+    public void dropPassengers(String destination, Passenger passenger) {
+        if (passenger.getDestiny() != null && passenger.getDestiny().equalsIgnoreCase(destination)) {
+            passengers.remove(passenger);
+            System.out.println("Perjalanan telah sampai di tujuan, mohon " + passenger.getName() + " untuk turun");
+        }
+    }
+
+    @Override
+    public int getUsedCapacity() {
+        return passengers.size(); // Menggunakan ukuran daftar penumpang sebagai jumlah sisa penumpang
+    }
+
+
+    public boolean takePassengers(Passenger passenger) {
+        if (usedCapacity < maxCapacity && passenger.getBalance() >= fares) {
+            passengers.add(passenger);
+            usedCapacity++;
+            passenger.deductBalance(fares);
+            profit += fares;
+            return true;
+        }
+        return false;
+    }
+
+
+
+    public void topUpBalance(double amount, Passenger passenger) {
+        passenger.topUp(amount);
+    }
+
     public boolean checkPassengersBalance(Passenger passenger) {
         return passenger.getBalance() >= fares;
     }
 
-    // Proses order perjalanan
-    public void proceedOrder(String destination, Passenger passenger) {
-        if (usedCapacity < maxCapacity) {
-            usedCapacity++;
-            passenger.setBalance(passenger.getBalance() - fares); // Kurangi saldo penumpang
-            profit += fares; // Tambah keuntungan bus
-            passenger.setDestination(destination); // Set destinasi penumpang
-            System.out.println(passenger.getName() + " telah memilih tujuan ke " + destination);
-        } else {
-            System.out.println("Kapasitas bus penuh, tidak bisa menaikkan penumpang lagi.");
-        }
-    }
-
-    // Top up saldo penumpang
-    public void topUpBalance(double amount, Passenger passenger) {
-        passenger.setBalance(passenger.getBalance() + amount);
-        System.out.println("Saldo " + passenger.getName() + " berhasil di-top up sebesar " + amount);
-    }
-
-    // Membatalkan perjalanan
-    public void cancelOrder(Passenger passenger) {
-        System.out.println("Perjalanan dibatalkan oleh " + passenger.getName());
-    }
-
-    // Menurunkan penumpang sesuai destinasi
-    public void dropPassengers(String route, Passenger passenger) {
-        if (passenger.getDestination() != null && passenger.getDestination().equalsIgnoreCase(route)) {
-            usedCapacity--;
-            System.out.println(passenger.getName() + " telah turun di " + route);
-        }
-    }
-
-    // Mendapatkan keuntungan
     public double getProfit() {
         return profit;
     }
+
+    public void setRoute(String[] route) {
+        this.route = route;
+    }
+
+    public double getFares() {
+        return fares;
+    }
+
+    public void setFares(double fares) {
+        this.fares = fares;
+    }
+
+    public void setProfit(double profit) {
+        this.profit = profit;
+    }
+
+    // Menambahkan fitur pembatalan pesanan
+    public void cancelOrder(Passenger passenger) {
+        if (passengers.contains(passenger)) {
+            passengers.remove(passenger);
+            usedCapacity--;
+            passenger.topUp(fares); // Mengembalikan saldo penumpang
+            profit -= fares; // Mengurangi keuntungan karena pembatalan
+            System.out.println("Pesanan " + passenger.getName() + " telah dibatalkan.");
+        } else {
+            System.out.println("Pesanan tidak ditemukan.");
+        }
+    }
+
+    // Menambahkan fitur konfirmasi perjalanan
+    public boolean proceedOrder(String destiny, Passenger passenger) {
+        if (!passengers.contains(passenger) && passenger.getBalance() >= fares) {
+            passenger.setDestiny(destiny);
+            passengers.add(passenger);
+            usedCapacity++;
+            passenger.deductBalance(fares);
+            profit += fares;
+            System.out.println(passenger.getName() + " telah dikonfirmasi dalam perjalanan.");
+            return true;
+        } else {
+            System.out.println("Pesanan tidak dapat diproses.");
+            return false;
+        }
+    }
+
 }
+
 
 
 package org.ug4.soal1;
 
-class Driver extends Person {
+public class Driver extends Person {
     private String licenseID;
 
     public Driver(String name, String gender, int age, String licenseID) {
@@ -65,12 +117,131 @@ class Driver extends Person {
 
 
 
+
+package org.ug4.soal1;
+
+import java.util.Objects;
+import java.util.Scanner;
+
+
+import java.util.Scanner;
+
+public class Main {
+    static final Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        Passenger adit = new Passenger("Adit", "Pria", 22, "adit@gmail.com", 100000);
+        Passenger surya = new Passenger("Surya", "Pria", 22, "surya@gmail.com", 20000);
+        Passenger krismon = new Passenger("Krismon", "Pria", 22, "krismon@gmail.com", 100);
+        Driver pakTole = new Driver("Pak Tole", "pria", 35, "LID04298");
+        initiateMenu(adit, surya, krismon, pakTole);
+    }
+
+    public static void initiateMenu(Passenger penumpang1, Passenger penumpang2, Passenger penumpang3, Driver driver1) {
+        String[] routes = {"Kampus UKDW", "Asrama Omah Babadan", "Asrama Teologi"};
+        Bus dutaBus = new Bus("Duta Bus", driver1, routes, 1000);
+
+        System.out.println("Duta Bus");
+        menu(penumpang1, dutaBus);
+        menu(penumpang2, dutaBus);
+        menu(penumpang3, dutaBus);
+
+        //pengecekan pada setiap pemberhentian bus
+        for (int i = 0; i < 3; i++) {
+            System.out.println("Pemberhentian ke " + (i + 1) + " telah sampai pada " + dutaBus.getRoute()[i]);
+            dutaBus.dropPassengers(dutaBus.getRoute()[i], penumpang1);
+            dutaBus.dropPassengers(dutaBus.getRoute()[i], penumpang2);
+            dutaBus.dropPassengers(dutaBus.getRoute()[i], penumpang3);
+            System.out.println("Sisa penumpang sebanyak " + dutaBus.getUsedCapacity() + " orang");
+            System.out.println("============================================");
+            System.out.println();
+            System.out.println();
+        }
+        //menampilkan keuntungan yang diperoleh
+        System.out.println("Keuntungan hari ini");
+        System.out.println("Keuntungan sebesar : Rp " + dutaBus.getProfit() + "0;-");
+    }
+
+    public static void menu(Passenger passenger, Bus bus) {
+        System.out.println("Selamat Datang Kak " + passenger.getName());
+
+        if (bus.checkPassengersBalance(passenger)) {
+            showDestination(bus, passenger);
+        } else {
+            topUpMenu(bus, passenger);
+        }
+        System.out.println("============================================\n\n\n");
+    }
+
+    public static void showDestination(
+            Bus bus,
+            Passenger passenger
+    ) {
+        String destiny;
+        int i = 0;
+        System.out.println("Pilihan rute perjalanan");
+        for (String rute : bus.getRoute()) {
+            i++;
+            System.out.print(i + ". " + rute + "\n");
+        }
+        System.out.print("masukan destinasi perjalanan anda : ");
+        destiny = scanner.nextLine();
+        //mengecek apakah input sudah sesuai atau belum
+        if (destiny.isEmpty()) {
+            System.out.println("Anda belum memasukan tujuan");
+        } else {
+            boolean berhasil = false;
+            for (String route : bus.getRoute()) {
+                if (route.equalsIgnoreCase(destiny)) {
+                    bus.proceedOrder(destiny, passenger);
+                    berhasil = true;
+                    break;
+                }
+            }
+            if (!berhasil) {
+                System.out.println("Maaf tujuan yang anda masukan tidak sesuai");
+            }
+        }
+    }
+
+    public static void topUpMenu(
+            Bus bus,
+            Passenger passenger
+    ) {
+        String choice;
+        String balance;
+        System.out.println("Anda ingin top up ?");
+        System.out.print("jawaban anda (ya/tidak): ");
+        choice = scanner.nextLine();
+
+        if (choice.equalsIgnoreCase("ya")) {
+            System.out.print("Masukan nominal top up : ");
+
+            balance = scanner.nextLine();
+            if (balance.isEmpty()) {
+                System.out.println("Kamu belum memasukan nominal top up");
+                System.out.println("\n\n");
+            } else {
+                bus.topUpBalance(Double.valueOf(balance), passenger);
+                showDestination(bus, passenger);
+            }
+        } else if (choice.equalsIgnoreCase("tidak")) {
+            bus.cancelOrder(passenger);
+        } else {
+            System.out.println("Input yang anda masukan salah");
+            System.out.println("\n\n");
+        }
+    }
+}
+
+
+
 package org.ug4.soal1;
 
 public class Passenger extends Person {
     private String email;
+    private String destiny;
     private double balance;
-    private String destination;
 
     public Passenger(String name, String gender, int age, String email, double balance) {
         super(name, gender, age);
@@ -78,26 +249,35 @@ public class Passenger extends Person {
         this.balance = balance;
     }
 
+    public String getDestiny() {
+        return destiny;
+    }
+
+    public void setDestiny(String destiny) {
+        this.destiny = destiny;
+    }
+
     public double getBalance() {
         return balance;
     }
 
-    public void setBalance(double balance) {
-        this.balance = balance;
+    public void deductBalance(double amount) {
+        this.balance -= amount;
     }
 
-    public String getDestination() {
-        return destination;
-    }
-
-    public void setDestination(String destination) {
-        this.destination = destination;
+    public void topUp(double amount) {
+        this.balance += amount;
     }
 }
 
+
+
 package org.ug4.soal1;
 
-abstract class Person {
+import java.util.ArrayList;
+
+// Person.java
+public class Person {
     protected String name;
     protected String gender;
     protected int age;
@@ -117,26 +297,62 @@ abstract class Person {
 
 package org.ug4.soal1;
 
-class Vehicle {
+import java.util.ArrayList;
+import java.util.List;
+
+// Vehicle.java
+public class Vehicle {
     protected String name;
     protected Driver driver;
-    protected String[] route;
-    protected int usedCapacity = 0;
     protected int maxCapacity;
+    protected int usedCapacity;
+    protected ArrayList<Passenger> passengers;
 
-    public Vehicle(String name, Driver driver, String[] route, int maxCapacity) {
+    public Vehicle(String name, Driver driver, int maxCapacity) {
         this.name = name;
         this.driver = driver;
-        this.route = route;
         this.maxCapacity = maxCapacity;
+        this.usedCapacity = 0;
+        this.passengers = new ArrayList<>();
     }
 
-    public String[] getRoute() {
-        return route;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Driver getDriver() {
+        return driver;
+    }
+
+    public void setDriver(Driver driver) {
+        this.driver = driver;
+    }
+
+    public int getMaxCapacity() {
+        return maxCapacity;
+    }
+
+    public void setMaxCapacity(int maxCapacity) {
+        this.maxCapacity = maxCapacity;
     }
 
     public int getUsedCapacity() {
         return usedCapacity;
     }
-}
 
+    public void setUsedCapacity(int usedCapacity) {
+        this.usedCapacity = usedCapacity;
+    }
+
+    public ArrayList<Passenger> getPassengers() {
+        return passengers;
+    }
+
+    public void setPassengers(ArrayList<Passenger> passengers) {
+        this.passengers = passengers;
+    }
+}
