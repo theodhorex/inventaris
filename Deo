@@ -1,55 +1,142 @@
+package org.ug4.soal1;
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
+public class Bus extends Vehicle {
+    private double fares = 5000; // Biaya sekali perjalanan
+    private double profit = 0; // Keuntungan bus
+
+    public Bus(String name, Driver driver, String[] route, int maxCapacity) {
+        super(name, driver, route, maxCapacity);
+    }
+
+    // Mengecek apakah saldo penumpang cukup untuk perjalanan
+    public boolean checkPassengersBalance(Passenger passenger) {
+        return passenger.getBalance() >= fares;
+    }
+
+    // Proses order perjalanan
+    public void proceedOrder(String destination, Passenger passenger) {
+        if (usedCapacity < maxCapacity) {
+            usedCapacity++;
+            passenger.setBalance(passenger.getBalance() - fares); // Kurangi saldo penumpang
+            profit += fares; // Tambah keuntungan bus
+            passenger.setDestination(destination); // Set destinasi penumpang
+            System.out.println(passenger.getName() + " telah memilih tujuan ke " + destination);
+        } else {
+            System.out.println("Kapasitas bus penuh, tidak bisa menaikkan penumpang lagi.");
+        }
+    }
+
+    // Top up saldo penumpang
+    public void topUpBalance(double amount, Passenger passenger) {
+        passenger.setBalance(passenger.getBalance() + amount);
+        System.out.println("Saldo " + passenger.getName() + " berhasil di-top up sebesar " + amount);
+    }
+
+    // Membatalkan perjalanan
+    public void cancelOrder(Passenger passenger) {
+        System.out.println("Perjalanan dibatalkan oleh " + passenger.getName());
+    }
+
+    // Menurunkan penumpang sesuai destinasi
+    public void dropPassengers(String route, Passenger passenger) {
+        if (passenger.getDestination() != null && passenger.getDestination().equalsIgnoreCase(route)) {
+            usedCapacity--;
+            System.out.println(passenger.getName() + " telah turun di " + route);
+        }
+    }
+
+    // Mendapatkan keuntungan
+    public double getProfit() {
+        return profit;
+    }
 }
 
-h1 {
-    text-align: center;
-    background-color: #0073e6;
-    color: white;
-    padding: 15px;
+
+package org.ug4.soal1;
+
+class Driver extends Person {
+    private String licenseID;
+
+    public Driver(String name, String gender, int age, String licenseID) {
+        super(name, gender, age);
+        this.licenseID = licenseID;
+    }
 }
 
-table {
-    width: 90%;
-    margin: 20px auto;
-    border-collapse: collapse;
-    background-color: white;
+
+
+package org.ug4.soal1;
+
+public class Passenger extends Person {
+    private String email;
+    private double balance;
+    private String destination;
+
+    public Passenger(String name, String gender, int age, String email, double balance) {
+        super(name, gender, age);
+        this.email = email;
+        this.balance = balance;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
 }
 
-table, th, td {
-    border: 1px solid #ddd;
+package org.ug4.soal1;
+
+abstract class Person {
+    protected String name;
+    protected String gender;
+    protected int age;
+
+    public Person(String name, String gender, int age) {
+        this.name = name;
+        this.gender = gender;
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
 }
 
-th, td {
-    padding: 12px;
-    text-align: left;
+
+
+package org.ug4.soal1;
+
+class Vehicle {
+    protected String name;
+    protected Driver driver;
+    protected String[] route;
+    protected int usedCapacity = 0;
+    protected int maxCapacity;
+
+    public Vehicle(String name, Driver driver, String[] route, int maxCapacity) {
+        this.name = name;
+        this.driver = driver;
+        this.route = route;
+        this.maxCapacity = maxCapacity;
+    }
+
+    public String[] getRoute() {
+        return route;
+    }
+
+    public int getUsedCapacity() {
+        return usedCapacity;
+    }
 }
 
-th {
-    background-color: #0073e6;
-    color: white;
-}
-
-tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-tr:hover {
-    background-color: #f1f1f1;
-}
-
-.td-highlight {
-    background-color: #ffeb3b;
-    font-weight: bold;
-}
-
-img {
-    width: 100px;
-    height: auto;
-    display: block;
-    margin: auto;
-}
