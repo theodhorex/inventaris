@@ -60,6 +60,48 @@ body {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-.profile-extra .profile-table  {
+.profile-extra .profile-table, th, td  {
     border: 1px solid black;
+    border-collapse: collapse;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.profile-extra .profile-table, th {
+    background-color: transparent;
+}
+
+.profile-table tr > td:nth-child(1) {
+    background-color: red;
+}
+
+
+
+footer {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+footer .social-buttons {
+    display: flex;
+    justify-content: center;
+}
+
+footer .social-buttons a {
+    margin: 0 5px;
+    text-decoration: none;
+    background-color: darkblue;
+    color: white;
+}
+
+footer .social-buttons a:hover {
+    background-color: lightblue;
+    color: #323232;
+}
+
+footer .footer {
+    text-align: center;
+    letter-spacing: 10px;
+    text-shadow: 2px 2px 5px black;
 }
