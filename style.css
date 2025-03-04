@@ -1,73 +1,91 @@
-html {
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    padding: 0;
+html, body {
     margin: 0;
-    background-image: url('image/body_background.jpg');
 }
 
-#judul {
+header {
+    background-color:#3674B5;
+    padding: 20px;
+    text-align: right;
+    border-bottom: #333 solid 3px;
+}
+
+footer {
+    background-color:#3674B5;
+    padding: 10px;
+    text-align: center;
+    border-top: #333 solid 3px;
     color: white;
+}
+
+main  {
     text-align: center;
 }
 
-.food-table {
-    background-color: #f7f7f7;
+header > a {
+    color: white;
+    margin-left: 20px;
+    text-decoration: none;
 }
 
-.food-desc {
+h1 {
+    color: #3674B5;
+}
+
+img {
+    height: 100px;
+}
+
+.section {
+    background-color: #A1E3F9;
+    margin: 20px;
     text-align: center;
-    background-color: #f7f7f7;
+    color: #333;
 }
 
-.food-pic {
-    background-color: #f7f7f7;
+tr:nth-child(1) > td:nth-child(1) .section {
+    border-top: double black 20px;
+    border-bottom: double black 20px;
+    border-right: black dotted 5px;
+    border-left: black dotted 5px;
+    border-radius: 20px 0px 0px 0px;
 }
 
-.food-name {
-    background-color: #f7f7f7;
-}
-
-tr:nth-child(2) td:nth-child(1){
-    background-color: #FFD700;
-}
-
-tr:nth-child(6) td:nth-child(1){
-    background-color: #FFD700;
-}
-
-tr:nth-child(3) td:nth-child(2){
-    background-color: #FFD700;
-}
-
-tr:nth-child(5) td:nth-child(2){
-    background-color: #FFD700;
-}
-
-tr:nth-child(4) td:nth-child(3){
-    background-color: #FFD700;
-}
-
-th {
-    background-color: yellow;
-}
-
-ul {
-    color: blue;
+td:nth-child(1) p {
     text-align: left;
 }
 
-a:link {
-    background-color: pink;
-    color: #323232;
+td:nth-child(2) p {
+    text-align: right;
 }
 
-a:hover {
-    background-color: hotpink;
-    color: #f7f7f7;
+tr:nth-child(1) > td:nth-child(2) .section {
+    border-top: dashed black 5px;
+    border-bottom: dashed black 5px;
+    border-right: black solid 5px;
+    border-left: black solid 5px;
+    border-radius: 0px 20px 0px 0px;
+}
+tr:nth-child(2) > td:nth-child(1) .section {
+    border-top: double black 10px;
+    border-bottom: solid black 10px;
+    border-right: black dashed 5px;
+    border-left: black dotted 5px;
+    border-radius: 0px 0px 0px 20px;
+}
+tr:nth-child(2) > td:nth-child(2) .section {
+    border-top: dashed black 5px;
+    border-bottom: solid black 5px;
+    border-right: black double 10px;
+    border-left: black double 10px;
+    border-radius: 0px 0px 20px 0px;
 }
 
-.footer {
-    color: #f7f7f7;
-    text-shadow: white;
-    text-align: center;
+main a:hover {
+    color: #b21414;
+}
+
+header a:hover {
+    background-color: #A1E3F9;
+    text-decoration: underline;
+    border-radius: 2px 2px 2px 2px;
 }
