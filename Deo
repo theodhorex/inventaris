@@ -1,49 +1,89 @@
-/* Reset dasar */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Post Test CSS #2</title>
+    <link rel="stylesheet" href="style.css">
 
-/* Gaya untuk body */
-body {
-    background-color: #f4f4f4;
-    color: #333;
-    line-height: 1.6;
-    padding: 20px;
-}
+  </head>
+  <body>
+    <header>
+      <a href="#">Beranda</a>
+      <a href="#">Member</a>
+      <a href="#">Pencapaian</a>
+      <a href="#">Rate Card</a>
+      <a href="#">Kontak</a>
+    </header>
 
-/* Gaya untuk container utama */
-.container {
-    max-width: 800px;
-    margin: auto;
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
+    <main>
+      <h1>Coboy Junior</h1>
+      <img src="Gambar/gambar_1.jpeg" alt="Deskripsi Gambar">
 
-/* Gaya untuk header */
-h1 {
-    text-align: center;
-    color: #444;
-    margin-bottom: 20px;
-}
+      <table>
+        <tr>
+          <td>
+            <div class="section">
+              <h1>Bastian</h1>
+              <img src="Gambar/gambar_2.png" alt="Deskripsi Gambar">
+              <p>
+                <span>
+                  Bastian mengawali kariernya dengan mengikuti ajang Idola Cilik musim kedua pada tahun 2008. Pada babak 12 besar, langkahnya harus terhenti karena tereliminasi. Setelah itu, ia bersama finalis lainnya merilis album kompilasi berjudul Gapai Mimpimu.[1]
+                Karakter vokal Bastian yang mampu mencapai nada-nada tinggi serta kepribadiannya yang humoris membuatnya lolos audisi untuk peran Kucai dalam drama musikal Laskar Pelangi. Kemudian, pada 2011, Bastian berperan sebagai Aldi dalam film 5 Elang.[2][3]
+                </span>
+              </p>
+              <a href="#">Read More...</a>
+            </div>
+          </td>
+          <td>
+            <div class="section">
+              <h1>Aldi</h1>
+              <img src="Gambar/gambar_3.png" alt="Deskripsi Gambar">
+              <p>
+                <span>
+                  Pada tahun 2009, Aldy mengikuti kontes Idola Cilik musim ketiga yang ditayangkan di stasiun televisi RCTI. Aldy gagal masuk babak "Pentas Idola Cilik" (14 besar), di mana ia tereliminasi dalam babak "Menuju Pentas Idola Cilik" pada tanggal 19 Desember 2009.
+                  Pada tahun 2011, Aldy memulai debut akting dengan terpilih untuk memerankan tokoh Lintang dalam drama musikal Laskar Pelangi.
+                </span>
+              </p>
+              <a href="#">Read More...</a>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="section">
+              <h1>Iqbal</h1>
+              <img src="Gambar/gambar_4.png" alt="Deskripsi Gambar">
+              <p>
+                <span>
+                  Iqbaal Dhiafakhri Ramadhan, juga dikenal dengan mononim sebagai BAALE (lahir 28 Desember 1999) adalah seorang pemeran, penyanyi, dan produser film berkebangsaan Indonesia. Iqbaal mulai berkarier sebagai aktor dengan berperan sebagai Trapani di drama musikal 
+                Laskar Pelangi pada tahun 2010 hingga 2011. Ia kemudian menjadi anggota grup idola CJR (sebelumnya bernama Coboy Junior) pada 2011, hingga grup tersebut bubar pada 2017. Ia dikenal melalui peran suksesnya sebagai Dilan dalam film Dilan 1990, Dilan 1991, dan Milea: Suara dari Dilan yang ditayangkan secara berturut-turut pada tahun 2018, 2019, dan 2020.
+                </span>
+              </p>
+              <a href="#">Read More...</a>
+            </div>
+          </td>
+          <td>
+            <div class="section">
+              <h1>Kiki</h1>
+      
+              <img src="Gambar/gambar_5.png" alt="Deskripsi Gambar">
+              <p>
+                <span>
+                  Teuku pernah menjuarai Asia Choir Games kategori Youth Jazz pada tahun 2007. Kemudian, pada tahun 2008, Teuku kembali menjuarai ajang lainnya, Akademi Fantasi Indosiar Junior.
+                  Pada tahun 2010, Teuku memerankan Mahar dalam drama musikal Musikal Laskar Pelangi sebagai debutnya di dunia seni peran. Film perdana Teuku adalah Lima Elang pada tahun 2011. 
+                </span>
+              </p>
+              <a href="#">Read More...</a>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </main>
 
-/* Gaya untuk tombol */
-button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    background: #5cb85c;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px;
-}
+    <footer>
+      Copyright Praktikum Pemrograman Web 2024 <sup>&copy</sup>
+    </footer>
 
-button:hover {
-    background: #4cae4c;
-}
+  </body>
+</html>
