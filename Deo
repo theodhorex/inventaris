@@ -1,1 +1,138 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff;
+    text-align: right;
+}
+
+header {
+    background-color: #3674B5;
+    padding: 15px;
+}
+
+header a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+header a:hover {
+    font-size: 20px;
+    background-color: #A1E3F9;
+    padding: 5px;
+    border-radius: 2px 2px 2px;
+}
+
+
+h1 {
+    margin: 20px 0;
+    font-size: 28px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+main{
+    text-align: center;
+}
+main > img {
+    width: 200px;
+    margin: 10px;
+}
+
+table {
+    width: 100%;
+    
+    border-spacing: 100%;
+}
+
+td {
+    padding: 20px;
+    text-align: center;
+    vertical-align: top;
+}
+
+td:nth-child(1) .section:nth-child(1) {
+    border-top: double 10px black;
+    border-bottom: double 10px black;
+    border-left: dotted 5px black;
+    border-right: dotted 5px black;
+    border-top-left-radius: 20px;
+    width: 100%;
+}
+
+
+td:nth-child(2) .section:nth-child(1) {
+    border-top: dashed 5px black;
+    border-bottom: dashed 5px black;
+    border-left: solid 5px black;
+    border-right: solid 5px black;
+    border-top-right-radius: 20px;
+    width: 100%;
+}
+
+.section {
+    background-color: #A1E3F9;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: left;
+    
+}
+
+
+.section h1 {
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 10px;
+    color: #3674B5;
+}
+
+.section span{
+    text-align: center;
+}
+
+.section img {
+    display: block;
+    margin: 0 auto;
+    width: 100px;
+    border-radius: 50%;
+}
+
+.section p {
+    font-size: 14px;
+    text-align: justify;
+    margin: 10px 0;
+}
+
+.section a {
+    display: block;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: #3674B5;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 5px;
+    width: fit-content;
+    margin: 10px auto;
+}
+
+.section a:hover {
+    text-decoration: underline;
+    color: #b21414;
+}
+
+footer {
+    background-color: #3b73af;
+    color: white;
+    padding: 10px;
+    margin-top: 20px;
+    font-size: 14px;
+    text-align: center;
+}
 
