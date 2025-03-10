@@ -1,0 +1,128 @@
+@charset "UTF-8";
+body {
+  font-family: Georgia, serif;
+  font-size: 100%;
+  background-color: white;
+  padding: 0;
+  margin: 0;
+}
+
+/* link styles */
+a:link, a:visited { color: #DC6903; }
+a:focus, a:hover, a:active { color: #F9AB33; }
+
+
+/* header styles */
+header {
+  color: white;
+  background:  url(images/croissants_banner.jpg) no-repeat center center;
+  background-size: cover; 
+  text-align: center;
+}
+header p {
+  font-style: italic;
+  font-size: 1.2em;
+}
+header h1 {
+  margin-top: 45px;
+}
+header p {
+  padding-bottom: 15px;
+}
+
+/* nav styles */
+nav, footer {
+  font-family: verdana, sans-serif;
+  background-color: #783F27;
+}
+nav ul li a {
+  text-decoration-style: dotted;
+  text-underline-offset: 5px;
+}
+nav ul li a:link, nav ul li a:visited {
+  color: #F9AB33;
+}
+nav ul li a:focus, nav ul li a:hover, nav ul li a:active {
+  color: #fff;
+}
+nav ul li {
+  font-size: .8em;
+  text-transform: uppercase;
+  letter-spacing: .2em;
+}
+
+/* main "products" styles */
+main {
+  font-family: 'Stint Ultra Expanded', cursive;
+  background-color: white;
+  line-height: 1.8em;
+  color: #555;
+  border: 3px solid yellow;
+  padding: 10px 15px;
+  margin: 20px 30px;
+  border-radius: 10px;
+}
+h3 {
+  text-transform: uppercase;
+  letter-spacing: .2em;
+  color: #7A0002;
+  border-top: 2px solid black;
+  border-left: 4px solid black;
+  padding-left: 20px;
+}
+p.more {
+  font-family: verdana, sans-serif;
+  text-transform: uppercase;
+  font-size: .8em;
+}
+
+p.more a{
+  text-decoration-style: dotted;
+  text-underline-offset: 3px;
+}
+
+main p {
+  display: inline-flex;
+  text-align: justify;
+  clear:inherit;
+}
+
+/* aside "hours" styles */
+aside {
+  background: url(images/scallop.png) repeat-y left top;
+  background-color: #fff9ee;
+  margin-left: 10%;
+  margin-right: 2.5%;
+  margin-bottom: 0;
+  padding: 1.5% 0;
+  padding-left: 3%;
+  border-top-right-radius: 10px;
+}
+
+/* misc styles */
+footer {
+  color: #EADDC4;
+  text-align: center;
+  font-size: .8em;
+  padding: 8px 0;
+}
+
+footer #award img {
+  position: fixed;
+  /* right: 0; */
+  top: 40px;
+  left: 70px;
+}
+
+h2 {
+  font-family: 'Stint Ultra Expanded', cursive;
+}
+.day {
+  color: #783F27;
+  font-family: verdana, sans-serif;
+  font-size: .8em;
+  text-transform: uppercase;
+}
+
+
+
