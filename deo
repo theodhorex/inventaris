@@ -9,16 +9,22 @@ body {
 header {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   background-color: #ffcc80;
   padding: 20px;
+  position: relative;
 }
 
 #profil {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.headerArea {
+  flex-grow: 1;
+  text-align: center;
 }
 
 .headerArea #judulArtikel {
@@ -28,28 +34,41 @@ header {
 
 main {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
   padding: 20px;
 }
 
-article {
+aside {
+  width: 20%;
+  padding: 10px;
+}
+
+aside img {
+  width: 100%;
+  height: auto;
+}
+
+.article-top {
+  width: 50%;
   background-color: white;
-  width: 80%;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.article-bottom {
+  width: 40%;
+  background-color: white;
   padding: 20px;
   margin: 10px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-aside img {
-  width: 100px;
-  height: auto;
-}
-
 ul {
   text-align: left;
-  display: inline-block;
+  padding-left: 20px;
 }
 
 footer {
@@ -58,3 +77,13 @@ footer {
   margin-top: 20px;
 }
 
+#call {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+
+#call img {
+  width: 50px;
+  height: 50px;
+}
