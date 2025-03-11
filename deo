@@ -1,1 +1,60 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8e8c8;
+  text-align: center;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffcc80;
+  padding: 20px;
+}
+
+#profil {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.headerArea #judulArtikel {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+article {
+  background-color: white;
+  width: 80%;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+aside img {
+  width: 100px;
+  height: auto;
+}
+
+ul {
+  text-align: left;
+  display: inline-block;
+}
+
+footer {
+  background-color: #ffcc80;
+  padding: 10px;
+  margin-top: 20px;
+}
 
