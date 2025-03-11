@@ -1,0 +1,109 @@
+body {
+    margin: 0;
+    background-color: #fae3ae;
+}
+
+#bakery{
+    position: absolute;
+    left: 50%;
+    width: 75px;
+    border-radius: 7px;
+}
+
+.headerArea {
+    background-color:#ef9f55 ;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: large;
+    font-weight: bold;
+    padding: 15px;
+    text-align: center;
+    top: 80px;
+    position: absolute;
+    width: 100%;
+    z-index: 10;
+}
+
+#profil {
+    width: 35px;
+    position: absolute;
+    z-index: 100;
+    top: 87px;
+    left: 30px;
+}
+
+aside img{
+    position: fixed;
+    height: 800px;
+    width: 30%;
+    left: 35%;
+    top: 140px;
+    border-radius: 20px;
+    z-index: -100;
+}
+
+.article-top {
+    background-color: beige;
+    width: 550px;
+    height: 380px;
+    top: 270px;
+    position: absolute;
+    left: 50px;
+    border-radius: 20px;
+}
+
+.article-top h3 {
+    color: #ef9f55;
+    margin-left: 15px;
+}
+
+.article-top p {
+    color: black;
+}
+
+#ddu_du_ddu_du {
+    width: 80px;
+    float: left;
+    margin-left: 5px;
+}
+
+.article-bottom {
+    display: inline-flex;
+    position: relative;
+    left: 1270px;
+    background-color: peachpuff ;
+    height: 200px;
+    top: 300px;
+    width: 300px;
+}
+
+.article-bottom h3 {
+    color: #ef9f55;
+    margin-left: 5px;
+    float: left;
+}
+
+ul {
+    overflow: auto;
+    clear: left;
+}
+
+#call img{
+    position: absolute;
+    width: 30px;
+    background-color: beige;
+    border-radius: 100px;
+    padding: 20px;
+    bottom: 50px;
+    right: 40px;
+}
+
+footer {
+    background-color: #ef9f55;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: 80px;
+    align-content: center;
+    text-align: center;
+}
