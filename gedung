@@ -1,0 +1,114 @@
+package org.ukdw;
+
+import org.ukdw.data.Gedung;
+import org.ukdw.managers.GedungManager;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.Scanner;
+
+public class RoomBookSystem {
+
+    private GedungManager gedungManager;
+
+    public RoomBookSystem() {
+        this.gedungManager = new GedungManager();
+    }
+
+    private void start() {
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("\nSelamat datang di Sistem Pemesanan Ruangan UKDW");
+            System.out.println("0. Exit");
+            System.out.println("1. Tambah Gedung");
+            System.out.println("2. Lihat Semua Gedung");
+            System.out.println("3. Edit Gedung");
+            System.out.println("4. Hapus Gedung");
+
+            System.out.print("Silahkan pilih: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Konsumsi newline
+
+            switch (choice) {
+                case 1 -> addGedung(scanner);
+                case 2 -> lihatSemuaDataGedung();
+                case 3 -> editGedung(scanner);
+                case 4 -> deleteGedung(scanner);
+                case 0 -> exitApps();
+                default -> System.out.println("Pilihan tidak valid. Silakan coba lagi.");
+            }
+        }
+    }
+
+    private void addGedung(Scanner scanner) {
+        System.out.print("Masukkan nama gedung: ");
+        String namaGedung = scanner.nextLine();
+        System.out.print("Masukkan alamat gedung: ");
+        String alamatGedung = scanner.nextLine();
+
+        gedungManager.addGedung(namaGedung, alamatGedung);
+        System.out.println("Gedung berhasil ditambahkan.");
+    }
+
+    private void lihatSemuaDataGedung() {
+        List<Gedung> daftarGedung = gedungManager.allGedung();
+        if (daftarGedung.isEmpty()) {
+            System.out.println("Belum ada gedung yang terdaftar.");
+        } else {
+            System.out.println("Daftar Gedung:");
+            daftarGedung.forEach(g ->
+                    System.out.println("ID: " + g.getId() + " | Nama: " + g.getNama() + " | Alamat: " + g.getAlamat())
+            );
+        }
+    }
+
+    private void editGedung(Scanner scanner) {
+        System.out.print("Masukkan nama gedung yang ingin diedit: ");
+        String namaLama = scanner.nextLine();
+
+        Optional<Gedung> gedungOpt = gedungManager.allGedung().stream()
+                .filter(g -> g.getNama().equalsIgnoreCase(namaLama))
+                .findFirst();
+
+        if (gedungOpt.isPresent()) {
+            Gedung gedung = gedungOpt.get();
+            System.out.print("Masukkan nama baru: ");
+            String namaBaru = scanner.nextLine();
+            System.out.print("Masukkan alamat baru: ");
+            String alamatBaru = scanner.nextLine();
+
+            gedungManager.editGedung(gedung.getId(), namaBaru, alamatBaru);
+            System.out.println("Gedung berhasil diperbarui.");
+        } else {
+            System.out.println("Gedung tidak ditemukan.");
+        }
+    }
+
+    private void deleteGedung(Scanner scanner) {
+        System.out.print("Masukkan nama gedung yang ingin dihapus: ");
+        String namaGedung = scanner.nextLine();
+
+        Optional<Gedung> gedungOpt = gedungManager.allGedung().stream()
+                .filter(g -> g.getNama().equalsIgnoreCase(namaGedung))
+                .findFirst();
+
+        if (gedungOpt.isPresent()) {
+            Gedung gedung = gedungOpt.get();
+            gedungManager.deleteGedung(gedung.getId());
+            System.out.println("Gedung berhasil dihapus.");
+        } else {
+            System.out.println("Gedung tidak ditemukan.");
+        }
+    }
+
+    private void exitApps() {
+        System.out.println("Keluar aplikasi. Goodbye!");
+        System.exit(0);
+    }
+
+    public static void main(String[] args) {
+        RoomBookSystem roomBookSystem = new RoomBookSystem();
+        roomBookSystem.start();
+    }
+}
