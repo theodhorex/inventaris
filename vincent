@@ -1,0 +1,84 @@
+<?php
+$warna = [
+    "judul" => "color: rgb(255, 235, 87)",
+    "footer" => "color: rgb(36, 255, 145)"
+];
+
+$parkir = [
+    ["jenis" => "Motor", "lama_parkir" => 4, "hari" => "Selasa"],
+    ["jenis" => "Mobil", "lama_parkir" => 12, "hari" => "Rabu"],
+    ["jenis" => "Motor", "lama_parkir" => 11, "hari" => "Kamis"],
+    ["jenis" => "Mobil", "lama_parkir" => 2, "hari" => "Sabtu"],
+    ["jenis" => "Motor", "lama_parkir" => 14, "hari" => "Minggu"],
+    ["jenis" => "Sepatu", "lama_parkir" => 5, "hari" => "Jumat"]
+];
+
+function hitung_biaya($jenis, $lama, $hari) {
+    if ($jenis == "Motor") {
+        $biaya = 3000 * $lama;
+    } elseif ($jenis == "Mobil") {
+        $biaya = 5000 * $lama;
+    } else {
+        return [0, 0, 0];
+    }
+
+    if ($lama > 5) {
+        $biaya += 2000;
+    }
+
+    $diskon = 0;
+
+    if ($lama > 10) {
+        $diskon += 0.10 * $biaya;
+    }
+    if ($hari == "Sabtu" || $hari == "Minggu") {
+        $diskon += 0.15 * $biaya;
+    }
+
+    $total = $biaya - $diskon;
+
+    return [$biaya, $diskon, $total];
+}
+
+$total_semua = 0;
+?>
+
+<img src="image2.png" alt="" height="20%">
+<h2 style="<?= $warna['judul'] ?>; text-decoration: underline;">Laporan Biaya Parkir</h2>
+
+<table>
+    <tr>
+        <th>No</th>
+        <th>Jenis Kendaraan</th>
+        <th>Lama Parkir (Jam)</th>
+        <th>Hari</th>
+        <th>Biaya Asli</th>
+        <th>Diskon</th>
+        <th>Total Biaya</th>
+    </tr>
+
+    <?php
+    $no = 1;
+    foreach ($parkir as $data) {
+        echo "<tr>";
+        echo "<td>$no</td>";
+
+        if ($data['jenis'] != "Mobil" && $data['jenis'] != "Motor") {
+            echo "<td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>";
+        } else {
+            list($biaya_asli, $diskon, $total_biaya) = hitung_biaya($data['jenis'], $data['lama_parkir'], $data['hari']);
+            $total_semua += $total_biaya;
+            echo "<td>{$data['jenis']}</td>";
+            echo "<td>{$data['lama_parkir']}</td>";
+            echo "<td>{$data['hari']}</td>";
+            echo "<td>Rp " . number_format($biaya_asli, 0, ',', '.') . "</td>";
+            echo "<td>Rp " . number_format($diskon, 0, ',', '.') . "</td>";
+            echo "<td>Rp " . number_format($total_biaya, 0, ',', '.') . "</td>";
+        }
+        echo "</tr>";
+        $no++;
+    }
+    ?>
+</table>
+
+<h3 style="<?= $warna['footer'] ?>;">Total Semua Biaya Parkir: Rp <?= number_format($total_semua, 0, ',', '.') ?></h3>
