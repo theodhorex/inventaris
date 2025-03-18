@@ -56,25 +56,8 @@ $barang = [
 <body>
 
 
-<img src='image3.png' height='<?= $styles["height"] ?>' style='<?= $styles["style"] ?>'>
 <?php
-function hitungHargaSetelahPenyimpanan($harga_awal, $hari) {
-    for ($i = 0; $i < $hari; $i++) {
-        $harga_awal -= ($harga_awal * 0.02);
-    }
-    return $harga_awal;
-}
-
-function hitungHargaSetelahPermintaan($harga_setelah_penyimpanan, $permintaan) {
-    if ($permintaan > 100) {
-        return $harga_setelah_penyimpanan * 1.10;
-    } elseif ($permintaan > 50) {
-        return $harga_setelah_penyimpanan * 1.05;
-    }
-    return $harga_setelah_penyimpanan;
-}
-
-$total_stok = 0;
+echo "<img src='image3.png' height='{$styles["height"]}' style='{$styles["style"]}'>";
 ?>
 
 <h2>Laporan Harga Barang</h2>
@@ -90,6 +73,26 @@ $total_stok = 0;
         <th>Harga Setelah Permintaan</th>
     </tr>
 
+    <?php
+    function hitungHargaSetelahPenyimpanan($harga_awal, $hari) {
+        for ($i = 0; $i < $hari; $i++) {
+            $harga_awal -= ($harga_awal * 0.02);
+        }
+        return $harga_awal;
+    }
+    
+    function hitungHargaSetelahPermintaan($harga_setelah_penyimpanan, $permintaan) {
+        if ($permintaan > 100) {
+            return $harga_setelah_penyimpanan * 1.10;
+        } elseif ($permintaan > 50) {
+            return $harga_setelah_penyimpanan * 1.05;
+        }
+        return $harga_setelah_penyimpanan;
+    }
+    
+    $total_stok = 0;
+    ?>
+        
     <?php
     $no = 1;
     foreach ($barang as $item) {
