@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendaftaran Anggota HMTI</title>
+</head>
+<body>
+    <h1 align="center">Pendaftaran Anggota HMTI</h1>
+    <div align="center">
+        <img src="logo.png" alt="Logo HMTI" width="200px">
+    </div>
+    <p align="center"><b>Halo, Mahasiswa Informatika!</b> Kami dengan bangga mengumumkan bahwa <i>pendaftaran anggota Himpunan Mahasiswa Teknik Informatika</i> (HMTI <sup>2025/2026</sup>) tahun ini resmi dibuka!</p>
+    <p align="center">Bergabunglah bersama kami untuk menjadi bagian dari komunitas yang dinamis, kreatif, dan inovatif.</p>
+    <p align="center"><b>Pendaftaran dibuka dari <span style="color: blue;">25-03-2025</span> hingga <span style="color: blue;">28-03-2025</span></b></p>
+    
+    <form action="done.html" method="post" enctype="multipart/form-data">
+        <table border="1" align="center" width="80%">
+            <tr>
+                <td>
+                    <b>Informasi Personal</b>
+                    <table>
+                        <tr>
+                            <td>Nama Lengkap:</td>
+                            <td><input type="text" name="nama" required></td>
+                        </tr>
+                        <tr>
+                            <td>NIM:</td>
+                            <td><input type="text" name="nim" maxlength="8" required></td>
+                        </tr>
+                        <tr>
+                            <td>Tanggal Lahir:</td>
+                            <td><input type="date" name="tanggal_lahir" required></td>
+                        </tr>
+                        <tr>
+                            <td>Jenis Kelamin:</td>
+                            <td>
+                                <input type="radio" name="jenis_kelamin" value="Laki-laki"> Laki-laki
+                                <input type="radio" name="jenis_kelamin" value="Perempuan"> Perempuan
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Nomor HP:</td>
+                            <td><input type="text" name="nomor" maxlength="13" required></td>
+                        </tr>
+                        <tr>
+                            <td>IPK:</td>
+                            <td><input type="number" name="ipk" min="0" max="4" step="0.1" required></td>
+                        </tr>
+                        <tr>
+                            <td>CV:</td>
+                            <td><input type="file" name="cv" accept=".pdf,.docx" required></td>
+                        </tr>
+                        <tr>
+                            <td>Portofolio <span style="color:blue;"><b>(Kreatif)</b></span>:</td>
+                            <td><input type="file" name="portofolio" accept=".pdf"></td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <b>Pendaftaran</b>
+                    <table>
+                        <tr>
+                            <td>Divisi 1:</td>
+                            <td>
+                                <select name="divisi1" required>
+                                    <option value="">Pilih Divisi</option>
+                                    <option value="Sekretaris">Sekretaris</option>
+                                    <option value="Bendahara">Bendahara</option>
+                                    <option value="Hubungan Masyarakat dan Organisasi">Hubungan Masyarakat dan Organisasi</option>
+                                    <option value="Kreatif">Kreatif</option>
+                                    <option value="Dana Usaha">Dana Usaha</option>
+                                    <option value="Minat dan Bakat">Minat dan Bakat</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Alasan Memilih:</td>
+                            <td><textarea name="alasan1" rows="3" required></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>Divisi 2:</td>
+                            <td>
+                                <select name="divisi2" required>
+                                    <option value="">Pilih Divisi</option>
+                                    <option value="Sekretaris">Sekretaris</option>
+                                    <option value="Bendahara">Bendahara</option>
+                                    <option value="Hubungan Masyarakat dan Organisasi">Hubungan Masyarakat dan Organisasi</option>
+                                    <option value="Kreatif">Kreatif</option>
+                                    <option value="Dana Usaha">Dana Usaha</option>
+                                    <option value="Minat dan Bakat">Minat dan Bakat</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Alasan Memilih:</td>
+                            <td><textarea name="alasan2" rows="3" required></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>Mendaftar sebagai:</td>
+                            <td>
+                                <input type="checkbox" name="mendaftar" value="Koordinator"> Koordinator
+                                <input type="checkbox" name="mendaftar" value="Anggota"> Anggota
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <br>
+        <div align="center">
+            <input type="submit" value="Daftar"> 
+            <input type="reset" value="Reset">
+        </div>
+    </form>
+
+    <div align="center" class="footer">
+        <a href="71230000">71230000</a> / pendaftaran
+    </div>
+</body>
+</html>
