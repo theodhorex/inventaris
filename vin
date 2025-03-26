@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendaftaran HMTI 2025/2026</title>
+</head>
+<body>
+    <header>
+        <h1 align="center">Pendaftaran HMTI 2025/2026</h1>
+        <div align="center">
+            <img src="logo.png" alt="Logo HMTI" width="25%">
+        </div>
+    </header>
+    
+    <main>
+        <section align="center">
+            <p><b>Halo, Mahasiswa Informatika!</b> Kami dengan bangga mengumumkan bahwa <i>pendaftaran anggota Himpunan Mahasiswa Teknik Informatika</i> (HMTI <sup>2025/2026</sup>) tahun ini resmi dibuka! Bergabunglah bersama kami untuk menjadi bagian dari komunitas yang dinamis, kreatif, dan inovatif.</p>
+            <p><u>Pendaftaran</u> dibuka dari <b>25-03-2025</b> hingga <b>28-03-2025</b></p>
+        </section>
+        
+        <form action="done.html" method="post" align="center">
+            <fieldset>
+                <legend><b><i>Informasi Pribadi</i></b></legend>
+                Nama Lengkap: <input type="text" name="nama" required><br>
+                NIM: <input type="text" name="nim" maxlength="8" required><br>
+                Tanggal Lahir: <input type="date" name="tanggal_lahir" required><br>
+                Jenis Kelamin: <input type="radio" name="jenis_kelamin" value="Laki-laki"> Laki-laki 
+                <input type="radio" name="jenis_kelamin" value="Perempuan"> Perempuan<br>
+                Nomor HP: <input type="text" name="nomor" maxlength="13" required><br>
+                IPK: <input type="number" name="ipk" min="0" max="4" step="0.1" required><br>
+                CV: <input type="file" name="cv" accept=".pdf,.docx" required><br>
+                Portofolio: <input type="file" name="portofolio" accept=".pdf"><br>
+            </fieldset>
+            
+            <fieldset>
+                <legend><b><i>Pendaftaran</i></b></legend>
+                Divisi 1: 
+                <select name="divisi1" required>
+                    <option value="Sekretaris">Sekretaris</option>
+                    <option value="Bendahara">Bendahara</option>
+                    <option value="Hubungan Masyarakat dan Organisasi">Hubungan Masyarakat dan Organisasi</option>
+                    <option value="Kreatif">Kreatif</option>
+                    <option value="Dana Usaha">Dana Usaha</option>
+                    <option value="Minat dan Bakat">Minat dan Bakat</option>
+                </select>
+                <br>
+                Divisi 2: 
+                <select name="divisi2" required>
+                    <option value="Sekretaris">Sekretaris</option>
+                    <option value="Bendahara">Bendahara</option>
+                    <option value="Hubungan Masyarakat dan Organisasi">Hubungan Masyarakat dan Organisasi</option>
+                    <option value="Kreatif">Kreatif</option>
+                    <option value="Dana Usaha">Dana Usaha</option>
+                    <option value="Minat dan Bakat">Minat dan Bakat</option>
+                </select>
+                <br>
+                Alasan Memilih: <textarea name="alasan" rows="3" cols="50" required></textarea><br>
+                Mendaftar sebagai: 
+                <input type="checkbox" name="mendaftar" value="Koordinator"> Koordinator
+                <input type="checkbox" name="mendaftar" value="Anggota"> Anggota<br>
+                <br>
+                <input type="reset" value="Reset">
+                <input type="submit" value="Simpan">
+            </fieldset>
+        </form>
+    </main>
+    
+    <footer align="center">
+        <hr>
+        <a href="https://instagram.com/hmti.ukdw" target="_blank">&lt;nim kamu&gt; // Pendaftaran</a>
+    </footer>
+</body>
+</html>
