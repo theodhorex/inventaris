@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Tersimpan</title>
+</head>
+<body>
+    <center>
+        <img src="image/Copy of logo.png" alt="Logo UKDW" width="20%" />
+        <h2>!!!CARI TIKET-KU SEKARANG!!!!</h2>
+    </center>
+
+
+    <section>
+        <table>
+            <tr>
+                <td>
+                    <p align><b>Tiket-Ku</b> merupakan <span style="background-color :yellow">platform pembelian tiket konser</span> yang dapat 
+                        membantu user melihat jadwal dan melakukan pembelian tiket 
+                        dengan mudah. Memiliki metode pembayaran yang mudah dan 
+                        dapat diakses seluruh kalangan seperti go-pay, ovo, shopee-pay 
+                        dan masih banyak lagi. Tiket-Ku sudah berdiri sejak awal tahun 
+                        2019 dan sudah dipercaya sebagai promotor banyak grup band 
+                        dunia dalam penyelenggaraan konser. Tiket-Ku selalu 
+                        mengusahakan yang terbaik demi kenyamanan pembeli </p>
+                </td>
+            </tr>
+            
+            
+        </table>
+    </section>
+        <form action="done.html" method="post" enctype="multipart/form-data">
+            <table border="1" align="center" width="80%">
+                <tr>
+                    <td>
+                        <fieldset>
+                            <legend align="left"></legend>
+                        <b>Informasi Personal</b>
+                        <table>
+                            <tr>
+                                <td>Nama:</td>
+                                <td><input type="text" name="nama" maxlength="50" required></td>
+                            </tr>
+                            <tr>
+                                <td>No HP:</td>
+                                <td><input type="text" name="nomor" maxlength="13" required></td>
+                            </tr>
+                            <tr>
+                                <td>Email:</td>
+                                <td><input type="text" name="Email" required></td>
+                            </tr>
+                            <tr>
+                                <td>Metode Pembayaran:</td>
+                                <td>
+                                    <select name="Pembayarn" required>
+                                        <option value="">--Pilih---</option>
+                                        <option value="go-pay">Go-pay</option>
+                                        <option value="ovo">Ovo</option>
+                                        <option value="shopee-pay">Shopee-pay</option>
+                                        <option value="va mandiri">VA Mandiri</option>
+                                        <option value="va bca">VA BCA</option>
+                                        <option value="va bni">VA BNI</option>
+                                        <option value="va bris">VA BRIS</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Upload Bukti pembayaran:</td>
+                                <td><input type="image" name="Bukti" accept="" required></td>
+                            </tr>
+                            
+                        </table>
+                        </fieldset>
+                        
+                    </td>
+                    <td>
+                        <b>Detail konser</b>
+                        <table>
+                            <tr>
+                                <td>Artis :</td>
+                                <td>
+                                    <input type="radio" name="Artis" required>IU
+                                    <input type="radio" name="Artis" required>BlackPink
+                                    <input type="radio" name="Artis" required>New Jeans
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Jumlah Tiket :</td>
+                                <td> 
+                                    <input type="number" minlength="1" maxlength="5">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Tanggal Konser:</td>
+                                <td><input type="date" name="Tanggal Konser" required></td>
+                            </tr> 
+                            <tr>
+                                <td>Tambahan:</td>
+                                <td>
+                                    <input type="checkbox" name="Makanan" value="Tambahan"> Makanan
+                                    <input type="checkbox" name="Minuman" value="Tambahan"> Minuman
+                                    <input type="checkbox" name="Merch" value="Tambahan"> Merch
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Catatan:</td>
+                                <td><textarea name="alasan2" rows="3" required></textarea></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            <br>
+            <div align="center">
+                <input type="reset" value="Reset">
+                <input type="submit" value="Simpan"> 
+            </div>
+        </form>
+    
+        <div align="center" class="footer">
+            <a href="ukdw.ac.id">71231041 / Revandra Talenta</a> 
+        </div>
+    </body>
+    
+</body>
+</html>
