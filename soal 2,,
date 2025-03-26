@@ -1,0 +1,126 @@
+/* Body */
+body {
+    background-color: #F7F7F7;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header */
+header {
+    background-color: #0492C2;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    
+}
+
+/* Adjust body padding to avoid content being hidden */
+main {
+    flex: 1;
+    padding-top: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Content Table */
+.content-table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.image-cell {
+    width: 50%;
+    padding: 10px;
+    padding-top: 20px;
+    text-align: center;
+}
+
+.otter-img {
+    max-width: 100%;
+   
+    height: auto;
+    border: 5px solid skyblue;
+    display: block;
+    margin: auto;
+}
+
+.text-cell {
+    width: 60%;
+    text-align: justify;
+    align-items: center;
+}
+
+.button {
+    background-color: #52B2BF;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 7px;
+    position: absolute;
+    left: 65%;
+    width: fit-content;
+}
+.button:hover {
+    background-color: #005F8D;
+}
+
+
+/* Fact Table */
+.fact-table {
+    width: 50%;
+    margin: 20px auto;
+    border: 1px solid #0077B6;
+    border-collapse: collapse;
+}
+
+.fact-table th, .fact-table td {
+    border: 1px solid #0077B6;
+    padding: 10px;
+}
+
+.fact-table th {
+    background-color: #CCE5FF;
+    text-align: center;
+}
+
+.fact-table td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* Warna untuk baris genap */
+.fact-table tr:nth-child(even) {
+    background-color: #E0F0FF;
+}
+
+/* Pusatkan nomor */
+.fact-table td:first-child {
+    text-align: center;
+    font-weight: bold;
+}
+
+
+/* Footer */
+footer {
+    background-color: #0492C2;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    width: 100%;
+    margin-top: auto;
+}
