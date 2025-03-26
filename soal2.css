@@ -1,0 +1,97 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background-color: #f7f7f7;
+}
+
+header {
+    background-color: #0492C2;
+    color: white;
+    text-align: center;
+    padding: 25px 0;
+}
+
+main {
+    .content {
+        margin-top: 2%;
+        .content-table {
+            width: 70%;
+            display: block;
+            margin: 20px auto;
+            .image-cell {
+                width: 50%;
+                img {
+                    border: 5px solid skyblue;
+                    display: block;
+                    margin: 0 auto;
+                    width: 500px;
+                    height: auto;
+                }
+            }
+    
+            .text-cell {
+                text-align: left;
+                width: 60%;
+            }
+    
+            .button {
+                background-color: #52B2BF;
+                color: white;
+                text-decoration: none;
+                padding: 10px 20px;
+                border-radius: 7px;
+                position: absolute;
+                top: 43.7%;
+                left: 65%;
+                width: fit-content;
+            }
+        }
+    }
+
+    .info {
+        margin-top: 2%;
+        h2 {
+            text-align: center;
+            margin-bottom: 2%;
+        }
+        
+        .fact-table {
+            display: block;
+            margin: 0 auto;
+            width: fit-content;
+            display: block;
+            margin: 0 auto;
+            border-width: .5px;
+        }
+
+        .fact-table, tr, td, th {
+            border: 1px solid #0077B6;
+            border-collapse: collapse;
+        }
+
+        .fact-table tr, td, th {
+            padding: 9px;
+        }
+
+        .fact-table tr:nth-child(2) td:nth-child(1), tr:nth-child(3) td:nth-child(1), tr:nth-child(4) td:nth-child(1) {
+            text-align: center;
+        }
+
+        .fact-table tr:nth-child(2), .fact-table tr:nth-child(4) {
+            background-color: #CCE5FF;
+        }
+    }
+}
+
+footer {
+    background-color: #0492C2;
+    color: white;
+    text-align: center;
+    padding: 25px;
+    width: 97.4%;
+    position: absolute;
+    bottom: 0;
+}
