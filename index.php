@@ -1,6 +1,10 @@
 <?php
-// kode anda
+include "koneksi.php";
+//select
+$sql = "SELECT * FROM belanja"; //sesuaikan nama tabel
+$result = mysqli_query($conn, $sql); //untuk run query
 
+if(mysqli_num_rows($result)>0){
 ?>
 
 <!DOCTYPE html>
@@ -32,8 +36,22 @@
                 </thead>
                 <tbody>
                     <?php
-                    // kode anda
-                    
+                        $no = 1;
+                    while($row = mysqli_fetch_assoc($result)){
+                        echo "<tr>";
+                        echo "<td>".$no."</td>";
+                        echo "<td>".$row['nama_barang']."</td>";
+                        echo "<td>".$row['jumlah']."</td>";
+                        echo "<td>".$row['harga']."</td>";
+                        echo "<td>".$row['tanggal_beli']."</td>";
+                        echo "<td>";
+                echo "<a href='edit.php?id=".$row['id']."'class='btn btn-warning btn-sm'>Edit</a>";
+                echo "  ";
+                echo "<a href='delete.php?id=".$row['id']."'class='btn btn-danger btn-sm' onclick=\"return confirm('Yakin?')\">Hapus</a>";
+                echo "</td>";
+                        echo "</tr>";
+                        $no += 1;
+                    }}
                     ?>
                 </tbody>
             </table>

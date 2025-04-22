@@ -1,5 +1,23 @@
 <?php
-// kode anda
+include "koneksi.php";
+
+$nama_barang = $jumlah = $harga = $tanggal_beli = "";
+
+if ($_POST) {
+    $nama_barang = $_POST['nama_barang'];
+    $jumlah = $_POST['jumlah'];
+    $harga = $_POST['harga'];
+    $tanggal_beli = $_POST['tanggal_beli'];
+
+    $query = "INSERT INTO belanja (nama_barang, jumlah, harga, tanggal_beli) VALUES ('$nama_barang', '$jumlah', '$harga', '$tanggal_beli')";
+    if (!mysqli_query($conn, $query)) {
+        echo '<h3 style = "color:red;text-align:center;">Gagal Menambah Data</h3>';
+    } else {
+        $pesan = "Berhasil menambahkan data : $nama_barang";
+        header("Location:index.php?pesan=.'$pesan.'");
+        exit();
+    }
+}
 
 ?>
 <!DOCTYPE html>
