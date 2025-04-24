@@ -1,0 +1,88 @@
+package org.example.week9;
+
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+
+public class CalculatorApp extends Application {
+    private TextField display;
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage stage) {
+        stage.setTitle("Calculator");
+
+        // Create the display
+        display = new TextField();
+        display.setEditable(false);
+        display.setStyle("-fx-font-size: 20;");
+        display.setMinHeight(50);
+
+        // Create a GridPane layout for buttons
+        GridPane grid = new GridPane();
+        grid.setPadding(new Insets(10, 10, 10, 10));
+        grid.setVgap(5);
+        grid.setHgap(5);
+
+        // Define buttons and their actions
+        Button[] buttons = new Button[16];
+        String[] labels = {"7", "8", "9", "/", "4", "5", "6", "*", "1", "2", "3", "-", "0", ".", "=", "+"};
+
+        for (int i = 0; i < labels.length; i++) {
+            buttons[i] = new Button(labels[i]);
+            buttons[i].setStyle("-fx-font-size: 20;");
+            buttons[i].setMinSize(60, 60);  // Make buttons a little bigger for better alignment
+            buttons[i].setOnAction(new ButtonClickHandler());
+            grid.add(buttons[i], i % 4, 1 + i / 4);  // Adjusted to correctly place in rows and columns
+        }
+
+        // Create the Clear button
+        Button clearButton = new Button("Clear");
+        clearButton.setStyle("-fx-font-size: 20;");
+        clearButton.setMinSize(60, 60);
+        clearButton.setOnAction(e -> display.clear());
+        grid.add(clearButton, 0, 0, 4, 1); // Span across 4 columns
+
+        // Layout the display and buttons
+        grid.add(display, 0, 0, 4, 1);  // Add display on top row
+
+        // Set the scene and stage
+        Scene scene = new Scene(grid, 300, 400);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    // Event handler for button clicks
+    private class ButtonClickHandler implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent event) {
+            Button source = (Button) event.getSource();
+            String text = source.getText();
+
+            if (text.equals("=")) {
+                try {
+                    // Evaluate the expression in the display
+                    String result = String.valueOf(InfixCalculator.evaluate(display.getText()));
+                    display.setText(result);
+                } catch (Exception e) {
+                    display.setText("Error");
+                }
+            } else if (text.equals("Clear")) {
+                // Clear the display if the Clear button is pressed
+                display.clear();
+            } else {
+                // Append the button's text to the display
+                display.appendText(text);
+            }
+        }
+    }
+}
