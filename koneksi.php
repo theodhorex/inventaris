@@ -1,9 +1,12 @@
 <?php
-//connection
+$host = "localhost";
+$user = "root";
+$pass = "";
+$dbname = "php3PT";
 
-$servername = "127.0.0.1";
-$username = "root";
-$password = "";
-$dbname = "belanja";  //nama di database
-$conn = mysqli_connect($servername, $username, $password,$dbname) or die("Koneksi gagal.");
+$conn = mysqli_connect($host, $user, $pass, $dbname);
+
+if (!$conn) {
+    die("Koneksi gagal: " . mysqli_connect_error());
+}
 ?>
