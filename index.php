@@ -1,67 +1,61 @@
-<?php
-include "koneksi.php";
-//select
-$sql = "SELECT * FROM belanja"; //sesuaikan nama tabel
-$result = mysqli_query($conn, $sql); //untuk run query
+<?php include 'koneksi.php' ?>
 
-if(mysqli_num_rows($result)>0){
-?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <title>Daftar Belanja</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="background.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Daftar Makanan</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; max-width: 800px; margin: auto; }
+        table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+        th, td { border: 1px solid #ccc; padding: 10px; text-align: left; vertical-align: middle;}
+        th { background-color: #007bff; color: white; }
+        a { color: #007bff; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .pdf-icon {
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg');
+            background-size: cover;
+            vertical-align: middle;
+            margin-right: 5px;
+        }
+    </style>
 </head>
 <body>
-<div class="container py-5">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold">Daftar Belanja</h2>
-        <a href="formBelanja.php" class="btn btn-success">+ Tambah Barang</a>
-    </div>
-    <div class="card shadow-sm">
-        <div class="card-body">
-            <table class="table table-hover">
-                <thead class="table-dark">
-                    <tr>
-                        <th>No</th>
-                        <th>Nama Barang</th>
-                        <th>Jumlah</th>
-                        <th>Harga</th>
-                        <th>Tanggal Beli</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                        $no = 1;
-                    while($row = mysqli_fetch_assoc($result)){
-                        echo "<tr>";
-                        echo "<td>".$no."</td>";
-                        echo "<td>".$row['nama_barang']."</td>";
-                        echo "<td>".$row['jumlah']."</td>";
-                        echo "<td>".$row['harga']."</td>";
-                        echo "<td>".$row['tanggal_beli']."</td>";
-                        echo "<td>";
-                echo "<a href='edit.php?id=".$row['id']."'class='btn btn-warning btn-sm'>Edit</a>";
-                echo "  ";
-                echo "<a href='delete.php?id=".$row['id']."'class='btn btn-danger btn-sm' onclick=\"return confirm('Yakin?')\">Hapus</a>";
-                echo "</td>";
-                        echo "</tr>";
-                        $no += 1;
-                    }}
-                    ?>
-                </tbody>
-            </table>
-            
-            <!-- UNTUK MENAMPILKAN PESAN, JANGAN DIHAPUS ATAU DIUBAH  -->
-            <?php if (isset($pesan) && $pesan !== ""): ?>
-                <h3 class='text-success text-center mt-3'><?= $pesan ?></h3>
-            <?php endif; ?>
-        </div>
-    </div>
-</div>
+    <h2>Daftar Makanan</h2>
+    <p><a href="input.php">Tambah Data Makanan Baru</a></p>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nama Makanan</th>
+                <th>Asal Negara</th>
+                <th>File PDF (Gambar Makanan)</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php
+        $query = "SELECT * FROM makanan";
+        $result = mysqli_query($conn, $query);
+        if (mysqli_num_rows($result)>1) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo "<tr>";
+                echo "<td>".$row["idMakanan"]."</td>";
+                echo "<td>".$row["namaMakanan"]."</td>";
+                echo "<td>".$row["asalMakanan"]."</td>";
+                echo "<td>"."<embed src='" . $row["gambarMakanan"] . "' type='application/pdf' width='200px' height='250px'/>"."</td>";
+                echo "</tr>";
+            }
+        } else {
+            echo "</table><p>belum ada data makanan</p>";
+        }
+        ?>
+      
+        </tbody>
+    </table>
 </body>
 </html>

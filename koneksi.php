@@ -1,12 +1,13 @@
 <?php
+// koneksi.php: koneksi ke database MySQL
 $host = "localhost";
-$user = "root";
-$pass = "";
-$dbname = "php3PT";
+$user = "root";       // sesuaikan dengan user db Anda
+$password = "";       // sesuaikan dengan password db Anda
+$database = "php4";  // sesuaikan dengan nama database Anda
 
-$conn = mysqli_connect($host, $user, $pass, $dbname);
+$conn = new mysqli($host, $user, $password, $database);
 
-if (!$conn) {
-    die("Koneksi gagal: " . mysqli_connect_error());
+if ($conn->connect_error) {
+    die("Koneksi gagal: " . $conn->connect_error);
 }
 ?>
