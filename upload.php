@@ -1,7 +1,12 @@
 <?php
 include 'koneksi.php';
 $targetUpload = "uploads/".$_POST["namaMakanan"] . "." . strtolower(pathinfo($_FILES["gambarMakanan"]["name"], PATHINFO_EXTENSION));
+define('MB', 1048576);
 if ($_FILES["gambarMakanan"]["type"] == "application/pdf" || $_FILES["gambarMakanan"]["type"] == "image/jpg") {
+    if ($_FILES['gambarMakanan']['size'] > 4*MB) {
+        echo "Error : Ukuran file maksimal 4MB";
+        return;
+    }
     if (move_uploaded_file($_FILES["gambarMakanan"]["tmp_name"], $targetUpload)) {
         $namaMakanan = $_POST["namaMakanan"];
         $asalMakanan = $_POST["asalMakanan"];
@@ -12,9 +17,9 @@ if ($_FILES["gambarMakanan"]["type"] == "application/pdf" || $_FILES["gambarMaka
         echo "<a href='index.php'><p>Lihat data makanan</p></a>";
         }
     } else
-        echo "File harus berupa PDF atau JPG";
+        echo "GAGAL UPLOAD";
 } else {
-    echo "Gagal Upload: Failed";
+    echo "Error : File harus berupa PDF atau JPG";
 }
 ?>
 
