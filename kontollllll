@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.week11.DaftarCatatanController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+   <GridPane hgap="10.0" vgap="10.0" VBox.vgrow="ALWAYS">
+      <rowConstraints>
+        <RowConstraints vgrow="ALWAYS" />
+         <RowConstraints />
+         <RowConstraints />
+      </rowConstraints>
+      <columnConstraints>
+        <ColumnConstraints hgrow="ALWAYS" />
+         <ColumnConstraints />
+      </columnConstraints>
+      <children>
+          <Label text="Judul:" GridPane.rowIndex="0" />
+          <Label text="Kategori:" GridPane.rowIndex="1" />
+          <Label text="Isi:" GridPane.rowIndex="2" />
+          <TextField fx:id="txtFldJudul" promptText="Judul" GridPane.columnIndex="1" />
+          <ChoiceBox fx:id="cbKategori" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+          <TextArea fx:id="txtAreaKonten" prefHeight="129.0" prefWidth="385.0" promptText="Isi" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      </children>
+   </GridPane>
+   <HBox alignment="CENTER_RIGHT" prefHeight="19.0" prefWidth="200.0">
+        <Button fx:id="btnSimpan" onAction="#onBtnSimpanClick" text="Simpan">
+            <HBox.margin>
+               <Insets right="10.0" />
+            </HBox.margin>
+        </Button>
+        <Button fx:id="btnHapus" onAction="#onBtnHapus" text="Hapus">
+            <HBox.margin>
+                <Insets right="10.0" />
+            </HBox.margin>
+        </Button>
+        <Button fx:id="btnGrafik" onAction="#onMenuGrafikClicked" text="Grafik">
+            <HBox.margin>
+                <Insets right="10.0" />
+            </HBox.margin>
+        </Button>
+   </HBox>
+   <StackPane styleClass="highlight-rectangle">
+     <TextField fx:id="searchBox" styleClass="transparent"/>
+     <Button mnemonicParsing="false" styleClass="delete-button" text="Bersihkan" onAction="#onBtnClearSearch" StackPane.alignment="CENTER_RIGHT"/>
+   </StackPane>
+   <TableView fx:id="table" layoutY="163.2" prefHeight="250.0" prefWidth="452.0">
+      <columns>
+          <TableColumn fx:id="id" maxWidth="1.7976931348623157E308" prefWidth="50.0" resizable="false" text="ID" />
+          <TableColumn fx:id="judul" maxWidth="1.7976931348623157E308" prefWidth="250.0" resizable="false" text="Judul" />
+          <TableColumn fx:id="kategori" maxWidth="1.7976931348623157E308" prefWidth="150.0" resizable="false" text="Kategori" />
+      </columns>
+   </TableView>
+</VBox>
