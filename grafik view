@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.chart.PieChart?>
+<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.week11.GrafikController"
+            prefWidth="500" prefHeight="400">
+
+    <children>
+        <Label layoutX="100.0" layoutY="20.0" text="Jumlah Catatan berdasarkan Kategori"
+               style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+        <PieChart fx:id="pieChart" layoutX="50.0" layoutY="60.0" prefWidth="400.0" prefHeight="300.0"/>
+    </children>
+</AnchorPane>
