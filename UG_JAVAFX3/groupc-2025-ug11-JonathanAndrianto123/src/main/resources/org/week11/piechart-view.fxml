@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="468.0" prefWidth="482.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.week11.PieChartController">
+   <children>
+      <Label layoutX="28.0" layoutY="30.0" prefHeight="47.0" prefWidth="435.0" text="Jumlah Catatan Berdasarkan Kategori">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Label>
+      <PieChart fx:id="pieChart" layoutX="-9.0" layoutY="77.0" />
+   </children>
+</AnchorPane>
