@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Kehadiran</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      background-color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh; /* agar vertikal ke tengah */
+      text-align: center;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 14px;
+      margin-top: 20px;
+      margin-bottom: 50px;
+    }
+    h1, h2 {
+      margin: 10px 0;
+    }
+  </style>
+  
+</head>
+<body>
+
+  <h1>Presensi Minggu Ini</h1>
+  <button onclick="presensi()">Presensi</button>
+  <h2 id="daftarstatus"></h2>
+  <h2 id="laporan"></h2>
+
+  <script>
+    const hari = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat"];
+    var statusHari = ["?", "?", "?", "?", "?"]; // Status maksudnya status H/S/I (Hadir/Sakit/Izin), urutannya sesuai dengan urutan hari
+
+    // Dilarang mengubah array di atas dengan ditimpa kode. Ubah menggunakan index array.
+
+    let namaUser = null;
+    let hariKe = 0;
+
+    function presensi() {
+      if (!namaUser) {
+        namaUser = prompt("Siapa nama Anda?");
+        if (!namaUser) {
+          alert("Nama tidak boleh kosong.");
+          namaUser = null;
+          return;
+        }
+        alert("Halo " + namaUser + ", silakan presensi sekarang.");
+        return;
+      }
+
+      if (hariKe >= hari.length) {
+        alert("Presensi minggu ini telah selesai.");
+        return;
+      }
+
+      let input = prompt(`Hai ${namaUser}, Masukkan status kehadiranmu di hari ${hari[hariKe]} (H/S/I):`);
+      if (!input) {
+        alert("Inputan kosong, coba lagi.");
+        return;
+      }
+
+      input = input.toUpperCase();
+      if (input !== "H" && input !== "S" && input !== "I") {
+        alert("Inputan tidak valid. Gunakan H (Hadir), S (Sakit), atau I (Izin).");
+        return;
+      }
+
+      let konfirmasi = confirm(`Konfirmasi: ${namaUser} ${input} di hari ${hari[hariKe]}. Apakah benar?`);
+      if (!konfirmasi) return;
+
+      statusHari[hariKe] = input;
+      hariKe++;
+
+      updateTampilan();
+    }
+
+    function updateTampilan() {
+      // Menampilkan status harian
+      let statusTeks = "<u>Status:</u><br>";
+      for (let i = 0; i < hari.length; i++) {
+        statusTeks += `${hari[i]}: ${statusHari[i]}<br>`;
+      }
+      document.getElementById("daftarstatus").innerHTML = statusTeks;
+
+      // Menampilkan rekap jumlah
+      let jumlahH = statusHari.filter(s => s === "H").length;
+      let jumlahS = statusHari.filter(s => s === "S").length;
+      let jumlahI = statusHari.filter(s => s === "I").length;
+
+      document.getElementById("laporan").innerHTML = `<u>Status Minggu Ini:</u><br>Hadir: ${jumlahH}, Sakit: ${jumlahS}, Izin: ${jumlahI}`;
+    }
+
+  </script>
+
+</body>
+</html>
