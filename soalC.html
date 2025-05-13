@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Kehadiran</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      background-color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      /* agar vertikal ke tengah */
+      text-align: center;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 14px;
+      margin-top: 20px;
+      margin-bottom: 50px;
+    }
+
+    h1,
+    h2 {
+      margin: 10px 0;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <h1>Presensi Minggu Ini</h1>
+  <button onclick="presensi()">Presensi</button>
+  <h2 id="daftarstatus"></h2>
+  <h2 id="laporan"></h2>
+
+  <script>
+    const hari = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat"];
+    var statusHari = ["?", "?", "?", "?", "?"]; // Status maksudnya status H/S/I (Hadir/Sakit/Izin), urutannya sesuai dengan urutan hari
+
+    let index_hari = 0;
+    let pertanyaan = 0;
+    let nama;
+    let status;
+    function presensi() {
+      if (pertanyaan == 0) {
+        nama = prompt("halo selamat hari " + hari[index_hari] + ". Silahkan masukkan nama anda lalu presensi lagi");
+        pertanyaan += 1;
+      } else if (pertanyaan == 1) {
+        let status = prompt("halo selamat hari " + hari[index_hari] + " " + nama + ". Masukkan status kehadiran hari ini (H/S/I)");
+        if (status != "H" && status != "S" && status != "I") {
+          alert("inputan tidak valid");
+        } else {
+          let konfirmasi = "Status anda hari ini adalah " + status + ". Yakin?";
+          if (confirm(konfirmasi) == true) {
+            statusHari[index_hari] = status;
+            pertanyaan = 0;
+            index_hari += 1;
+            refreshClickStats();
+          }
+        }
+      }
+    }
+
+    function refreshClickStats() {
+      document.getElementById("daftarstatus").innerHTML =
+        "Status : hari Senin : " + statusHari[0] +
+        "; hari Selasa : " + statusHari[1] +
+        "; hari Rabu : " + statusHari[2] +
+        "; hari Kamis : " + statusHari[3] +
+        "; hari Jumat : " + statusHari[4];
+
+      let statusH = 0;
+      let statusS = 0;
+      let statusI = 0;
+
+      for (let i = 0; i < 5; i++) {
+        if (statusHari[i] == "H") {
+          statusH++;
+        } else if (statusHari[i] == "S") {
+          statusS++;
+        } else if (statusHari[i] == "I") {
+          statusI++;
+        }
+      }
+
+      document.getElementById("laporan").innerHTML =
+        "Status minggu ini : H:" + statusH +
+        "; S:" + statusS +
+        "; I:" + statusI;
+    }
+
+    // Dilarang mengubah array di atas dengan ditimpa kode. Ubah menggunakan index array.
+  </script>
+
+</body>
+
+</html>
