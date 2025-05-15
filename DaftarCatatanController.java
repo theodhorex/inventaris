@@ -1,4 +1,4 @@
-package org.week11;
+package org.week12;
 
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -11,6 +11,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import org.week12.data.Catatan;
+import org.week12.SessionManager;
+import org.week12.DatabaseManager;
 
 import java.io.IOException;
 import java.net.URL;
@@ -19,19 +22,11 @@ import java.util.ResourceBundle;
 import java.util.function.Predicate;
 
 public class DaftarCatatanController implements Initializable {
-    public Button btnGrafik;
     @FXML
     private TextField txtFldJudul;
     @FXML
     private TextArea txtAreaKonten;
-    @FXML
-    private TextField searchBox;
-    @FXML
-    private Button btnClearSearch;
-
-    private ObservableList<Catatan> catatanObservableList;
-    private FilteredList<Catatan> filteredList;
-
+    private FilteredList<Catatan> catatanFilteredList;
     @FXML
     private TableView<Catatan> table;
     @FXML
@@ -42,90 +37,89 @@ public class DaftarCatatanController implements Initializable {
     private TableColumn<Catatan, String> kategori;
     @FXML
     private ChoiceBox<String> cbKategori;
-
+    @FXML
+    public TextField searchBox;
+    Catatan selectedCatatan;
     private final String DB_URL = "jdbc:sqlite:catatanku.db";
     private Connection connection;
-    Catatan selectedCatatan;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        catatanObservableList = FXCollections.observableArrayList();
-        filteredList = new FilteredList<>(catatanObservableList, p -> true);
-        table.setItems(filteredList);
+        connection = DatabaseManager.getConnection();
+        catatanFilteredList = new FilteredList<>(FXCollections.observableList(FXCollections.observableArrayList()));
+        table.setItems(catatanFilteredList);
+        searchBox.textProperty().addListener(
+                (observableValue, oldValue, newValue) -> catatanFilteredList.setPredicate(createPredicate(newValue))
+        );
 
         id.setCellValueFactory(new PropertyValueFactory<>("id"));
         judul.setCellValueFactory(new PropertyValueFactory<>("judul"));
         kategori.setCellValueFactory(new PropertyValueFactory<>("kategori"));
-
-        getConnection();
+        DatabaseManager.getConnection();
         createTable();
         getAllData();
-
         table.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Catatan>() {
             @Override
-            public void changed(ObservableValue<? extends Catatan> observableValue, Catatan oldVal, Catatan newVal) {
-                if (newVal != null) {
-                    selectedCatatan = newVal;
-                    txtFldJudul.setText(newVal.getJudul());
-                    txtAreaKonten.setText(newVal.getKonten());
-                    cbKategori.setValue(newVal.getKategori());
+            public void changed(ObservableValue<? extends Catatan> observableValue, Catatan course, Catatan t1) {
+                if (observableValue.getValue() != null) {
+                    selectedCatatan = observableValue.getValue();
+                    txtFldJudul.setText(observableValue.getValue().getJudul());
+                    txtAreaKonten.setText(observableValue.getValue().getKonten());
+                    cbKategori.setValue(observableValue.getValue().getKategori());
                 }
             }
         });
 
-        cbKategori.getItems().addAll(
-                Catatan.CATATAN_SELF_DEVELOPEMENT,
-                Catatan.CATATAN_BELANJA,
-                Catatan.CATATAN_KHUSUS,
-                Catatan.CATATAN_PERCINTAAN
-        );
-
-        // SEARCH IMPLEMENTATION
-        searchBox.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredList.setPredicate(createPredicate(newValue));
-        });
-
+        //setup combo box
+        cbKategori.getItems().add(Catatan.CATATAN_SELF_DEVELOPEMENT);
+        cbKategori.getItems().add(Catatan.CATATAN_BELANJA);
+        cbKategori.getItems().add(Catatan.CATATAN_KHUSUS);
+        cbKategori.getItems().add(Catatan.CATATAN_PERCINTAAN);
         bersihkan();
     }
 
-    @FXML
-    protected void onBtnClearSearch() {
-        searchBox.clear();
-        filteredList.setPredicate(p -> true);
-    }
+//    public Connection getConnection() {
+//        if (connection == null) {
+//            try {
+//                connection = DriverManager.getConnection(DB_URL);
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//                // Handle database connection error
+//            }
+//        }
+//        return connection;
+//    }
+//
+//    public void closeConnection() {
+//        if (connection != null) {
+//            try {
+//                connection.close();
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//                // Handle database connection closure error
+//            }
+//        }
+//    }
 
-    public Connection getConnection() {
-        if (connection == null) {
-            try {
-                connection = DriverManager.getConnection(DB_URL);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        return connection;
-    }
-
-    public void closeConnection() {
-        if (connection != null) {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
+    /* Create database tables if they don't exist
+     * */
     public void createTable() {
-        String sql = "CREATE TABLE IF NOT EXISTS catatan (" +
-                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "judul TEXT NOT NULL," +
-                "konten TEXT NOT NULL," +
-                "kategori TEXT NOT NULL)";
+        String mhsTableSql = "CREATE TABLE IF NOT EXISTS catatan ("
+                + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + "judul TEXT NOT NULL,"
+                + "konten TEXT NOT NULL,"
+                + "kategori TEXT NOT NULL"
+                + ")";
         try (Statement stmt = connection.createStatement()) {
-            stmt.execute(sql);
+            stmt.execute(mhsTableSql);
         } catch (SQLException e) {
             e.printStackTrace();
+            // Handle table creation error
         }
+    }
+
+    private ObservableList<Catatan> getObservableList() {
+        return (ObservableList<Catatan>) catatanFilteredList.getSource();
     }
 
     private Predicate<Catatan> createPredicate(String searchText) {
@@ -136,14 +130,14 @@ public class DaftarCatatanController implements Initializable {
     }
 
     private boolean searchFindsCatatan(Catatan catatan, String searchText) {
-        return catatan.getJudul().toLowerCase().contains(searchText.toLowerCase()) ||
-                catatan.getKonten().toLowerCase().contains(searchText.toLowerCase()) ||
-                catatan.getKategori().toLowerCase().contains(searchText.toLowerCase());
+        return (catatan.getJudul().toLowerCase().contains(searchText.toLowerCase())) ||
+                (catatan.getKonten().toLowerCase().contains(searchText.toLowerCase())) ||
+                (catatan.getKategori().toLowerCase().contains(searchText.toLowerCase()));
     }
 
     private void getAllData() {
         String query = "SELECT * FROM catatan";
-        catatanObservableList.clear();
+        getObservableList().clear();
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -152,9 +146,10 @@ public class DaftarCatatanController implements Initializable {
                 String konten = resultSet.getString("konten");
                 String kategori = resultSet.getString("kategori");
                 Catatan catatan = new Catatan(id, judul, konten, kategori);
-                catatanObservableList.add(catatan);
+                getObservableList().add(catatan);
             }
         } catch (SQLException e) {
+            // Handle database query error
             e.printStackTrace();
         }
     }
@@ -170,29 +165,28 @@ public class DaftarCatatanController implements Initializable {
     }
 
     private boolean isCatatanUpdated() {
-        if (selectedCatatan == null) return false;
-        return !selectedCatatan.getJudul().equalsIgnoreCase(txtFldJudul.getText()) ||
+        if (selectedCatatan == null) {
+            return false;
+        }
+        if (!selectedCatatan.getJudul().equalsIgnoreCase(txtFldJudul.getText()) ||
                 !selectedCatatan.getKonten().equalsIgnoreCase(txtAreaKonten.getText()) ||
-                !selectedCatatan.getKategori().equalsIgnoreCase(cbKategori.getSelectionModel().getSelectedItem());
+                !selectedCatatan.getKategori().equalsIgnoreCase(cbKategori.getSelectionModel().getSelectedItem())) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @FXML
     protected void onBtnSimpanClick() {
         if (isCatatanUpdated()) {
-            if (updateCatatan(selectedCatatan, new Catatan(
-                    selectedCatatan.getId(),
-                    txtFldJudul.getText(),
-                    txtAreaKonten.getText(),
-                    cbKategori.getSelectionModel().getSelectedItem()))) {
+            if (updateCatatan(selectedCatatan, new Catatan(selectedCatatan.getId(), txtFldJudul.getText(), txtAreaKonten.getText(), cbKategori.getSelectionModel().getSelectedItem()))) {
                 new Alert(Alert.AlertType.INFORMATION, "Catatan Dirubah!").show();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Catatan gagal Dirubah!").show();
             }
         } else {
-            if (addCatatan(new Catatan(
-                    txtFldJudul.getText(),
-                    txtAreaKonten.getText(),
-                    cbKategori.getSelectionModel().getSelectedItem()))) {
+            if (addCatatan(new Catatan(txtFldJudul.getText(), txtAreaKonten.getText(), cbKategori.getSelectionModel().getSelectedItem()))) {
                 new Alert(Alert.AlertType.INFORMATION, "Catatan Ditambahkan!").show();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Catatan gagal Ditambahkan!").show();
@@ -202,9 +196,21 @@ public class DaftarCatatanController implements Initializable {
     }
 
     @FXML
+    protected void onBtnGrafik() throws IOException {
+        Apps.openViewWithModal("pie-chart-view", "Pie Chart", false);
+    }
+
+    @FXML
+    public void handleClearSearchText(ActionEvent event) {
+        searchBox.setText("");
+        event.consume();
+    }
+
+    @FXML
     protected void onBtnHapus() {
         if (selectedCatatan != null && deleteCatatan(selectedCatatan)) {
-            new Alert(Alert.AlertType.INFORMATION, "Catatan Dihapus!").show();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Catatan Dihapus!");
+            alert.show();
             bersihkan();
         }
     }
@@ -215,7 +221,7 @@ public class DaftarCatatanController implements Initializable {
             preparedStatement.setInt(1, catatan.getId());
             int rowsAffected = preparedStatement.executeUpdate();
             if (rowsAffected > 0) {
-                catatanObservableList.remove(catatan);
+                getObservableList().remove(catatan);
                 return true;
             }
         } catch (SQLException e) {
@@ -225,20 +231,37 @@ public class DaftarCatatanController implements Initializable {
     }
 
     private boolean addCatatan(Catatan catatan) {
+        String queryGetNextId = "SELECT seq FROM SQLITE_SEQUENCE WHERE name = 'catatan' LIMIT 1";
         String queryInsert = "INSERT INTO catatan (judul, konten, kategori) VALUES (?, ?, ?)";
-        try (PreparedStatement stmt = connection.prepareStatement(queryInsert, Statement.RETURN_GENERATED_KEYS)) {
-            stmt.setString(1, catatan.getJudul());
-            stmt.setString(2, catatan.getKonten());
-            stmt.setString(3, catatan.getKategori());
-            int rows = stmt.executeUpdate();
-
-            if (rows > 0) {
-                ResultSet rs = stmt.getGeneratedKeys();
-                if (rs.next()) {
-                    catatan.setId(rs.getInt(1));
+        try {
+            connection.setAutoCommit(false); // Start transaction
+            try (PreparedStatement getNextIdStatement = connection.prepareStatement(queryGetNextId);
+                 PreparedStatement insertStatement = connection.prepareStatement(queryInsert)) {
+                // Execute query to get the next ID
+                ResultSet resultSet = getNextIdStatement.executeQuery();
+                int nextId = 1; // Default value if no rows are returned
+                if (resultSet.next()) {
+                    nextId = resultSet.getInt("seq") + 1;
                 }
-                catatanObservableList.add(catatan);
-                return true;
+                // Set parameters for insert query
+                insertStatement.setString(1, catatan.getJudul());
+                insertStatement.setString(2, catatan.getKonten());
+                insertStatement.setString(3, catatan.getKategori());
+                // Execute insert query
+                int rowsAffected = insertStatement.executeUpdate();
+
+                if (rowsAffected > 0) {
+                    catatan.setId(nextId);
+                    getObservableList().add(catatan);
+                    connection.commit(); // Commit transaction
+                    return true;
+                }
+            } catch (SQLException e) {
+                connection.rollback(); // Rollback transaction
+                e.printStackTrace();
+                // Handle database query error
+            } finally {
+                connection.setAutoCommit(true); // Reset auto-commit mode
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -247,35 +270,42 @@ public class DaftarCatatanController implements Initializable {
     }
 
     private boolean updateCatatan(Catatan oldCatatan, Catatan newCatatan) {
-        String query = "UPDATE catatan SET judul = ?, konten = ?, kategori = ? WHERE id = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setString(1, newCatatan.getJudul());
-            stmt.setString(2, newCatatan.getKonten());
-            stmt.setString(3, newCatatan.getKategori());
-            stmt.setInt(4, oldCatatan.getId());
-            int rows = stmt.executeUpdate();
-            if (rows > 0) {
-                int index = catatanObservableList.indexOf(oldCatatan);
-                catatanObservableList.set(index, newCatatan);
+        String query = "UPDATE catatan SET judul = ?, konten = ?,  kategori = ? WHERE id = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, newCatatan.getJudul());
+            preparedStatement.setString(2, newCatatan.getKonten());
+            preparedStatement.setString(3, newCatatan.getKategori());
+            preparedStatement.setInt(4, oldCatatan.getId());
+            int rowsAffected = preparedStatement.executeUpdate();
+            if (rowsAffected > 0) {
+                int iOldCatatan = getObservableList().indexOf(oldCatatan);
+                getObservableList().set(iOldCatatan, newCatatan);
                 return true;
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            // Handle database query error
         }
         return false;
     }
 
     @FXML
-    protected void onMenuGrafikClicked(ActionEvent event) {
-        try {
-            Apps.openViewWithModal("grafik-view", false);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    protected void onBTNCloseClick() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Konfirmasi logout");
+        alert.setHeaderText("Anda yakin ingin keluar?");
+        alert.setContentText("Pilih OK untuk keluar");
+
+        alert.getButtonTypes().setAll(ButtonType.YES, ButtonType.CANCEL);
+
+        alert.showAndWait().ifPresent(response -> {
+            SessionManager.getInstance().logout();
+            Platform.exit();
+        });
     }
 
     @FXML
-    protected void onBtnCloseClick() {
-        Platform.exit();
+    protected void onActionMenuAbout() throws IOException {
+        Apps.openViewWithModal("about-view", "About Program", false);
     }
 }

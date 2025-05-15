@@ -1,4 +1,4 @@
-package org.week11;
+package org.week12;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -16,8 +16,16 @@ public class Apps extends Application {
     public void start(Stage stage) throws IOException {
         primaryStage = stage;
         primaryStage.setTitle("Title");
-        primaryStage.setScene(new Scene(loadFXML("login-view")));
+        if (SessionManager.getInstance().isLoggedIn()) {
+            primaryStage.setScene(new Scene(loadFXML("daftar-catatan-view")));
+        } else {
+            primaryStage.setScene(new Scene(loadFXML("login-view")));
+        }
         primaryStage.show();
+    }
+
+    public static Stage getPrimaryStage() {
+        return primaryStage;
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
@@ -25,22 +33,24 @@ public class Apps extends Application {
                 .getResource(fxml + ".fxml"));
         return fxmlLoader.load();
     }
+
     public static void setRoot(String fxml, String title, boolean isResizeable)
             throws IOException {
         primaryStage.getScene().setRoot(loadFXML(fxml));
         primaryStage.sizeToScene();
         primaryStage.setResizable(isResizeable);
-        if(title !=null){
+        if (title != null) {
             primaryStage.setTitle(title);
         }
         primaryStage.show();
     }
 
-    public static void openViewWithModal(String fxml, boolean isResizeable)
+    public static void openViewWithModal(String fxml, String title, boolean isResizeable)
             throws IOException {
         Stage stage = new Stage();
         stage.setScene(new Scene(loadFXML(fxml)));
         stage.sizeToScene();
+        stage.setTitle(title);
         stage.setResizable(isResizeable);
         stage.initOwner(primaryStage);
         stage.initModality(Modality.WINDOW_MODAL);
