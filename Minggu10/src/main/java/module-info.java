@@ -8,4 +8,6 @@ module com.example.minggu10 {
 
     opens com.example.minggu10 to javafx.fxml;
     exports com.example.minggu10;
+    exports com.example.minggu10.repositori;
+    opens com.example.minggu10.repositori to javafx.fxml;
 }

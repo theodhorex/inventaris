@@ -9,7 +9,7 @@ public class DBManager {
     private final String DB_URL = "jdbc:sqlite:nilaimahasiswa.db";
     private Connection connection;
 
-    public Connection getConnection(){
+    public static Connection getConnection(){
         if(connection == null){
             try {
                 connection = DriverManager.getConnection(DB_URL);

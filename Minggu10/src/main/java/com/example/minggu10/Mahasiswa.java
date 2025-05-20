@@ -6,7 +6,7 @@ public class Mahasiswa {
     private String nama;
     private float nilai;
 
-    public Mahasiswa(String nim, String nama, float nilai) {
+    public Mahasiswa(String nim, String nama, float nilai, byte[] fotos) {
         this.nim = nim;
         this.nama = nama;
         this.nilai = nilai;
@@ -35,4 +35,9 @@ public class Mahasiswa {
     public void setNilai(float nilai) {
         this.nilai = nilai;
     }
+
+    public byte[] getFoto() {
+        return new byte[0];
+    }
 }
+
