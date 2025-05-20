@@ -6,8 +6,8 @@ import java.sql.SQLException;
 
 
 public class DBManager {
-    private final String DB_URL = "jdbc:sqlite:nilaimahasiswa.db";
-    private Connection connection;
+    private static final String DB_URL = "jdbc:sqlite:nilaimahasiswa.db";
+    private static Connection connection;
 
     public static Connection getConnection(){
         if(connection == null){
@@ -20,7 +20,7 @@ public class DBManager {
         return connection;
     }
 
-    public void closeConnection(){
+    public static void closeConnection(){
         if(connection != null){
             try {
                 connection.close();

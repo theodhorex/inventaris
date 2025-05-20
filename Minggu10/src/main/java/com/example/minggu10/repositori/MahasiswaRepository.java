@@ -9,6 +9,12 @@ import java.util.List;
 
 public class MahasiswaRepository implements Dao<Mahasiswa, String> {
 
+    private Connection connection;
+    public MahasiswaRepository(Connection connection) {
+        this.connection = connection;
+        buatTableJikaBelumAda();
+    }
+
     private void buatTableJikaBelumAda() {
         String sql = """
                 CREATE TABLE IF NOT EXISTS mahasiswa (
