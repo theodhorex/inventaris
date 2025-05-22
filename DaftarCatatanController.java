@@ -12,8 +12,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.week12.data.Catatan;
-import org.week12.SessionManager;
-import org.week12.DatabaseManager;
+import org.week12.util.CatatanDao;
+import org.week12.util.DatabaseUtil;
+import org.week12.util.SessionManager;
 
 import java.io.IOException;
 import java.net.URL;
@@ -40,12 +41,13 @@ public class DaftarCatatanController implements Initializable {
     @FXML
     public TextField searchBox;
     Catatan selectedCatatan;
-    private final String DB_URL = "jdbc:sqlite:catatanku.db";
-    private Connection connection;
+    private CatatanDao catatanDao;
+    private DatabaseUtil dbUtil;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        connection = DatabaseManager.getConnection();
+        dbUtil = new DatabaseUtil();
+        catatanDao = new CatatanDao(dbUtil);
         catatanFilteredList = new FilteredList<>(FXCollections.observableList(FXCollections.observableArrayList()));
         table.setItems(catatanFilteredList);
         searchBox.textProperty().addListener(
@@ -55,8 +57,6 @@ public class DaftarCatatanController implements Initializable {
         id.setCellValueFactory(new PropertyValueFactory<>("id"));
         judul.setCellValueFactory(new PropertyValueFactory<>("judul"));
         kategori.setCellValueFactory(new PropertyValueFactory<>("kategori"));
-        DatabaseManager.getConnection();
-        createTable();
         getAllData();
         table.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Catatan>() {
             @Override
@@ -78,46 +78,6 @@ public class DaftarCatatanController implements Initializable {
         bersihkan();
     }
 
-//    public Connection getConnection() {
-//        if (connection == null) {
-//            try {
-//                connection = DriverManager.getConnection(DB_URL);
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//                // Handle database connection error
-//            }
-//        }
-//        return connection;
-//    }
-//
-//    public void closeConnection() {
-//        if (connection != null) {
-//            try {
-//                connection.close();
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//                // Handle database connection closure error
-//            }
-//        }
-//    }
-
-    /* Create database tables if they don't exist
-     * */
-    public void createTable() {
-        String mhsTableSql = "CREATE TABLE IF NOT EXISTS catatan ("
-                + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + "judul TEXT NOT NULL,"
-                + "konten TEXT NOT NULL,"
-                + "kategori TEXT NOT NULL"
-                + ")";
-        try (Statement stmt = connection.createStatement()) {
-            stmt.execute(mhsTableSql);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle table creation error
-        }
-    }
-
     private ObservableList<Catatan> getObservableList() {
         return (ObservableList<Catatan>) catatanFilteredList.getSource();
     }
@@ -136,22 +96,8 @@ public class DaftarCatatanController implements Initializable {
     }
 
     private void getAllData() {
-        String query = "SELECT * FROM catatan";
         getObservableList().clear();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String judul = resultSet.getString("judul");
-                String konten = resultSet.getString("konten");
-                String kategori = resultSet.getString("kategori");
-                Catatan catatan = new Catatan(id, judul, konten, kategori);
-                getObservableList().add(catatan);
-            }
-        } catch (SQLException e) {
-            // Handle database query error
-            e.printStackTrace();
-        }
+        getObservableList().addAll(CatatanDao.getAllDataCatatan());
     }
 
     private void bersihkan() {
@@ -216,92 +162,36 @@ public class DaftarCatatanController implements Initializable {
     }
 
     public boolean deleteCatatan(Catatan catatan) {
-        String query = "DELETE FROM catatan WHERE id = ?";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, catatan.getId());
-            int rowsAffected = preparedStatement.executeUpdate();
-            if (rowsAffected > 0) {
-                getObservableList().remove(catatan);
-                return true;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        if (CatatanDao.deleteCatatan(catatan)) {
+            getObservableList().remove(catatan);
+            return true;
         }
         return false;
     }
 
     private boolean addCatatan(Catatan catatan) {
-        String queryGetNextId = "SELECT seq FROM SQLITE_SEQUENCE WHERE name = 'catatan' LIMIT 1";
-        String queryInsert = "INSERT INTO catatan (judul, konten, kategori) VALUES (?, ?, ?)";
-        try {
-            connection.setAutoCommit(false); // Start transaction
-            try (PreparedStatement getNextIdStatement = connection.prepareStatement(queryGetNextId);
-                 PreparedStatement insertStatement = connection.prepareStatement(queryInsert)) {
-                // Execute query to get the next ID
-                ResultSet resultSet = getNextIdStatement.executeQuery();
-                int nextId = 1; // Default value if no rows are returned
-                if (resultSet.next()) {
-                    nextId = resultSet.getInt("seq") + 1;
-                }
-                // Set parameters for insert query
-                insertStatement.setString(1, catatan.getJudul());
-                insertStatement.setString(2, catatan.getKonten());
-                insertStatement.setString(3, catatan.getKategori());
-                // Execute insert query
-                int rowsAffected = insertStatement.executeUpdate();
-
-                if (rowsAffected > 0) {
-                    catatan.setId(nextId);
-                    getObservableList().add(catatan);
-                    connection.commit(); // Commit transaction
-                    return true;
-                }
-            } catch (SQLException e) {
-                connection.rollback(); // Rollback transaction
-                e.printStackTrace();
-                // Handle database query error
-            } finally {
-                connection.setAutoCommit(true); // Reset auto-commit mode
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        if (CatatanDao.addCatatan(catatan)) {
+            getObservableList().add(catatan);
+            return true;
         }
         return false;
     }
 
     private boolean updateCatatan(Catatan oldCatatan, Catatan newCatatan) {
-        String query = "UPDATE catatan SET judul = ?, konten = ?,  kategori = ? WHERE id = ?";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, newCatatan.getJudul());
-            preparedStatement.setString(2, newCatatan.getKonten());
-            preparedStatement.setString(3, newCatatan.getKategori());
-            preparedStatement.setInt(4, oldCatatan.getId());
-            int rowsAffected = preparedStatement.executeUpdate();
-            if (rowsAffected > 0) {
-                int iOldCatatan = getObservableList().indexOf(oldCatatan);
-                getObservableList().set(iOldCatatan, newCatatan);
-                return true;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle database query error
+        if (CatatanDao.updateCatatan(oldCatatan, newCatatan)) {
+            int iOldCatatan = getObservableList().indexOf(oldCatatan);
+            getObservableList().set(iOldCatatan, newCatatan);
+            return true;
         }
         return false;
     }
 
     @FXML
-    protected void onBTNCloseClick() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Konfirmasi logout");
-        alert.setHeaderText("Anda yakin ingin keluar?");
-        alert.setContentText("Pilih OK untuk keluar");
-
-        alert.getButtonTypes().setAll(ButtonType.YES, ButtonType.CANCEL);
-
-        alert.showAndWait().ifPresent(response -> {
-            SessionManager.getInstance().logout();
-            Platform.exit();
-        });
+    protected void onActionMenuLogOut() throws IOException {
+        SessionManager.logout();
+        if (!SessionManager.isLoggedIn()) {
+            Apps.setRoot("login-view", "Login", false);
+        }
     }
 
     @FXML
