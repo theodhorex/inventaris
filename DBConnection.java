@@ -1,31 +1,35 @@
-package org.week11;
+package org.week12.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DBConnectionManager {
-    private static final String DB_URL = "jdbc:sqlite:catatanku.db";
-    private static Connection connection;
-    private DBConnectionManager() {
-    }
-    public static Connection getConnection() {
+public class DBConnection {
+    private static DBConnection instance;
+    private Connection connection;
+
+    // Private constructor to prevent instantiation
+    private DBConnection() {
         try {
-            if (connection == null || connection.isClosed()) {
-                connection = DriverManager.getConnection(DB_URL);
-            }
+            connection = DriverManager.getConnection("jdbc:sqlite:your-database.db");
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new RuntimeException("Error connecting to the database");
         }
-        return connection;
     }
-    public static void closeConnection() {
-        if (connection != null) {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
+
+    public static DBConnection getInstance() {
+        if (instance == null) {
+            synchronized (DBConnection.class) {
+                if (instance == null) {
+                    instance = new DBConnection();
+                }
             }
         }
+        return instance;
+    }
+
+    public Connection getConnection() {
+        return connection;
     }
 }
