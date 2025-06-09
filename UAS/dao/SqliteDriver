@@ -1,0 +1,67 @@
+package org.week12.util;
+
+import org.week12.util.DatabaseDriver;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class SqliteDriver implements DatabaseDriver {
+    private final String DB_URL = "jdbc:sqlite:catatanku.db";
+    private Connection connection;
+
+    private static volatile SqliteDriver instance = null;
+
+    private SqliteDriver() {
+    }
+
+    public static SqliteDriver getInstance() {
+        if (instance == null) {
+            synchronized (SqliteDriver.class) {
+                if (instance == null) {
+                    instance = new SqliteDriver();
+                    instance.getConnection();
+                    instance.preparedSchema();
+                }
+            }
+        }
+        return instance;
+    }
+
+    public Connection getConnection() {
+        if (connection == null) {
+            try {
+                connection = DriverManager.getConnection(DB_URL);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return connection;
+    }
+
+    public void closeConnection() {
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void preparedSchema() {
+        String mhsTableSql = "CREATE TABLE IF NOT EXISTS catatan ("
+                + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + "judul TEXT NOT NULL,"
+                + "konten TEXT NOT NULL,"
+                + "kategori TEXT NOT NULL"
+                + ")";
+        try (Statement stmt = connection.createStatement()) {
+            stmt.execute(mhsTableSql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
