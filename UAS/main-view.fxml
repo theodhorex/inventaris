@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ukdw.view.MainView">
+    <MenuBar fx:id="menuBar" onKeyPressed="#handleKeyInput" prefWidth="600.0">
+        <Menu text="File">
+            <MenuItem fx:id="mnLogout" onAction="#doLogout" text="Logout" />
+            <SeparatorMenuItem />
+            <MenuItem fx:id="mnExit" onAction="#doExit" text="Exit" />
+        </Menu>
+        <Menu text="Asset">
+            <MenuItem fx:id="mnGedung" onAction="#handleGedungAction" text="Atur Gedung" />
+            <MenuItem fx:id="mnRuangan" onAction="#handleRuanganAction" text="Atur Ruangan" />
+        </Menu>
+        <Menu text="Booking">
+            <MenuItem fx:id="mnBooking" onAction="#handleBookingAction" text="Atur Booking" />
+        </Menu>
+        <Menu text="User">
+            <MenuItem fx:id="mnUser" onAction="#handleUserAction" text="Atur User" />
+        </Menu>
+        <Menu text="Help">
+            <MenuItem fx:id="mnOnlineManual" onAction="#doOnlineManual" text="Online Manual" />
+            <SeparatorMenuItem />
+            <MenuItem fx:id="mnAbout" onAction="#doAbout" text="About" />
+        </Menu>
+    </MenuBar>
+</AnchorPane>

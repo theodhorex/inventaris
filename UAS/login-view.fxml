@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            onKeyPressed="#onKeyPressEvent" prefHeight="182.0" prefWidth="316.0"
+            xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.ukdw.view.LoginView">
+    <Label layoutX="66.0" layoutY="31.0" text="Welcome, Login Here">
+        <font>
+            <Font name="System Bold" size="18.0"/>
+        </font>
+    </Label>
+    <Label layoutX="34.0" layoutY="73.0" text="Username:"/>
+    <Label layoutX="34.0" layoutY="111.0" text="Password:"/>
+    <TextField fx:id="txtUsername" layoutX="119.0" layoutY="69.0" promptText="Username"/>
+    <PasswordField fx:id="txtPassword" layoutX="119.0" layoutY="106.0" promptText="Password"/>
+    <Button fx:id="btnLogin" layoutX="119.0" layoutY="144.0" mnemonicParsing="false" onAction="#handleLoginAction"
+            text="Login"/>
+    <Hyperlink fx:id="lblForgot" layoutX="172.0" layoutY="144.0" text="Forget Password"/>
+</AnchorPane>

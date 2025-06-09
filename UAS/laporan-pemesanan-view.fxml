@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.ukdw.view.LaporanPemesananView"
+            prefWidth="800" prefHeight="500">
+
+    <!-- Form Atas -->
+    <HBox fx:id="filterBox" spacing="10" layoutX="10" layoutY="10">
+        <Label text="Gedung:"/>
+        <ComboBox fx:id="gedungComboBox" promptText="-- Pilih Gedung --" prefWidth="150"/>
+
+        <Label text="Dari:"/>
+        <DatePicker fx:id="tanggalAwalPicker"/>
+
+        <Label text="Sampai:"/>
+        <DatePicker fx:id="tanggalAkhirPicker"/>
+
+        <Button text="Tampilkan" onAction="#handleTampilkanLaporan"/>
+    </HBox>
+
+    <!-- Tabel Laporan -->
+    <TableView fx:id="laporanTable" layoutX="10" layoutY="50" prefWidth="780" prefHeight="380">
+        <columns>
+            <TableColumn fx:id="ruanganColumn" text="Nama Ruangan" prefWidth="400"/>
+            <TableColumn fx:id="jumlahColumn" text="Jumlah Pemesan" prefWidth="380"/>
+        </columns>
+    </TableView>
+
+    <!-- Total -->
+    <HBox layoutX="500" layoutY="440" spacing="5">
+        <Label text="Total Pemesanan:"/>
+        <Label fx:id="totalLabel" style="-fx-font-weight: bold;"/>
+    </HBox>
+
+</AnchorPane>
