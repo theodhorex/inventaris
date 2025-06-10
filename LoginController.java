@@ -1,49 +1,59 @@
-package org.week12;
+package com.ukdw.prplbo.jackpot;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class LoginController {
-    private static final String CORRECT_USERNAME = "admin";
-    private static final String CORRECT_PASSWORD = "admin";
+
+    @FXML
+    private Button btnLogin;
+
+    @FXML
+    private Hyperlink lblForgot;
 
     @FXML
     private TextField txtUsername;
+
     @FXML
     private PasswordField txtPassword;
 
     @FXML
-    protected void onKeyPressEvent(KeyEvent event) throws IOException {
-        if (event.getCode() == KeyCode.ENTER) {
-            btnLoginClick();
-        }
-    }
+    void handleLoginAction(ActionEvent event) {
+        String username = txtUsername.getText().trim();
+        String password = txtPassword.getText().trim();
 
-    @FXML
-    protected void btnLoginClick() throws IOException {
-        Alert alert;
-        if (txtUsername.getText().equals(CORRECT_USERNAME) && txtPassword.getText().equals(CORRECT_PASSWORD)) {
-            alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText("Information");
-            alert.setContentText("Login success!!");
-            SessionManager.getInstance().login();
+        if (username.isEmpty() || password.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Input Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Username atau password tidak boleh kosong");
             alert.showAndWait();
-            Apps.setRoot("daftar-catatan-view", "", false);
-        } else {
-            alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("Error");
-            alert.setContentText("Login failed!! Please check again.");
-            alert.showAndWait();
-            txtUsername.requestFocus();
+        }
+
+        if (username.equals("admin") && password.equals("admin")) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ukdw/prplbo/jackpot/jackpot.fxml"));
+                Parent root = loader.load();
+                Stage stage = (Stage) txtUsername.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Menu Utama");
+                stage.show();
+            } catch (IOException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Gagal buka situs jackpot icibows");
+                alert.showAndWait();
+                e.printStackTrace();
+            }
         }
     }
 }
-
-
-
