@@ -38,9 +38,9 @@ public class DatabaseManager {
     public static void createTable() {
         String userTable = "CREATE TABLE IF NOT EXISTS users ("
                 + "username TEXT NOT NULL,"
-                + "password TEXT NOT NULL"
-                + "status TEXT NOT NULL"
-                + "attempt INTEGER NOT NULL"
+                + "password TEXT NOT NULL,"
+                + "status TEXT NOT NULL,"
+                + "attempt INTEGER NOT NULL,"
                 + "time TEXT NOT NULL"
                 + ")";
 
