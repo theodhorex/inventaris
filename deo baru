@@ -1,0 +1,193 @@
+package org.uas.util;
+
+import java.io.*;
+
+public class SessionManager implements Serializable {
+    private static final String SESSION_FILE = "session.ser";
+    private static SessionManager instance;
+    private boolean isLoggedIn = false;
+
+    private SessionManager() {
+        loadSession();
+    }
+
+    public static SessionManager getInstance() {
+        if (instance == null) {
+            instance = new SessionManager();
+        }
+        return instance;
+    }
+
+    public boolean isLoggedIn() {
+        return isLoggedIn;
+    }
+
+    public void login() {
+        isLoggedIn = true;
+        saveSession();
+    }
+
+    public void logout() {
+        isLoggedIn = false;
+        saveSession();
+    }
+
+    private void saveSession() {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(SESSION_FILE))) {
+            out.writeObject(this);
+        } catch (IOException e) {
+            System.out.println("Session save error: " + e.getMessage());
+        }
+    }
+
+    private void loadSession() {
+        File file = new File(SESSION_FILE);
+        if (file.exists()) {
+            try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(SESSION_FILE))) {
+                instance = (SessionManager) in.readObject();
+            } catch (IOException | ClassNotFoundException e) {
+                System.out.println("Session load error: " + e.getMessage());
+            }
+        }
+    }
+}
+
+package org.uas;
+
+import org.uas.repository.UserRepository;
+import org.uas.util.DBConnectionManager;
+import org.uas.util.SessionManager;
+
+import java.util.List;
+import java.util.Scanner;
+
+public class UASApplication {
+    private final UserRepository userRepository;
+    private boolean isLogin;
+
+    public UASApplication() {
+        this.userRepository = new UserRepository(DBConnectionManager.getConnection());
+        this.isLogin = SessionManager.getInstance().isLoggedIn();
+    }
+
+    public void start() {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            isLogin = SessionManager.getInstance().isLoggedIn();
+            System.out.println("UAS");
+            System.out.println("0. Exit");
+            if (isLogin) {
+                System.out.println("2. Tampilkan Semua User");
+                System.out.println("3. Tambah User");
+                System.out.println("4. Ubah User");
+                System.out.println("5. Hapus User");
+                System.out.println("6. Logout");
+            } else {
+                System.out.println("1. Login");
+            }
+
+            System.out.print("Tentukan Pilihan: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+
+            switch (choice) {
+                case 0:
+                    System.out.println("Keluar aplikasi. Goodbye!");
+                    return;
+                case 1:
+                    login(scanner);
+                    break;
+                case 2:
+                    tampilkanSemuaUser();
+                    break;
+                case 3:
+                    insertUser(scanner);
+                    break;
+                case 4:
+                    updateUser(scanner);
+                    break;
+                case 5:
+                    deleteUser(scanner);
+                    break;
+                case 6:
+                    logout();
+                    break;
+                default:
+                    System.out.println("Pilihan tidak valid.");
+            }
+        }
+    }
+
+    private void login(Scanner scanner) {
+        System.out.print("Masukkan username: ");
+        String username = scanner.nextLine();
+        System.out.print("Masukkan password: ");
+        String password = scanner.nextLine();
+
+        if (userRepository.authenticateUser(username, password)) {
+            SessionManager.getInstance().login();
+            System.out.println("Login berhasil.");
+        } else {
+            System.out.println("Username atau password salah.");
+        }
+    }
+
+    private void logout() {
+        SessionManager.getInstance().logout();
+        System.out.println("Logout berhasil.");
+    }
+
+    private void tampilkanSemuaUser() {
+        List<org.uas.data.User> users = userRepository.findAll();
+        if (users.isEmpty()) {
+            System.out.println("Tidak ada pengguna.");
+        } else {
+            users.forEach(user -> System.out.println("Email: " + user.getEmail() + ", Username: " + user.getUsername()));
+        }
+    }
+
+    private void insertUser(Scanner scanner) {
+        System.out.print("Masukkan email: ");
+        String email = scanner.nextLine();
+        System.out.print("Masukkan username: ");
+        String username = scanner.nextLine();
+        System.out.print("Masukkan password: ");
+        String password = scanner.nextLine();
+
+        if (userRepository.insertUser(email, username, password)) {
+            System.out.println("User berhasil ditambahkan.");
+        } else {
+            System.out.println("Gagal menambahkan user.");
+        }
+    }
+
+    private void updateUser(Scanner scanner) {
+        System.out.print("Masukkan email user yang akan diubah: ");
+        String email = scanner.nextLine();
+        System.out.print("Masukkan username baru: ");
+        String username = scanner.nextLine();
+        System.out.print("Masukkan password baru: ");
+        String password = scanner.nextLine();
+
+        if (userRepository.updateUser(email, username, password)) {
+            System.out.println("User berhasil diubah.");
+        } else {
+            System.out.println("Gagal mengubah user.");
+        }
+    }
+
+    private void deleteUser(Scanner scanner) {
+        System.out.print("Masukkan email user yang akan dihapus: ");
+        String email = scanner.nextLine();
+
+        if (userRepository.deleteUser(email)) {
+            System.out.println("User berhasil dihapus.");
+        } else {
+            System.out.println("Gagal menghapus user.");
+        }
+    }
+
+    public static void main(String[] args) {
+        new UASApplication().start();
+    }
+}
